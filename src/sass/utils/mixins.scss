@@ -1,0 +1,78 @@
+@mixin d-flex($direction: row, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin h1(
+  $font-size: 48px,
+  $font-weight: 700,
+  $line-height: 72px,
+  $letter-spacing: -0.2px
+) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+}
+
+@mixin h2(
+  $font-size: 40px,
+  $font-weight: 600,
+  $line-height: 60px,
+  $letter-spacing: -0.2px
+) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+}
+
+@mixin h3(
+  $font-size: 36px,
+  $font-weight: 600,
+  $line-height: 54px,
+  $letter-spacing: -0.2px
+) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+}
+
+@mixin h4(
+  $font-size: 24px,
+  $font-weight: 500,
+  $line-height: 36px,
+  $letter-spacing: -0.2px
+) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+}
+
+@mixin p1-regular($font-size: 24px, $font-weight: 400, $line-height: 36px) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+}
+
+@mixin p1-medium($font-size: 20px, $font-weight: 500, $line-height: 30px) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+}
+
+@mixin sub-medium($font-size: 32px, $font-weight: 500, $line-height: 48px) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+}
+
+@mixin footer-link-regular($font-size: 16px, $font-weight: 400, $line-height: 24px) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+}
