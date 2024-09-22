@@ -35,6 +35,34 @@
   --font-weight-h3: 500;
   --line-height-h3: 36px;
   --letter-spacing: -0.2px;
+
+  --font-size-h4: 20px;
+  --font-weight-h4: 500;
+  --line-height-h4: 30px;
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 72px;
+}
+
+h2 {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 60px;
+}
+
+h3 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 54px;
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 36px;
 }
 
 @font-face {
@@ -119,10 +147,6 @@ td,
 main,
 canvas,
 embed,
-footer,
-header,
-nav,
-section,
 video {
   margin: 0;
   padding: 0;
@@ -134,6 +158,7 @@ video {
   text-size-adjust: none;
   text-decoration: none;
   list-style: none;
+  color: var(--white);
 }
 
 img {
