@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import logo from "../../../public/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleDown,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import styles from "./Header.module.css";
 
 const Header = () => {
@@ -48,7 +51,12 @@ const Header = () => {
             </div>
           </div>
           <div className={styles.header__search}>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
             <input type="text" name="search" placeholder="Axtarış..." />
+          </div>
+          <div className={styles.header__buttons}>
+            <button className={styles.button__register}>Qeydiyyat</button>
+            <button className={styles.button__login}>Giriş</button>
           </div>
         </div>
       </div>
