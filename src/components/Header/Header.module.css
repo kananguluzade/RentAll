@@ -130,6 +130,11 @@
 
 .header__buttons .button__register {
   background-color: var(--blue-default);
+  transition: ease-in-out 0.3s;
+  -webkit-transition: ease-in-out 0.3s;
+  -moz-transition: ease-in-out 0.3s;
+  -ms-transition: ease-in-out 0.3s;
+  -o-transition: ease-in-out 0.3s;
 }
 
 .header__buttons .button__login {
@@ -145,4 +150,9 @@
 .header__buttons .button__login:hover {
   background-color: var(--blue-default);
   color: var(--white);
+}
+
+.header__buttons .button__register:hover {
+  background-color: transparent;
+  color: var(--blue-default);
 }
