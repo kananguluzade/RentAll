@@ -41,6 +41,7 @@
 .dropdown__label {
   color: var(--black);
   display: flex;
+  align-items: center;
   gap: 12px;
 }
 
