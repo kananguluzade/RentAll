@@ -1,0 +1,163 @@
+:root {
+  /* background-colors */
+  --white: #fafafa;
+  --gray-light: #e4e4e4;
+
+  /* Button-colors */
+  --blue-default: #548aea;
+  --blue-hover: #517bde;
+  --blue-active: #365bc9;
+  --blue-disabled: #c4d2e5;
+
+  /* Text-colors */
+  --black: #252525;
+  --gray: #585a5c;
+
+  /* Status */
+  --green: #37dc42;
+  --red: #dc3737;
+
+  /* All Font Sizes */
+
+  --font-size-h1: 48px;
+  --font-weight-h1: 700;
+  --line-height-h1: 72px;
+
+  --font-size-h2: 40px;
+  --font-weight-h2: 600;
+  --line-height-h2: 60px;
+
+  --font-size-h3: 36px;
+  --font-weight-h3: 600;
+  --line-height-h3: 54px;
+
+  --font-size-h3: 24px;
+  --font-weight-h3: 500;
+  --line-height-h3: 36px;
+  --letter-spacing: -0.2px;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 400;
+  font-style: normal;
+  src: url("src/assets/fonts/Montserrat-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 500;
+  font-style: normal;
+  src: url("src/assets/fonts/Montserrat-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 600;
+  font-style: normal;
+  src: url("src/assets/fonts/Montserrat-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 700;
+  font-style: normal;
+  src: url("src/assets/fonts/Montserrat-Bold.ttf") format("truetype");
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+div,
+span,
+object,
+iframe,
+figure,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+code,
+em,
+img,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+b,
+u,
+i,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+main,
+canvas,
+embed,
+footer,
+header,
+nav,
+section,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: none;
+  text-decoration: none;
+  list-style: none;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 1170px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}

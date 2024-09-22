@@ -9,7 +9,7 @@ function Layout() {
       <header>
         <Header />
       </header>
-      <main>
+      <main className="container">
         <Outlet />
       </main>
       <footer>
