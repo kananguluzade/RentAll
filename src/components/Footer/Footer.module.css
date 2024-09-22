@@ -2,7 +2,6 @@ footer {
   background-color: var(--black);
   color: var(--white);
   padding: 74px 120px;
-  position: absolute;
   width: 100%;
   bottom: 0;
   z-index: 999;

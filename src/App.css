@@ -65,6 +65,12 @@ h4 {
   line-height: 36px;
 }
 
+h5 {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 48px;
+}
+
 @font-face {
   font-family: "Montserrat";
   font-weight: 400;
@@ -186,3 +192,12 @@ video {
 body {
   font-family: "Montserrat", sans-serif;
 }
+
+.slick-dots li button{
+  background: black !important;
+}
+
+.slick-arrow{
+  color: black !important;
+}
+
