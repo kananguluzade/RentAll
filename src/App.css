@@ -157,7 +157,6 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   vertical-align: baseline;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -193,15 +192,14 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
-.slick-dots li button{
+.slick-dots li button {
   background: black !important;
 }
 
-.slick-arrow{
-  color: black !important;
+.slick-arrow {
+  color: var(--black) !important;
 }
 
-.header-border{
+.header-border {
   border-bottom: 1px solid var(--gray-light);
 }
-

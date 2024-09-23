@@ -81,6 +81,10 @@
   border-radius: 44px;
 }
 
+.header__search svg {
+  color: var(--black);
+}
+
 .header__search input {
   padding: 10px;
   border: none;
