@@ -201,3 +201,7 @@ body {
   color: black !important;
 }
 
+.header-border{
+  border-bottom: 1px solid var(--gray-light);
+}
+
