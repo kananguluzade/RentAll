@@ -11,7 +11,7 @@ const Footer = () => {
         <div className={styles.footer__logo}>
           <img src={logo} alt="Second Life Logo" />
         </div>
-        <div className={styles.foooter__links}>
+        <div className={styles.footer__links}>
           <h4>Digər linklər</h4>
           <ul>
             <li>Əsas səhifə</li>
@@ -21,7 +21,7 @@ const Footer = () => {
         </div>
         <div className={styles.footer__socials}>
           <div className={styles.socials__title}>
-            <h5>Bizi izləyin</h5>
+            <h6>Bizi izləyin</h6>
             <svg
               width="30"
               height="30"
@@ -47,7 +47,7 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      <div className={styles.foooter__copyright}>
+      <div className={styles.footer__copyright}>
         <span>© Copyright 2024</span>
         <span>Hüquqi bildirişlər. Ümumi qaydalar və şərtlər</span>
         <span>SecondLife</span>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./NewShares.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import Card from "../../Card/Card";
 
 const NewShares = () => {
   const [shares, setShares] = useState([]);
@@ -38,24 +37,7 @@ const NewShares = () => {
       </div>
       <div className={styles.shares__list}>
         {shares.slice(0, visibleSharesCount).map((share) => (
-          <div key={share.id} className={styles.share}>
-            <div className={styles.share__img}>
-              <img src={share.image} alt="" />
-            </div>
-            <div className={styles.share__desc}>
-              <div className={styles.share__price}>
-                <h4>{share.price}</h4>
-                <FontAwesomeIcon icon={faHeart} />
-              </div>
-              <div className={styles.share__info}>
-                <p>{share.description}</p>
-              </div>
-              <div className={styles.share__author}>
-                <img src={share.image} alt="" />
-                <p>{share.author}</p>
-              </div>
-            </div>
-          </div>
+          <Card key={share.id} share={share} />
         ))}
       </div>
       <div className={styles.more__shares}>

@@ -10,6 +10,7 @@
 
 .categories__list {
   display: flex;
+  flex-wrap: wrap;
   gap: 18px;
 }
 
