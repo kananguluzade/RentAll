@@ -1,5 +1,22 @@
 {
-    
+  "heroSlides": [
+    {
+      "image": "/heroslides/first-hero.jpg",
+      "title": "Sonsuz imkanları kəşf et və dəyərlərini RentAll ilə müəyyənləşdir!",
+      "description": "Artıq lazım olmayanı sat və ona yeni sahib tap!"
+    },
+    {
+      "image": "/heroslides/second-hero.jpg",
+      "title": "Sonsuz imkanları kəşf et və dəyərlərini RentAll ilə müəyyənləşdir!",
+      "description": "Artıq lazım olmayanı sat və ona yeni sahib tap!"
+    },
+    {
+      "image": "/heroslides/third-hero.jpg",
+      "title": "Sonsuz imkanları kəşf et və dəyərlərini RentAll ilə müəyyənləşdir!",
+      "description": "Artıq lazım olmayanı sat və ona yeni sahib tap!"
+    }
+  ],
+
   "categories": [
     {
       "id": 1,
@@ -48,6 +65,49 @@
       "name": "Tədbir avadanlığı",
       "image": "/categories/tedbir.png",
       "background": "linear-gradient(225deg, #FFFCF3 -3.41%, #FFBD83 110.98%)"
+    }
+  ],
+
+  "shares": [
+    {
+      "id": "1",
+      "category": "Evlər və mənzillər",
+      "price": "400 AZN",
+      "description": "Kirayə ev, 2 otaq, köhnə tikili",
+      "author": "Seyid Hüseyinov",
+      "image": "/logo.png"
+    },
+    {
+      "id": "2",
+      "category": "Evlər və mənzillər",
+      "price": "500 AZN",
+      "description": "Kirayə ev, 3 otaq, yeni tikili",
+      "author": "Elnur Quliyev",
+      "image": "/logo.png"
+    },
+    {
+      "id": "3",
+      "category": "Evlər və mənzillər",
+      "price": "600 AZN",
+      "description": "Kirayə ev, 2 otaq, mərkəzdə",
+      "author": "Leyla Məmmədova",
+      "image": "/logo.png"
+    },
+    {
+      "id": "4",
+      "category": "Evlər və mənzillər",
+      "price": "600 AZN",
+      "description": "Kirayə ev, 2 otaq, mərkəzdə",
+      "author": "Leyla Məmmədova",
+      "image": "/logo.png"
+    },
+    {
+      "id": "5",
+      "category": "Evlər və mənzillər",
+      "price": "600 AZN",
+      "description": "Kirayə ev, 2 otaq, mərkəzdə",
+      "author": "Leyla Məmmədova",
+      "image": "/logo.png"
     }
   ]
 }

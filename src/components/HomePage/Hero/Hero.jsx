@@ -1,55 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Carousel } from "antd";
-import firstHeroImage from "/first-hero.jpg";
-import secondHeroImage from "/second-hero.jpg";
-import thirdHeroImage from "/third-hero.jpg";
 import styles from "./Hero.module.css";
 
 const Hero = () => {
+  const [slides, setSlides] = useState([]);
+
+  useEffect(() => {
+    const fetchHero = async () => {
+      try {
+        const response = await fetch("/db.json");
+        const data = await response.json();
+        setSlides(data.heroSlides);
+      } catch (error) {
+        console.error("Error fetching hero slides:", error);
+      }
+    };
+
+    fetchHero();
+  }, []);
+
   return (
-    <div className="container">
-      <Carousel arrows infinite={false} className={styles.carousel}>
-        <div className={styles.heroPage}>
+    <Carousel arrows infinite={false} className={styles.carousel}>
+      {slides.map((slide, index) => (
+        <div key={index} className={styles.heroPage}>
           <div className={styles.heroLeftContent}>
-            <h3 className={styles.mainContent}>
-              Sonsuz imkanları kəşf et və dəyərlərini RentAll ilə müəyyənləşdir!
-            </h3>
-            <p className={styles.helperContent}>
-              Artıq lazım olmayanı sat və ona yeni sahib tap!
-            </p>
+            <h3 className={styles.mainContent}>{slide.title}</h3>
+            <p className={styles.helperContent}>{slide.description}</p>
           </div>
           <div className={styles.heroRightContent}>
-            <img src={firstHeroImage} alt="First Hero" />
+            <img src={slide.image} alt={`Hero Slide ${index + 1}`} />
           </div>
         </div>
-        <div className={styles.heroPage}>
-          <div className={styles.heroLeftContent}>
-            <h3 className={styles.mainContent}>
-              Sonsuz imkanları kəşf et və dəyərlərini RentAll ilə müəyyənləşdir!
-            </h3>
-            <p className={styles.helperContent}>
-              Artıq lazım olmayanı sat və ona yeni sahib tap!
-            </p>
-          </div>
-          <div className={styles.heroRightContent}>
-            <img src={secondHeroImage} alt="First Hero" />
-          </div>
-        </div>
-        <div className={styles.heroPage}>
-          <div className={styles.heroLeftContent}>
-            <h3 className={styles.mainContent}>
-              Sonsuz imkanları kəşf et və dəyərlərini RentAll ilə müəyyənləşdir!
-            </h3>
-            <p className={styles.helperContent}>
-              Artıq lazım olmayanı sat və ona yeni sahib tap!
-            </p>
-          </div>
-          <div className={styles.heroRightContent}>
-            <img src={thirdHeroImage} alt="First Hero" />
-          </div>
-        </div>
-      </Carousel>
-    </div>
+      ))}
+    </Carousel>
   );
 };
 
