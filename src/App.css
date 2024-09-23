@@ -198,8 +198,38 @@ body {
 
 .slick-arrow {
   color: var(--black) !important;
+  background-color: black !important;
+  padding: 20px !important;
+  border-radius: 50% !important;
+}
+
+.slick-arrow::after {
+  color: white !important;
+  top: 40% !important;
+  left: 40% !important;
 }
 
 .header-border {
   border-bottom: 1px solid var(--gray-light);
+}
+
+.slick-active button {
+  width: 50px !important;
+  height: 16px !important;
+  border-radius: 10px !important;
+}
+
+.slick-dots {
+  height: 16px !important;
+}
+
+.slick-dots li{
+  height: 16px !important;
+  margin-right: 25px !important;
+}
+
+.slick-dots > *:not(.slick-active) button {
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 50% !important;
 }

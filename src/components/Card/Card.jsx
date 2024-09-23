@@ -12,7 +12,7 @@ const Card = ({ share }) => {
       <div className={styles.share__desc}>
         <div className={styles.share__price}>
           <h4>{share.price}</h4>
-          <FontAwesomeIcon icon={faHeart} />
+          <FontAwesomeIcon icon={faHeart}/>
         </div>
         <div className={styles.share__info}>
           <p>{share.description}</p>
