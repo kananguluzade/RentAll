@@ -4,7 +4,6 @@ import styles from "./Categories.module.css";
 const Categories = () => {
   const [categories, setCategories] = useState([]);
 
-  // Kategorileri JSON dosyasından çek
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -20,21 +19,23 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className={styles.categories}>
-      <div className={styles.categories__title}>
-        <h3>Kateqoriyalar</h3>
-      </div>
-      <div className={styles.categories__list}>
-        {categories.map((category) => (
-          <div
-            key={category.id}
-            className={styles.categorie}
-            style={{ background: category.background }}
-          >
-            <p>{category.name}</p>
-            <img src={category.image} alt={category.name} />
-          </div>
-        ))}
+    <div className="container">
+      <div className={styles.categories}>
+        <div className={styles.categories__title}>
+          <h3>Kateqoriyalar</h3>
+        </div>
+        <div className={styles.categories__list}>
+          {categories.map((category) => (
+            <div
+              key={category.id}
+              className={styles.categorie}
+              style={{ background: category.background }}
+            >
+              <p>{category.name}</p>
+              <img src={category.image} alt={category.name} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ function Layout() {
       <header>
         <Header />
       </header>
-      <main className="container">
+      <main>
         <Home />
       </main>
       <footer>
