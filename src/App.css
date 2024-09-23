@@ -205,8 +205,8 @@ body {
 
 .slick-arrow::after {
   color: white !important;
-  top: 40% !important;
-  left: 40% !important;
+  top: 35% !important;
+  left: 35% !important;
 }
 
 .header-border {
@@ -220,16 +220,35 @@ body {
 }
 
 .slick-dots {
+  display: flex;
+  align-items: center;
   height: 16px !important;
 }
 
-.slick-dots li{
+.slick-dots li {
   height: 16px !important;
-  margin-right: 25px !important;
 }
 
 .slick-dots > *:not(.slick-active) button {
   width: 16px !important;
   height: 16px !important;
   border-radius: 50% !important;
+}
+
+.rs-panel-group {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.rs-panel {
+  max-width: 588px;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--gray-light);
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
 }
