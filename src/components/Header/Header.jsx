@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import logo from "../../../public/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,6 +13,8 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const dropdownRef = useRef(null);
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -20,6 +22,20 @@ const Header = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
 
   const categories = [
     { label: "Evlər və mənzillər", icon: "fa-code" },
@@ -38,14 +54,18 @@ const Header = () => {
             <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
           </div>
           <div className={styles.header__categories}>
-            <div className={styles.dropdown}>
+            <div className={styles.dropdown} ref={dropdownRef}>
               <label
                 className={`${styles.dropdown__label} ${
                   isOpen ? styles.active : ""
                 }`}
                 onClick={toggleDropdown}
               >
-                Kateqoriyalar <FontAwesomeIcon icon={faAngleDown} />
+                Kateqoriyalar{" "}
+                <FontAwesomeIcon
+                  icon={faAngleDown}
+                  className={`${isOpen ? styles.icon__rotate__true : styles.icon__rotate__false}`}
+                />
               </label>
               <ul
                 className={`${styles.dropdown__menu} ${

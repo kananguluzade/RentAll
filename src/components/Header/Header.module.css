@@ -151,6 +151,16 @@
   display: flex;
 }
 
+.icon__rotate__true{
+  transform: rotate(180deg);
+  transition: 0.3s;
+}
+
+.icon__rotate__false{
+  transform: rotate(360deg);
+  transition: 0.3s;
+}
+
 @media screen and (max-width: 1000px) {
   .hamburger {
     display: block;

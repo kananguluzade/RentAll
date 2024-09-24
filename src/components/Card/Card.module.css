@@ -61,3 +61,6 @@
   -o-border-radius: 50%;
 }
 
+.heart__icon {
+  width: 24px;
+}

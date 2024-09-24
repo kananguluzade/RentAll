@@ -40,3 +40,15 @@
 .accordion__left p {
   color: var(--black);
 }
+
+@media (max-width: 768px) {
+  .accordion__container{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rs-panel-title{
+    
+  }
+}

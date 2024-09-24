@@ -206,7 +206,15 @@ body {
 .slick-arrow::after {
   color: white !important;
   top: 35% !important;
-  left: 35% !important;
+  left: 25% !important;
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.slick-prev::after{
+  top: 35% !important;
+  left: 40% !important;
+
 }
 
 .header-border {
@@ -214,7 +222,7 @@ body {
 }
 
 .slick-active button {
-  width: 50px !important;
+  width: 16px !important;
   height: 16px !important;
   border-radius: 10px !important;
 }
