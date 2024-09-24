@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Login.module.css";
 
-const Login = () => {
+const Login = ({ onForgotPassword }) => {
   return (
     <form action="" className={styles.login__form}>
       <div className={styles.login__email}>
@@ -36,7 +36,7 @@ const Login = () => {
       </div>
 
       <div className={styles.forgot__password}>
-        <p>Şifrənizi unutmusunuz?</p>
+        <p onClick={onForgotPassword}>Şifrənizi unutmusunuz?</p>
       </div>
 
       <div className={styles.other}>

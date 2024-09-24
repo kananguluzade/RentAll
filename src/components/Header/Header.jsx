@@ -12,11 +12,13 @@ import { Modal } from "rsuite";
 import styles from "./Header.module.css";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
+import ForgotPassword from "../ForgotPassword/ForgotPassword";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("register");
 
   const dropdownRef = useRef(null);
@@ -31,7 +33,20 @@ const Header = () => {
     setActiveTab("login");
     setIsRegisterOpen(true);
   };
-  const handleClose = () => setIsRegisterOpen(false);
+  const handleClose = () => {
+    setIsRegisterOpen(false);
+    setIsForgotPasswordOpen(false);
+  };
+
+  const handleForgotPasswordOpen = () => {
+    setIsForgotPasswordOpen(true);
+  };
+
+  const handleSwitchToLogin = () => {
+    setActiveTab("login");
+    setIsRegisterOpen(true);
+    setIsForgotPasswordOpen(false);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -133,7 +148,20 @@ const Header = () => {
               Giriş
             </h3>
           </div>
-          {activeTab === "register" ? <Register /> : <Login />}
+          {activeTab === "register" ? (
+            <Register />
+          ) : (
+            <Login onForgotPassword={handleForgotPasswordOpen} />
+          )}
+        </Modal.Body>
+      </Modal>
+
+      <Modal size="full" open={isForgotPasswordOpen} onClose={handleClose}>
+        <Modal.Body className={styles.modal__form}>
+          <ForgotPassword
+            onClose={handleClose}
+            onSwitchToLogin={handleSwitchToLogin}
+          />
         </Modal.Body>
       </Modal>
     </>

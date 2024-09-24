@@ -165,6 +165,9 @@
 }
 
 .modal__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
   max-width: 580px;
   margin: 0 auto;
