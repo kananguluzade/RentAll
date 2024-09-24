@@ -1,0 +1,148 @@
+.login {
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.login::-webkit-scrollbar {
+  display: none;
+}
+
+.login__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 50px;
+}
+
+.login__header h3 {
+  color: var(--black);
+  cursor: pointer;
+  padding: 8px 45px;
+}
+
+.login__header h3.active {
+  background-color: transparent;
+  font-weight: bold;
+  color: var(--blue-default);
+  border-bottom: 2px solid;
+}
+
+.login__form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login__form .form__input {
+  color: var(--black);
+  padding: 15px;
+  width: 100%;
+  display: flex;
+  border: 1px solid #585a5c;
+  border-radius: 12px;
+  align-items: center;
+  gap: 8px;
+}
+
+.login__form > div {
+  max-width: 548px;
+  width: 100%;
+}
+
+.login__form h4 {
+  color: var(--black);
+}
+
+.form__input input {
+  color: var(--black);
+  width: 100%;
+  border: none;
+  outline: none;
+}
+
+.form__submit {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  text-align: left;
+}
+
+.form__submit input {
+  width: 100%;
+  padding: 16px 0;
+  background-color: var(--blue-default);
+  border: none;
+  border-radius: 12px;
+}
+
+.form__close {
+  display: flex;
+  justify-content: end;
+}
+
+.form__close svg {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  color: var(--gray-light);
+  background-color: var(--black);
+  border-radius: 50%;
+}
+
+.form__save {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form__save p {
+  color: var(--black);
+}
+
+.forgot__password {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.forgot__password p {
+  color: var(--black);
+}
+
+.other {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.other h4 {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  color: var(--black);
+}
+
+.other h4::before,
+.other h4::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 2px;
+  background-color: var(--black);
+}
+
+.other h4::before {
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.other h4::after {
+  right: 0;
+  transform: translateY(-50%);
+}

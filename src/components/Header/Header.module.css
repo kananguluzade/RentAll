@@ -30,8 +30,8 @@
 }
 
 .dropdown__item:hover {
+  color: #000;
   background: var(--gray-light);
-  color: white;
 }
 
 .dropdown__label {
@@ -86,6 +86,7 @@
 }
 
 .header__search input {
+  color: var(--black);
   padding: 10px;
   border: none;
   background-color: transparent;
@@ -128,13 +129,15 @@
 }
 
 .button__login:hover {
-  background-color: var(--blue-default);
+  background-color: var(--blue-hover);
   color: var(--white);
+  border: 2px solid var(--blue-hover);
 }
 
 .button__register:hover {
-  background-color: transparent;
-  color: var(--blue-default);
+  background-color: var(--blue-hover);
+  color: var(--white);
+  border: 2px solid var(--blue-hover);
 }
 
 .hamburger {
@@ -151,14 +154,63 @@
   display: flex;
 }
 
-.icon__rotate__true{
+.icon__rotate__true {
   transform: rotate(180deg);
   transition: 0.3s;
 }
 
-.icon__rotate__false{
+.icon__rotate__false {
   transform: rotate(360deg);
   transition: 0.3s;
+}
+
+.modal__form {
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.modal__form::-webkit-scrollbar {
+  display: none;
+}
+
+.form__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 50px;
+}
+
+.form__header h3 {
+  color: var(--black);
+  cursor: pointer;
+  padding: 8px 45px;
+}
+
+.form__header h3.active {
+  background-color: transparent;
+  font-weight: bold;
+  color: var(--blue-default);
+  border-bottom: 2px solid;
+}
+
+.form__close {
+  display: flex;
+  justify-content: end;
+}
+
+.form__close svg {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  color: var(--gray-light);
+  background-color: var(--black);
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
 }
 
 @media screen and (max-width: 1000px) {

@@ -265,3 +265,7 @@ body {
   -ms-border-radius: 12px;
   -o-border-radius: 12px;
 }
+
+.rs-panel-btn:hover {
+  background-color: var(--gray-light);
+}

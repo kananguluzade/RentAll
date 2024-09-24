@@ -200,5 +200,44 @@
       "author": "Leyla Məmmədova",
       "image": "/logo.png"
     }
+  ],
+
+  "faq": [
+    {
+      "id": "1",
+      "question": "Necə qeydiyyatdan keçə bilərəm?",
+      "answer": "Qeydiyyatdan keçmək üçün veb-saytın əsas səhifəsindəki `Qeydiyyat` düyməsinə klikləyin. Açılan formada adınız, e-poçt ünvanınız və şifrənizi daxil edin. Məlumatları doldurduqdan sonra e-poçtunuza təsdiq mesajı göndəriləcək. Linkə klikləyərək qeydiyyatınızı tamamlayın və hesabınıza daxil olun.",
+      "categort": "SecondLife"
+    },
+    {
+      "id": "2",
+      "question": "Necə qeydiyyatdan keçə bilərəm?",
+      "answer": "Qeydiyyatdan keçmək üçün veb-saytın əsas səhifəsindəki `Qeydiyyat` düyməsinə klikləyin. Açılan formada adınız, e-poçt ünvanınız və şifrənizi daxil edin. Məlumatları doldurduqdan sonra e-poçtunuza təsdiq mesajı göndəriləcək. Linkə klikləyərək qeydiyyatınızı tamamlayın və hesabınıza daxil olun.",
+      "categort": "SecondLife"
+    },
+    {
+      "id": "3",
+      "question": "Necə qeydiyyatdan keçə bilərəm?",
+      "answer": "Qeydiyyatdan keçmək üçün veb-saytın əsas səhifəsindəki `Qeydiyyat` düyməsinə klikləyin. Açılan formada adınız, e-poçt ünvanınız və şifrənizi daxil edin. Məlumatları doldurduqdan sonra e-poçtunuza təsdiq mesajı göndəriləcək. Linkə klikləyərək qeydiyyatınızı tamamlayın və hesabınıza daxil olun.",
+      "categort": "SecondLife"
+    },
+    {
+      "id": "4",
+      "question": "Necə qeydiyyatdan keçə bilərəm?",
+      "answer": "Qeydiyyatdan keçmək üçün veb-saytın əsas səhifəsindəki `Qeydiyyat` düyməsinə klikləyin. Açılan formada adınız, e-poçt ünvanınız və şifrənizi daxil edin. Məlumatları doldurduqdan sonra e-poçtunuza təsdiq mesajı göndəriləcək. Linkə klikləyərək qeydiyyatınızı tamamlayın və hesabınıza daxil olun.",
+      "categort": "SecondLife"
+    },
+    {
+      "id": "5",
+      "question": "Necə qeydiyyatdan keçə bilərəm?",
+      "answer": "Qeydiyyatdan keçmək üçün veb-saytın əsas səhifəsindəki `Qeydiyyat` düyməsinə klikləyin. Açılan formada adınız, e-poçt ünvanınız və şifrənizi daxil edin. Məlumatları doldurduqdan sonra e-poçtunuza təsdiq mesajı göndəriləcək. Linkə klikləyərək qeydiyyatınızı tamamlayın və hesabınıza daxil olun.",
+      "categort": "SecondLife"
+    },
+    {
+      "id": "6",
+      "question": "Necə qeydiyyatdan keçə bilərəm?",
+      "answer": "Qeydiyyatdan keçmək üçün veb-saytın əsas səhifəsindəki `Qeydiyyat` düyməsinə klikləyin. Açılan formada adınız, e-poçt ünvanınız və şifrənizi daxil edin. Məlumatları doldurduqdan sonra e-poçtunuza təsdiq mesajı göndəriləcək. Linkə klikləyərək qeydiyyatınızı tamamlayın və hesabınıza daxil olun.",
+      "categort": "SecondLife"
+    }
   ]
 }
