@@ -3,7 +3,7 @@ import styles from "./MostLiked.module.css";
 import Card from "../../Card/Card";
 
 const MostLiked = () => {
-  const [shares, setShares] = useState([]);
+  const [mostLiked, setMostLiked] = useState([]);
   const [visibleSharesCount, setVisibleSharesCount] = useState(4);
   const [showMore, setShowMore] = useState(false);
 
@@ -12,7 +12,7 @@ const MostLiked = () => {
       try {
         const response = await fetch("/db.json");
         const data = await response.json();
-        setShares(data.shares);
+        setMostLiked(data.mostliked);
       } catch (error) {
         console.error("Error fetching shares:", error);
       }
@@ -36,7 +36,7 @@ const MostLiked = () => {
         <h3>Ən çox bəyənilənlər</h3>
       </div>
       <div className={styles.shares__list}>
-        {shares.slice(0, visibleSharesCount).map((share) => (
+        {mostLiked.slice(0, visibleSharesCount).map((share) => (
           <Card key={share.id} share={share} />
         ))}
       </div>

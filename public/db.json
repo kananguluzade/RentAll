@@ -133,5 +133,72 @@
       "author": "Leyla Məmmədova",
       "image": "/logo.png"
     }
+  ],
+
+  "mostliked": [
+    {
+      "id": "1",
+      "category": "Evlər və mənzillər",
+      "price": "400 AZN",
+      "description": "Kirayə ev, 2 otaq, köhnə tikili",
+      "author": "Seyid Hüseyinov",
+      "image": "/logo.png"
+    },
+    {
+      "id": "2",
+      "category": "Evlər və mənzillər",
+      "price": "500 AZN",
+      "description": "Kirayə ev, 3 otaq, yeni tikili",
+      "author": "Elnur Quliyev",
+      "image": "/logo.png"
+    },
+    {
+      "id": "3",
+      "category": "Evlər və mənzillər",
+      "price": "600 AZN",
+      "description": "Kirayə ev, 2 otaq, mərkəzdə",
+      "author": "Leyla Məmmədova",
+      "image": "/logo.png"
+    },
+    {
+      "id": "4",
+      "category": "Evlər və mənzillər",
+      "price": "600 AZN",
+      "description": "Kirayə ev, 2 otaq, mərkəzdə",
+      "author": "Leyla Məmmədova",
+      "image": "/logo.png"
+    },
+    {
+      "id": "5",
+      "category": "Evlər və mənzillər",
+      "price": "600 AZN",
+      "description": "Kirayə ev, 2 otaq, mərkəzdə",
+      "author": "Leyla Məmmədova",
+      "image": "/logo.png"
+    },
+    {
+      "id": "6",
+      "category": "Evlər və mənzillər",
+      "price": "600 AZN",
+      "description": "Kirayə ev, 2 otaq, mərkəzdə",
+      "author": "Leyla Məmmədova",
+      "image": "/logo.png"
+    },
+    {
+      "id": "7",
+      "category": "Evlər və mənzillər",
+      "price": "600 AZN",
+      "description": "Kirayə ev, 2 otaq, mərkəzdə",
+      "author": "Leyla Məmmədova",
+      "image": "/logo.png"
+    },
+    {
+      "id": "8",
+      "category": "Evlər və mənzillər",
+      "price": "600 AZN",
+      "description": "Kirayə ev, 2 otaq, mərkəzdə",
+      "author": "Leyla Məmmədova",
+      "image": "/logo.png"
+    }
   ]
 }

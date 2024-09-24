@@ -63,4 +63,9 @@
 
 .heart__icon {
   width: 24px;
+  cursor: pointer;
+}
+
+.heart__icon:hover path {
+  fill: #eb4a4a;
 }
