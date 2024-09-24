@@ -239,7 +239,7 @@ body {
 :where(.css-dev-only-do-not-override-14qglws).ant-carousel
   .slick-dots
   li.slick-active {
-  width: 16px;
+  width: 16px !important;
 }
 
 .slick-dots > *:not(.slick-active) button {
