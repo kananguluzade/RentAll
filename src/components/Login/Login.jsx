@@ -1,11 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Login.module.css";
 
 const Login = ({ onForgotPassword }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      setError("Both fields are required.");
+      return;
+    }
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    // Reset error if everything is valid
+    setError("");
+
+    // Add your login logic here
+    console.log("Logging in with:", { email, password });
+  };
+
   return (
-    <form action="" className={styles.login__form}>
+    <form onSubmit={handleSubmit} className={styles.login__form}>
       <div className={styles.login__email}>
         <h4>E-mail</h4>
         <div className={styles.form__input}>
@@ -13,6 +39,8 @@ const Login = ({ onForgotPassword }) => {
           <input
             type="email"
             name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="E-mail ünvanınızı daxil edin"
           />
         </div>
@@ -25,10 +53,14 @@ const Login = ({ onForgotPassword }) => {
           <input
             type="password"
             name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Şifrənizi daxil edin"
           />
         </div>
       </div>
+
+      {error && <p className={styles.error}>{error}</p>}
 
       <div className={styles.form__save}>
         <input type="checkbox" name="rules" />
