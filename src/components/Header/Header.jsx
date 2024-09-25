@@ -76,6 +76,24 @@ const Header = () => {
             <div className={styles.hamburger} onClick={toggleMenu}>
               <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
             </div>
+            <div
+              className={`${styles.hamburger__buttons} ${
+                isMenuOpen ? styles.active : ""
+              }`}
+            >
+              <button
+                className={styles.button__register}
+                onClick={handleRegisterOpen}
+              >
+                Qeydiyyat
+              </button>
+              <button
+                className={styles.button__login}
+                onClick={handleLoginOpen}
+              >
+                Giriş
+              </button>
+            </div>
             <div className={styles.header__categories}>
               <div className={styles.dropdown} ref={dropdownRef}>
                 <label

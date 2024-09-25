@@ -230,6 +230,7 @@ body {
   display: flex;
   align-items: center;
   height: 16px !important;
+  z-index: 3 !important;
 }
 
 .slick-dots li {
@@ -268,4 +269,37 @@ body {
 
 .rs-panel-btn:hover {
   background-color: var(--gray-light);
+}
+
+.svg-inline--fa{
+  color: black;
+}
+
+._form__header_1q43b_443 h3{
+  font-weight: 400 !important;
+  font-size: 24px; 
+  line-height: 36px;
+}
+
+._register__form_12ltl_1 div h4, ._login__form_16jqg_63 div h4{
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 30px;
+}
+
+.rs-modal-content{
+  padding: 0;
+}
+
+._form__header_1q43b_485{
+  margin-top: 30px;
+}
+
+._register__form_12ltl_1, ._login__form_16jqg_63{
+  gap: 10px;
+}
+
+._forgot__password_16jqg_211 :hover{
+  color: #365bc9;
+  transition: 0.3s;
 }
