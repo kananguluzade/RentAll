@@ -21,3 +21,8 @@
   height: 82px;
   object-fit: contain;
 }
+
+.product__comments {
+  margin-top: 100px;
+  color: black !important;
+}

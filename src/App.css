@@ -157,7 +157,6 @@ video {
   text-size-adjust: none;
   text-decoration: none;
   list-style: none;
-  color: var(--white);
 }
 
 img {
@@ -184,6 +183,7 @@ video {
 
 body {
   font-family: "Montserrat", sans-serif;
+  color: #252525 !important;
 }
 
 .slick-dots li button {

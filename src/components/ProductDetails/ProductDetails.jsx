@@ -5,6 +5,7 @@ import img2 from "/logo-dark.png";
 import img3 from "/heroslides/first-hero.jpg";
 import img4 from "/heroslides/second-hero.jpg";
 import { Carousel } from "rsuite";
+import Review from "../Review/Review";
 
 const ProductDetails = () => {
   const images = [img, img2, img3, img4];
@@ -61,8 +62,7 @@ const ProductDetails = () => {
         </div>
       </div>
       <div className={styles.product__comments}>
-        <div className={styles.comment}></div>
-        <div className={styles.comment}></div>
+        <Review/>
       </div>
       <div className={styles.similar__products}>
         <div className={styles.similar__product}></div>

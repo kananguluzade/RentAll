@@ -16,7 +16,6 @@
       "description": "Artıq lazım olmayanı sat və ona yeni sahib tap!"
     }
   ],
-
   "categories": [
     {
       "id": 1,
@@ -67,7 +66,6 @@
       "background": "linear-gradient(225deg, #FFFCF3 -3.41%, #FFBD83 110.98%)"
     }
   ],
-
   "shares": [
     {
       "id": "1",
@@ -134,7 +132,6 @@
       "image": "/logo.png"
     }
   ],
-
   "mostliked": [
     {
       "id": "1",
@@ -201,7 +198,6 @@
       "image": "/logo.png"
     }
   ],
-
   "faq": [
     {
       "id": "1",
@@ -238,6 +234,24 @@
       "question": "Necə qeydiyyatdan keçə bilərəm?",
       "answer": "Qeydiyyatdan keçmək üçün veb-saytın əsas səhifəsindəki `Qeydiyyat` düyməsinə klikləyin. Açılan formada adınız, e-poçt ünvanınız və şifrənizi daxil edin. Məlumatları doldurduqdan sonra e-poçtunuza təsdiq mesajı göndəriləcək. Linkə klikləyərək qeydiyyatınızı tamamlayın və hesabınıza daxil olun.",
       "categort": "SecondLife"
+    }
+  ],
+  "comments": [
+    {
+      "id": 2,
+      "text": "cox zor saytdi qagas"
+    },
+    {
+      "text": "salam",
+      "id": 3
+    },
+    {
+      "text": "bad product!",
+      "id": 4
+    },
+    {
+      "text": "salam",
+      "id": 5
     }
   ]
 }
