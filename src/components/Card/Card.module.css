@@ -12,7 +12,7 @@
 
 .share__img {
   min-width: 200px;
-  height: 200px;
+  height: 250px;
   margin-bottom: 12px;
 }
 
@@ -68,4 +68,10 @@
 
 .heart__icon:hover path {
   fill: #eb4a4a;
+}
+
+@media screen and (max-width: 618px) {
+  .share {
+    height: 200px;
+  }
 }

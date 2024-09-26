@@ -11,7 +11,7 @@ function Layout() {
         <Header />
       </header>
       <main>
-        <Home />
+        <Outlet />
       </main>
       <footer>
         <Footer />

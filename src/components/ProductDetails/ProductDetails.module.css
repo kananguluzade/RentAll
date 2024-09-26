@@ -1,0 +1,23 @@
+.product__details {
+  display: flex;
+  align-items: center;
+}
+
+.product__img {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+}
+
+.img__sidebar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.img__sidebar img {
+  max-width: 82px;
+  height: 82px;
+  object-fit: contain;
+}
