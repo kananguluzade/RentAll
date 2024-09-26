@@ -25,6 +25,7 @@ const ProductDetails = () => {
   const images = [img, img2, img3, img4];
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
+ozle
 
   const props = {
     width: 450,
