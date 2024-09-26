@@ -20,20 +20,19 @@ import {
 import Review from "../Review/Review";
 
 const ProductDetails = () => {
-  const { id } = useParams(); // Get the product ID from the URL
-  const [product, setProduct] = useState(null); // State for the product data
+  const { id } = useParams();
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
 
-  const images = ["/test.png", "/test.png", "/test.png", "/test.png"]; // Example images
+  const images = ["/test.png", "/test.png", "/test.png", "/test.png"];
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch("/db.json"); // Fetch the data
+        const response = await fetch("/db.json");
         const data = await response.json();
-        const selectedProduct = data.shares.find((share) => share.id === id); // Find the product by id
-        setProduct(selectedProduct); // Set the product data in the state
+        const selectedProduct = data.shares.find((share) => share.id === id);
+        setProduct(selectedProduct);
       } catch (error) {
         console.error("Error fetching product:", error);
       }
@@ -44,12 +43,12 @@ const ProductDetails = () => {
 
   useEffect(() => {
     if (swiperRef.current) {
-      swiperRef.current.swiper.slideTo(activeIndex); // Sync Swiper with active image
+      swiperRef.current.swiper.slideTo(activeIndex);
     }
   }, [activeIndex]);
 
   if (!product) {
-    return <div>Loading...</div>; // Show loading state if product is not yet loaded
+    return <div>Loading...</div>;
   }
 
   const props = {

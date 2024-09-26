@@ -137,104 +137,49 @@
   ],
   "comments": [
     {
-      "id": "4",
-      "productId": "1",
-      "text": "bad product!"
+      "id": "72c7",
+      "text": "Bu test ucun yazilmis reydir",
+      "productId": "1"
     },
     {
-      "id": "737b",
-      "productId": "1",
-      "text": "Test"
+      "id": "ec67",
+      "text": "Bla bla bla bla bla Bla bla bla bla bla",
+      "productId": "1"
     },
     {
-      "id": "0e39",
-      "productId": "1",
-      "text": "BLABLABAL"
+      "id": "143b",
+      "text": "Id 1 olan mehsulun reyleridir",
+      "productId": "1"
     },
     {
-      "id": "5",
-      "productId": "2",
-      "text": "salam"
+      "id": "0ef8",
+      "text": "Test ucun mesaj",
+      "productId": "2"
     },
     {
-      "id": "737b",
-      "productId": "2",
-      "text": "Test"
+      "id": "32be",
+      "text": "Id 2 mexsusdur",
+      "productId": "2"
     },
     {
-      "id": "0e39",
-      "productId": "2",
-      "text": "BLABLABAL"
+      "id": "2b98",
+      "text": "4",
+      "productId": "4"
     },
     {
-      "id": "3",
-      "productId": "3",
-      "text": "salam"
+      "id": "ed0d",
+      "text": "test",
+      "productId": "4"
     },
     {
-      "id": "4",
-      "productId": "3",
-      "text": "bad product!"
+      "id": "545f",
+      "text": "mesahha",
+      "productId": "4"
     },
     {
-      "id": "5",
-      "productId": "3",
-      "text": "salam"
-    },
-    {
-      "id": "737b",
-      "productId": "3",
-      "text": "Test"
-    },
-    {
-      "id": "0e39",
-      "productId": "3",
-      "text": "BLABLABAL"
-    },
-    {
-      "id": "3",
-      "productId": "4",
-      "text": "salam"
-    },
-    {
-      "id": "0e39",
-      "productId": "4",
-      "text": "BLABLABAL"
-    },
-    {
-      "id": "4",
-      "productId": "6",
-      "text": "bad product!"
-    },
-    {
-      "id": "737b",
-      "productId": "6",
-      "text": "Test"
-    },
-    {
-      "id": "0e39",
-      "productId": "6",
-      "text": "BLABLABAL"
-    },
-    {
-      "id": "3",
-      "productId": "7",
-      "text": "salam"
-    },
-    {
-      "id": "0e39",
-      "productId": "7",
-      "text": "BLABLABAL"
-    },
-    {
-      "id": "3",
-      "productId": "8",
-      "text": "salam"
-    },
-    {
-      "id": "987c",
-      "text": "sdakdaskjds",
-      "productId": "5"
+      "id": "ff17",
+      "text": "linkler ve linkler",
+      "productId": "6"
     }
   ],
   "mostliked": [
