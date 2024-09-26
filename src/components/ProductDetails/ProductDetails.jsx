@@ -20,12 +20,12 @@ import {
   faLocationDot,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
+import Review from "../Review/Review";
 
 const ProductDetails = () => {
   const images = [img, img2, img3, img4];
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
-ozle
 
   const props = {
     width: 450,
@@ -132,14 +132,7 @@ ozle
             </div>
           </div>
         </div>
-        <div className={styles.product__comments}>
-          <div className={styles.comment}></div>
-          <div className={styles.comment}></div>
-        </div>
-        <div className={styles.similar__products}>
-          <div className={styles.similar__product}></div>
-          <div className={styles.similar__product}></div>
-        </div>
+      <Review />
       </div>
     </div>
   );

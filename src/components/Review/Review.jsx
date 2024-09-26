@@ -17,7 +17,7 @@ const Review = () => {
   };
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:3001/comments/${id}`, {
+    fetch(`http://localhost:3000/comments/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -27,7 +27,7 @@ const Review = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3001/comments")
+    fetch("http://localhost:3000/comments")
       .then((response) => response.json())
       .then((data) => setCommentsList(data))
       .catch((error) => console.error("Error fetching comments:", error));
@@ -38,7 +38,7 @@ const Review = () => {
     if (comment.trim()) {
       const newComment = { text: comment };
 
-      fetch("http://localhost:3001/comments", {
+      fetch("http://localhost:3000/comments", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

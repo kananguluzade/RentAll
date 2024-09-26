@@ -3,64 +3,67 @@
     {
       "image": "/heroslides/first-hero.jpg",
       "title": "Sonsuz imkanları kəşf et və dəyərlərini Second Life ilə müəyyənləşdir!",
-      "description": "Artıq lazım olmayanı sat və ona yeni sahib tap!"
+      "description": "Artıq lazım olmayanı sat və ona yeni sahib tap!",
+      "id": "d372"
     },
     {
       "image": "/heroslides/second-hero.jpg",
       "title": "Sonsuz imkanları kəşf et və dəyərlərini Second Life ilə müəyyənləşdir!",
-      "description": "Artıq lazım olmayanı sat və ona yeni sahib tap!"
+      "description": "Artıq lazım olmayanı sat və ona yeni sahib tap!",
+      "id": "242d"
     },
     {
       "image": "/heroslides/third-hero.jpg",
       "title": "Sonsuz imkanları kəşf et və dəyərlərini Second Life ilə müəyyənləşdir!",
-      "description": "Artıq lazım olmayanı sat və ona yeni sahib tap!"
+      "description": "Artıq lazım olmayanı sat və ona yeni sahib tap!",
+      "id": "5874"
     }
   ],
   "categories": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Evlər və mənzillər",
       "image": "/categories/evler.png",
       "background": "linear-gradient(224.51deg, #fff3f3 -3.42%, #ffaeae 107.01%)"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Avtomobillər",
       "image": "/categories/masin.png",
       "background": "linear-gradient(225deg, #F4F3FF -3.41%, #B3B6FF 110.98%)"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Əyləncə",
       "image": "/categories/eylence.png",
       "background": "linear-gradient(225deg, #FFFFF3 -3.41%, #FAFFB3 110.98%)"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "İdman",
       "image": "/categories/idman.png",
       "background": "linear-gradient(225deg, #F3FFF5 -3.41%, #ACFFAC 110.98%)"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Ticarət sahələri",
       "image": "/categories/ticaret.png",
       "background": "linear-gradient(225deg, #FFF3FE -3.41%, #FFA0F2 110.98%)"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Elektronika",
       "image": "/categories/elektronika.png",
       "background": "linear-gradient(225deg, #FFFDF3 -3.41%, #FFDC7A 110.98%)"
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Məişət texnikası",
       "image": "/categories/meiset.png",
       "background": "linear-gradient(225deg, #F3FDFF -3.41%, #A8F6FF 110.98%)"
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Tədbir avadanlığı",
       "image": "/categories/tedbir.png",
       "background": "linear-gradient(225deg, #FFFCF3 -3.41%, #FFBD83 110.98%)"
@@ -238,20 +241,24 @@
   ],
   "comments": [
     {
-      "id": 2,
-      "text": "cox zor saytdi qagas"
-    },
-    {
       "text": "salam",
-      "id": 3
+      "id": "3"
     },
     {
       "text": "bad product!",
-      "id": 4
+      "id": "4"
     },
     {
       "text": "salam",
-      "id": 5
+      "id": "5"
+    },
+    {
+      "id": "737b",
+      "text": "Test"
+    },
+    {
+      "id": "0e39",
+      "text": "BLABLABAL"
     }
   ]
 }
