@@ -1,10 +1,25 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./ProductDetails.module.css";
-import img from "/logo.png";
-import img2 from "/logo-dark.png";
-import img3 from "/heroslides/first-hero.jpg";
-import img4 from "/heroslides/second-hero.jpg";
-import { Carousel } from "rsuite";
+import img from "/test.png";
+import img2 from "/test.png";
+import img3 from "/test.png";
+import img4 from "/test.png";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import ReactImageZoom from "react-image-zoom";
+import { Navigation, Pagination } from "swiper/modules";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+  faEnvelope,
+  faHeart,
+  faHouse,
+  faLocationDot,
+  faPhone,
+} from "@fortawesome/free-solid-svg-icons";
 
 const ProductDetails = () => {
   const images = [img, img2, img3, img4];
@@ -84,32 +99,47 @@ ozle
               </div>
             </div>
           </div>
-        </div>
-        <div className={styles.product__info}>
-          <h1>Bonsai</h1>
-          <h2>$19.99</h2>
-          <div className={styles.product__desc}>
-            <p>
-              The purposes of bonsai are primarily contemplation for the viewer,
-              and the pleasant exercise of effort and ingenuity for the grower.
-            </p>
-            <p>
-              By contrast with other plant cultivation practices, bonsai is not
-              intended for production of food or for medicine. Instead, bonsai
-              practice focuses on long-term cultivation and shaping of one or
-              more small trees growing in a container.
-            </p>
+          <div className={styles.product__info}>
+            <div className={styles.info__container}>
+              <div className={styles.product__author}>
+                <img src={img} alt="" />
+                <span>Seyid Hüseyinov</span>
+              </div>
+              <div className={styles.details}>
+                <h4>Kirayə ev</h4>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faHouse} />
+                    <p>Evlər və mənzillər</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faEnvelope} />
+                    <p>seyid.hüseyinov@gmail.com</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faLocationDot} />
+                    <p>Bakı, Nizami rayonu, Moskva pr.</p>
+                  </li>
+                </ul>
+                <button>
+                  <FontAwesomeIcon icon={faPhone} />
+                  Zəng et
+                </button>
+              </div>
+            </div>
+            <div className={styles.product__fav}>
+              <FontAwesomeIcon icon={faHeart} />
+            </div>
           </div>
-          <button className={styles.addToCart}>Add To Cart</button>
         </div>
-      </div>
-      <div className={styles.product__comments}>
-        <div className={styles.comment}></div>
-        <div className={styles.comment}></div>
-      </div>
-      <div className={styles.similar__products}>
-        <div className={styles.similar__product}></div>
-        <div className={styles.similar__product}></div>
+        <div className={styles.product__comments}>
+          <div className={styles.comment}></div>
+          <div className={styles.comment}></div>
+        </div>
+        <div className={styles.similar__products}>
+          <div className={styles.similar__product}></div>
+          <div className={styles.similar__product}></div>
+        </div>
       </div>
     </div>
   );
