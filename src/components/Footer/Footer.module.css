@@ -80,6 +80,10 @@ footer {
   gap: 8px;
 }
 
+.footer__socials li svg {
+  color: var(--white);
+}
+
 .footer__copyright {
   margin-top: 40px;
   text-align: center;

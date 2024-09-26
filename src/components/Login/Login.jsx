@@ -23,62 +23,61 @@ const Login = ({ onForgotPassword }) => {
       setError("Please enter a valid email address.");
       return;
     }
-    // Reset error if everything is valid
     setError("");
-
-    // Add your login logic here
     console.log("Logging in with:", { email, password });
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.login__form}>
-      <div className={styles.login__email}>
-        <h4>E-mail</h4>
-        <div className={styles.form__input}>
-          <FontAwesomeIcon icon={faEnvelope} />
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="E-mail ünvanınızı daxil edin"
-          />
+    <div className="container">
+      <form onSubmit={handleSubmit} className={styles.login__form}>
+        <div className={styles.login__email}>
+          <h4>E-mail</h4>
+          <div className={styles.form__input}>
+            <FontAwesomeIcon icon={faEnvelope} />
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="E-mail ünvanınızı daxil edin"
+            />
+          </div>
         </div>
-      </div>
 
-      <div className={styles.password}>
-        <h4>Şifrə</h4>
-        <div className={styles.form__input}>
-          <FontAwesomeIcon icon={faLock} />
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Şifrənizi daxil edin"
-          />
+        <div className={styles.password}>
+          <h4>Şifrə</h4>
+          <div className={styles.form__input}>
+            <FontAwesomeIcon icon={faLock} />
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Şifrənizi daxil edin"
+            />
+          </div>
         </div>
-      </div>
 
-      {error && <p className={styles.error}>{error}</p>}
+        {error && <p className={styles.error}>{error}</p>}
 
-      <div className={styles.form__save}>
-        <input type="checkbox" name="rules" />
-        <p>Yadda Saxla</p>
-      </div>
+        <div className={styles.form__save}>
+          <input type="checkbox" name="rules" />
+          <p>Yadda Saxla</p>
+        </div>
 
-      <div className={styles.forgot__password}>
-        <p onClick={onForgotPassword}>Şifrənizi unutmusunuz?</p>
-      </div>
+        <div className={styles.forgot__password}>
+          <p onClick={onForgotPassword}>Şifrənizi unutmusunuz?</p>
+        </div>
 
-      <div className={styles.other}>
-        <h4>Və ya</h4>
-      </div>
+        <div className={styles.other}>
+          <h4>Və ya</h4>
+        </div>
 
-      <div className={styles.form__submit}>
-        <input type="submit" value="Giriş" />
-      </div>
-    </form>
+        <div className={styles.form__submit}>
+          <input type="submit" value="Giriş" />
+        </div>
+      </form>
+    </div>
   );
 };
 

@@ -19,56 +19,50 @@
 
   /* All Font Sizes */
 
-  --font-size-h1: 48px;
-  --font-weight-h1: 700;
-  --line-height-h1: 72px;
+  --font-size-h1: clamp(28px, 5vw, 48px);
+  --line-height-h1: clamp(42px, 7vw, 72px);
 
-  --font-size-h2: 40px;
-  --font-weight-h2: 600;
-  --line-height-h2: 60px;
+  --font-size-h2: clamp(24px, 4.5vw, 40px);
+  --line-height-h2: clamp(36px, 6vw, 60px);
 
-  --font-size-h3: 36px;
-  --font-weight-h3: 600;
-  --line-height-h3: 54px;
+  --font-size-h3: clamp(20px, 4vw, 36px);
+  --line-height-h3: clamp(30px, 5.5vw, 54px);
 
-  --font-size-h3: 24px;
-  --font-weight-h3: 500;
-  --line-height-h3: 36px;
-  --letter-spacing: -0.2px;
+  --font-size-h4: clamp(18px, 3vw, 24px);
+  --line-height-h4: clamp(28px, 4vw, 36px);
 
-  --font-size-h4: 20px;
-  --font-weight-h4: 500;
-  --line-height-h4: 30px;
+  --font-size-h5: clamp(20px, 4vw, 32px);
+  --line-height-h5: clamp(30px, 5vw, 48px);
 }
 
 h1 {
-  font-size: 48px;
+  font-size: var(--font-size-h1);
   font-weight: 700;
-  line-height: 72px;
+  line-height: var(--line-height-h1);
 }
 
 h2 {
-  font-size: 40px;
+  font-size: var(--font-size-h2);
   font-weight: 600;
-  line-height: 60px;
+  line-height: var(--line-height-h2);
 }
 
 h3 {
-  font-size: 36px;
+  font-size: var(--font-size-h3);
   font-weight: 600;
-  line-height: 54px;
+  line-height: var(--line-height-h3);
 }
 
 h4 {
-  font-size: 24px;
+  font-size: var(--font-size-h4);
   font-weight: 500;
-  line-height: 36px;
+  line-height: var(--line-height-h4);
 }
 
 h5 {
-  font-size: 32px;
+  font-size: var(--font-size-h5);
   font-weight: 500;
-  line-height: 48px;
+  line-height: var(--line-height-h5);
 }
 
 @font-face {
@@ -271,35 +265,41 @@ body {
   background-color: var(--gray-light);
 }
 
-.svg-inline--fa{
+.svg-inline--fa {
   color: black;
 }
 
-._form__header_1q43b_443 h3{
+._form__header_1q43b_443 h3 {
   font-weight: 400 !important;
-  font-size: 24px; 
+  font-size: 24px;
   line-height: 36px;
 }
 
-._register__form_12ltl_1 div h4, ._login__form_16jqg_63 div h4{
+._register__form_12ltl_1 div h4,
+._login__form_16jqg_63 div h4 {
   font-size: 18px;
   font-weight: 500;
   line-height: 30px;
 }
 
-.rs-modal-content{
+.rs-modal-content {
   padding: 0;
 }
 
-._form__header_1q43b_485{
+._form__header_1q43b_485 {
   margin-top: 30px;
 }
 
-._register__form_12ltl_1, ._login__form_16jqg_63{
+._register__form_12ltl_1,
+._login__form_16jqg_63 {
   gap: 10px;
 }
 
-._forgot__password_16jqg_211 :hover{
+._forgot__password_16jqg_211 :hover {
   color: #365bc9;
   transition: 0.3s;
+}
+
+.rs-panel-group {
+  justify-content: center;
 }

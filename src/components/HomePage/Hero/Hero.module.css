@@ -14,8 +14,6 @@
 .mainContent {
   color: var(--black);
   font-weight: 500;
-  font-size: 32px;
-  line-height: 48px;
 }
 
 .helperContent {
@@ -27,7 +25,7 @@
 
 .carousel {
   height: 400px;
-  margin-top: 100px;
+  margin-top: 40px;
 }
 
 .heroRightContent {
@@ -38,12 +36,6 @@
 @media (max-width: 1000px) {
   .heroLeftContent {
     max-width: 440px;
-  }
-
-  .mainContent {
-    font-weight: 500;
-    font-size: 26px;
-    line-height: 38px;
   }
 
   .helperContent {
@@ -61,12 +53,6 @@
 @media (max-width: 768px) {
   .heroLeftContent {
     max-width: 320px;
-  }
-
-  .mainContent {
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 28px;
   }
 
   .helperContent {
@@ -89,12 +75,6 @@
   .heroLeftContent {
     max-width: 100%;
     text-align: center;
-  }
-
-  .mainContent {
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 28px;
   }
 
   .helperContent {

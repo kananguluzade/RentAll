@@ -13,6 +13,7 @@
   flex-wrap: wrap;
   gap: 24px;
   margin-bottom: 32px;
+  overflow-x: hidden;
 }
 
 .share {
@@ -109,4 +110,35 @@
 
 .more__shares button:hover {
   background-color: var(--blue-hover);
+}
+
+@media screen and (max-width: 618px) {
+  .shares__list {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 20px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+  }
+
+  .share {
+    flex: 0 0 auto;
+  }
+  .shares__list::-webkit-scrollbar {
+    height: 8px;
+    background-color: var(--gray-light);
+  }
+
+  .shares__list::-webkit-scrollbar-thumb {
+    background-color: var(--blue-default);
+    border-radius: 10px;
+  }
+
+  .shares__list::-webkit-scrollbar-thumb:hover {
+    background-color: var(--blue-hover);
+  }
 }

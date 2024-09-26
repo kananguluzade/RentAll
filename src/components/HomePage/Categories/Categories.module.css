@@ -48,3 +48,41 @@
   text-align: center;
   color: var(--black);
 }
+@media (max-width: 768px) {
+  .categories__list {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    padding-bottom: 20px;
+  }
+
+  .categories__list::-webkit-scrollbar {
+    height: 8px;
+    background-color: var(--gray-light);
+  }
+
+  .categories__list::-webkit-scrollbar-thumb {
+    background-color: var(--blue-default);
+    border-radius: 10px;
+  }
+
+  .categories__list::-webkit-scrollbar-thumb:hover {
+    background-color: var(--blue-active);
+  }
+
+  .categories__list .categorie {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .categories__list .categorie p {
+    font-size: 10px;
+    line-height: 16px;
+  }
+
+  .categories__list .categorie:hover {
+    scale: 1.1;
+  }
+}

@@ -11,8 +11,8 @@
 }
 
 .share__img {
-  max-width: 250px;
-  height: 250px;
+  min-width: 200px;
+  height: 200px;
   margin-bottom: 12px;
 }
 

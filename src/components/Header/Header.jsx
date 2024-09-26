@@ -149,22 +149,24 @@ const Header = () => {
 
       <Modal size="full" open={isRegisterOpen} onClose={handleClose}>
         <Modal.Body className={`${styles.modal__form} ${activeTab}`}>
-          <div className={styles.form__close}>
-            <FontAwesomeIcon icon={faCircleXmark} onClick={handleClose} />
-          </div>
-          <div className={styles.form__header}>
-            <h3
-              className={`${activeTab === "register" ? styles.active : ""}`}
-              onClick={() => setActiveTab("register")}
-            >
-              Qeydiyyat
-            </h3>
-            <h3
-              className={`${activeTab === "login" ? styles.active : ""}`}
-              onClick={() => setActiveTab("login")}
-            >
-              Giriş
-            </h3>
+          <div className="container">
+            <div className={styles.form__close}>
+              <FontAwesomeIcon icon={faCircleXmark} onClick={handleClose} />
+            </div>
+            <div className={styles.form__header}>
+              <h3
+                className={`${activeTab === "register" ? styles.active : ""}`}
+                onClick={() => setActiveTab("register")}
+              >
+                Qeydiyyat
+              </h3>
+              <h3
+                className={`${activeTab === "login" ? styles.active : ""}`}
+                onClick={() => setActiveTab("login")}
+              >
+                Giriş
+              </h3>
+            </div>
           </div>
           {activeTab === "register" ? (
             <Register />
