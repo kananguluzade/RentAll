@@ -237,6 +237,11 @@ body {
   width: 16px !important;
 }
 
+.detail__carousel:where(.css-dev-only-do-not-override-14qglws).ant-carousel
+  .slick-dots-bottom {
+  bottom: -50px;
+}
+
 .slick-dots > *:not(.slick-active) button {
   width: 16px !important;
   height: 16px !important;
@@ -302,4 +307,58 @@ body {
 
 .rs-panel-group {
   justify-content: center;
+}
+
+.custom-pagination {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.custom-pagination .swiper-pagination-bullet {
+  width: 16px;
+  height: 16px;
+}
+
+.custom-pagination .swiper-pagination-bullet-active {
+  background-color: #585a5c;
+}
+
+.custom-prev,
+.custom-next {
+  background: var(--black);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  transition: opacity 0.3s;
+  cursor: pointer;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.custom-next svg {
+  color: var(--white);
+}
+
+.custom-prev svg {
+  color: var(--white);
+}
+
+.custom-next {
+  position: absolute;
+  right: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.custom-prev {
+  position: absolute;
+  left: -50px;
+  top: 50%;
+  transform: translateY(-50%);
 }
