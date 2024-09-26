@@ -80,6 +80,10 @@ footer {
   gap: 8px;
 }
 
+.footer__socials li a {
+  color: var(--white);
+}
+
 .footer__socials li svg {
   color: var(--white);
 }

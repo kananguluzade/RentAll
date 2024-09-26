@@ -2,17 +2,16 @@ import React, { useState, useEffect } from "react";
 import styles from "./Review.module.css";
 import profilPicture from "../../../public/logo.png";
 
-const Review = () => {
+const Review = ({ productId }) => {
   const [comment, setComment] = useState("");
   const [commentsList, setCommentsList] = useState([]);
   const [openOptions, setOpenOptions] = useState({});
-  const [visibleCommentsCount, setVisibleCommentsCount] = useState(4); 
+  const [visibleCommentsCount, setVisibleCommentsCount] = useState(4);
 
-  
   const handleOptions = (id) => {
     setOpenOptions((prev) => ({
       ...prev,
-      [id]: !prev[id], 
+      [id]: !prev[id],
     }));
   };
 
@@ -25,18 +24,17 @@ const Review = () => {
       })
       .catch((error) => console.error("Error deleting comment:", error));
   };
-
   useEffect(() => {
-    fetch("http://localhost:3000/comments")
+    fetch(`http://localhost:3000/comments?productId=${productId}`)
       .then((response) => response.json())
       .then((data) => setCommentsList(data))
       .catch((error) => console.error("Error fetching comments:", error));
-  }, []);
+  }, [productId]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (comment.trim()) {
-      const newComment = { text: comment };
+      const newComment = { text: comment, productId };
 
       fetch("http://localhost:3000/comments", {
         method: "POST",
@@ -55,10 +53,10 @@ const Review = () => {
   };
 
   const loadMoreComments = () => {
-    setVisibleCommentsCount((prevCount) => prevCount + 4); 
+    setVisibleCommentsCount((prevCount) => prevCount + 4);
   };
 
-  const displayedComments = commentsList.slice(0, visibleCommentsCount); 
+  const displayedComments = commentsList.slice(0, visibleCommentsCount);
 
   return (
     <div className={styles.comment__section}>
@@ -97,7 +95,7 @@ const Review = () => {
         {displayedComments.map((comment) => (
           <div key={comment.id} className={styles.comment}>
             <div className={styles.comment__upper}>
-            <img
+              <img
                 src={profilPicture}
                 className={styles.profile__picture}
                 alt="profil-pic"
@@ -133,10 +131,10 @@ const Review = () => {
                       />
                     </svg>
                   </button>
-                  {openOptions[comment.id] && ( // Conditionally render delete button
+                  {openOptions[comment.id] && (
                     <button
                       className={styles.comment__delete__btn}
-                      onClick={() => handleDelete(comment.id)} // Handle comment deletion
+                      onClick={() => handleDelete(comment.id)}
                     >
                       <svg
                         width="24"

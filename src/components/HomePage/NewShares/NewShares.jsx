@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./NewShares.module.css";
 import Card from "../../Card/Card";
+import { Link } from "react-router-dom";
 
 const NewShares = () => {
   const [shares, setShares] = useState([]);
@@ -37,7 +38,9 @@ const NewShares = () => {
       </div>
       <div className={styles.shares__list}>
         {shares.slice(0, visibleSharesCount).map((share) => (
-          <Card key={share.id} share={share} />
+          <Link key={share.id} to={`/product/${share.id}`}>
+            <Card share={share} />
+          </Link>
         ))}
       </div>
       <div className={styles.more__shares}>

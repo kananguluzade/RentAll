@@ -1,9 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import styles from "./ProductDetails.module.css";
-import img from "/test.png";
-import img2 from "/test.png";
-import img3 from "/test.png";
-import img4 from "/test.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -23,9 +20,37 @@ import {
 import Review from "../Review/Review";
 
 const ProductDetails = () => {
-  const images = [img, img2, img3, img4];
+  const { id } = useParams(); // Get the product ID from the URL
+  const [product, setProduct] = useState(null); // State for the product data
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
+
+  const images = ["/test.png", "/test.png", "/test.png", "/test.png"]; // Example images
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch("/db.json"); // Fetch the data
+        const data = await response.json();
+        const selectedProduct = data.shares.find((share) => share.id === id); // Find the product by id
+        setProduct(selectedProduct); // Set the product data in the state
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
+
+  useEffect(() => {
+    if (swiperRef.current) {
+      swiperRef.current.swiper.slideTo(activeIndex); // Sync Swiper with active image
+    }
+  }, [activeIndex]);
+
+  if (!product) {
+    return <div>Loading...</div>; // Show loading state if product is not yet loaded
+  }
 
   const props = {
     width: 450,
@@ -38,12 +63,6 @@ const ProductDetails = () => {
   const handleImageChange = (index) => {
     setActiveIndex(index);
   };
-
-  useEffect(() => {
-    if (swiperRef.current) {
-      swiperRef.current.swiper.slideTo(activeIndex);
-    }
-  }, [activeIndex]);
 
   return (
     <div className={styles.detail__container}>
@@ -102,15 +121,15 @@ const ProductDetails = () => {
           <div className={styles.product__info}>
             <div className={styles.info__container}>
               <div className={styles.product__author}>
-                <img src={img} alt="" />
-                <span>Seyid Hüseyinov</span>
+                <img src={product.image} alt="" />
+                <span>{product.author}</span>
               </div>
               <div className={styles.details}>
-                <h4>Kirayə ev</h4>
+                <h4>{product.description}</h4>
                 <ul>
                   <li>
                     <FontAwesomeIcon icon={faHouse} />
-                    <p>Evlər və mənzillər</p>
+                    <p>{product.category}</p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faEnvelope} />
@@ -132,7 +151,7 @@ const ProductDetails = () => {
             </div>
           </div>
         </div>
-      <Review />
+        <Review productId={product.id} />
       </div>
     </div>
   );
