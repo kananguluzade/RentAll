@@ -21,6 +21,7 @@ import Review from "../Review/Review";
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const [product, setProduct] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
 
@@ -47,10 +48,6 @@ const ProductDetails = () => {
     }
   }, [activeIndex]);
 
-  if (!product) {
-    return <div>Loading...</div>;
-  }
-
   const props = {
     width: 450,
     height: 360,
@@ -62,6 +59,10 @@ const ProductDetails = () => {
   const handleImageChange = (index) => {
     setActiveIndex(index);
   };
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.detail__container}>
