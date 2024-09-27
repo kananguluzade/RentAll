@@ -18,6 +18,7 @@ import {
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import Review from "../Review/Review";
+import MostLiked from "../HomePage/MostLiked/MostLiked";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -49,7 +50,6 @@ const ProductDetails = () => {
   }, [activeIndex]);
 
   const props = {
-    width: 450,
     height: 360,
     zoomWidth: 500,
     zoomPosition: "original",
@@ -125,7 +125,7 @@ const ProductDetails = () => {
                 <span>{product.author}</span>
               </div>
               <div className={styles.details}>
-                <h4>{product.description}</h4>
+                <h4>Kiraye Ev</h4>
                 <ul>
                   <li>
                     <FontAwesomeIcon icon={faHouse} />
@@ -150,8 +150,20 @@ const ProductDetails = () => {
               <FontAwesomeIcon icon={faHeart} />
             </div>
           </div>
+          <div className={styles.product__description}>
+            <p>
+              Baki şəhərinin sakit və əlverişli ərazisində yerləşən bu rahat və
+              geniş həyət evi uzunmüddətli yaşayış üçün ideal variantdır. Ev 120
+              m² sahəsi olan 3 geniş otaqdan, işıqlı mətbəxdən və sanitar
+              qovşaqdan ibarətdir. Evin ən böyük üstünlüyü yaşıllıqla əhatə
+              olunmuş geniş həyətidir. Həyət, ailəvi istirahət, bağçılıq və açıq
+              havada vaxt keçirmək üçün əlverişlidir. Evdə zəruri olan hər bir
+              şərait mövcuddur və kirayəçilər rahat yaşayış təminatı tapacaqlar.
+            </p>
+          </div>
         </div>
         <Review productId={product.id} />
+        <MostLiked />
       </div>
     </div>
   );

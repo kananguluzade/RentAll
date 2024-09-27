@@ -13,6 +13,7 @@ import styles from "./Header.module.css";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,7 +72,9 @@ const Header = () => {
         <div className="container">
           <div className={styles.header}>
             <div className={styles.header__logo}>
-              <img src={logo} alt="Second Life Logo" />
+              <Link to="/">
+                <img src={logo} alt="Second Life Logo" />
+              </Link>
             </div>
             <div className={styles.hamburger} onClick={toggleMenu}>
               <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />

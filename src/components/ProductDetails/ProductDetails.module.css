@@ -3,7 +3,9 @@
 }
 
 .product__detail {
+  row-gap: 40px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
@@ -103,6 +105,14 @@
   text-align: left;
 }
 
+.product__description {
+  background-color: #f3f3f3;
+  padding: 24px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 36px;
+}
+
 .details {
   display: flex;
   flex-direction: column;
@@ -165,4 +175,16 @@
 .product__comments {
   margin-top: 100px;
   color: black !important;
+}
+
+@media screen and (max-width: 1124px) {
+  .product__img {
+    gap: 58px;
+  }
+}
+
+@media screen and (max-width: 1040px) {
+  .product__img {
+    gap: 28px;
+  }
 }
