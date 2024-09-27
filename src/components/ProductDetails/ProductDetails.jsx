@@ -19,6 +19,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Review from "../Review/Review";
 import MostLiked from "../HomePage/MostLiked/MostLiked";
+import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -50,6 +51,7 @@ const ProductDetails = () => {
   }, [activeIndex]);
 
   const props = {
+    width: 450,
     height: 360,
     zoomWidth: 500,
     zoomPosition: "original",
