@@ -24,6 +24,115 @@ const Review = ({ productId }) => {
       })
       .catch((error) => console.error("Error deleting comment:", error));
   };
+
+  const handleLike = (id) => {
+    const currentComment = commentsList.find((comment) => comment.id === id);
+
+    if (currentComment.likedByUser) {
+      const updatedLikes = currentComment.likes - 1;
+      fetch(`http://localhost:3000/comments/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          likes: updatedLikes,
+          likedByUser: false,
+        }),
+      })
+        .then((response) => response.json())
+        .then((updatedComment) => {
+          setCommentsList((prevComments) =>
+            prevComments.map((comment) =>
+              comment.id === id ? updatedComment : comment
+            )
+          );
+        })
+        .catch((error) => console.error("Error unliking comment:", error));
+    } else {
+      const updatedLikes = currentComment.likes + 1;
+      const updatedDislikes = currentComment.dislikedByUser
+        ? currentComment.dislikes - 1
+        : currentComment.dislikes;
+
+      fetch(`http://localhost:3000/comments/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          likes: updatedLikes,
+          dislikes: updatedDislikes,
+          likedByUser: true,
+          dislikedByUser: false,
+        }),
+      })
+        .then((response) => response.json())
+        .then((updatedComment) => {
+          setCommentsList((prevComments) =>
+            prevComments.map((comment) =>
+              comment.id === id ? updatedComment : comment
+            )
+          );
+        })
+        .catch((error) => console.error("Error liking comment:", error));
+    }
+  };
+
+  const handleDislike = (id) => {
+    const currentComment = commentsList.find((comment) => comment.id === id);
+
+    if (currentComment.dislikedByUser) {
+      const updatedDislikes = currentComment.dislikes - 1;
+      fetch(`http://localhost:3000/comments/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          dislikes: updatedDislikes,
+          dislikedByUser: false,
+        }),
+      })
+        .then((response) => response.json())
+        .then((updatedComment) => {
+          setCommentsList((prevComments) =>
+            prevComments.map((comment) =>
+              comment.id === id ? updatedComment : comment
+            )
+          );
+        })
+        .catch((error) => console.error("Error undisliking comment:", error));
+    } else {
+      const updatedDislikes = currentComment.dislikes + 1;
+      const updatedLikes = currentComment.likedByUser
+        ? currentComment.likes - 1
+        : currentComment.likes;
+
+      fetch(`http://localhost:3000/comments/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          dislikes: updatedDislikes,
+          likes: updatedLikes,
+          dislikedByUser: true,
+          likedByUser: false,
+        }),
+      })
+        .then((response) => response.json())
+        .then((updatedComment) => {
+          setCommentsList((prevComments) =>
+            prevComments.map((comment) =>
+              comment.id === id ? updatedComment : comment
+            )
+          );
+        })
+        .catch((error) => console.error("Error disliking comment:", error));
+    }
+  };
+
   useEffect(() => {
     fetch(`http://localhost:3000/comments?productId=${productId}`)
       .then((response) => response.json())
@@ -34,7 +143,7 @@ const Review = ({ productId }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (comment.trim()) {
-      const newComment = { text: comment, productId };
+      const newComment = { text: comment, productId, likes: 0, dislikes: 0 };
 
       fetch("http://localhost:3000/comments", {
         method: "POST",
@@ -105,7 +214,7 @@ const Review = ({ productId }) => {
                   <h6>Kenan Quluzade</h6>
                   <span>3 gün əvvəl</span>
                 </div>
-                <div className={styles.comment__option__delete}>
+                <div className={styles.comment__option__menu}>
                   <button
                     className={styles.comment__option__btn}
                     onClick={() => handleOptions(comment.id)}
@@ -132,32 +241,67 @@ const Review = ({ productId }) => {
                     </svg>
                   </button>
                   {openOptions[comment.id] && (
-                    <button
-                      className={styles.comment__delete__btn}
-                      onClick={() => handleDelete(comment.id)}
-                    >
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                    <ul className={styles.comment__options}>
+                      <li>Yararlı işarələ</li>
+                      <li>Şikayət et</li>
+                      <li>Spam olaraq işarələ</li>
+                      <li
+                        className={styles.comment__delete__btn}
+                        onClick={() => handleDelete(comment.id)}
                       >
-                        <path
-                          d="M14 10.5V16.5M10 16.5L10 10.5M4 6.00163H6M20 6.00163H18M18 6.00163V17.8044C18.0236 18.3097 18.0142 19.4366 17.7872 19.9014C17.5603 20.3661 17.1158 20.6807 16.922 20.7798C16.6619 20.8696 15.8752 21.0377 14.8085 20.9924H9.20567C8.6714 20.9924 7.50355 20.9499 7.10638 20.7798C6.70922 20.6098 6.34515 20.1234 6.21277 19.9014C6.13712 19.7597 5.98865 19.1419 6 17.8044V6.00163M18 6.00163H16M6 6.00163H8.01418M16 6.00163C16.0236 5.57184 16.0284 4.61874 15.8582 4.24468C15.6454 3.7771 15.078 3.28119 14.766 3.15367C14.4539 3.02615 13.5177 3.01198 13.0213 3.01198H10.9929C10.5626 2.98836 9.61135 2.98364 9.24823 3.15367C8.79433 3.3662 8.1844 3.9613 8.15603 4.24468C8.09456 4.47138 7.98014 5.14015 8.01418 6.00163M16 6.00163H8.01418"
-                          stroke="#FAFAFA"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                      Sil
-                    </button>
+                        Sil
+                      </li>
+                    </ul>
                   )}
                 </div>
               </div>
             </div>
             <div className={styles.comment__text}>
               <p>{comment.text}</p>
+              <div className={styles.comment__buttons}>
+                <div
+                  className={`${styles.comment__like} ${
+                    comment.likedByUser ? styles.active : ""
+                  }`}
+                >
+                  <svg
+                    onClick={() => handleLike(comment.id)}
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6.85953 9.33707C6.69755 9.33707 5.98482 9.33707 4.42977 9.33707C2.87472 9.33707 2 10.309 2 11.2809V19.0562C2 20.6112 3.61984 21 4.42977 21H6.85953M6.85953 9.33707L12.205 3.50562C13.1769 2.53374 14.6348 3.01971 14.1488 4.47754L12.691 7.87923C12.529 8.36518 12.8854 9.33709 13.6629 9.33709C14.4404 9.33709 18.3604 9.33709 20.4662 9.33709C21.1142 9.33709 22.3128 9.72586 21.9241 11.2809L20.9522 15.1685L19.9803 19.0562C19.8183 19.7041 19.1056 21 17.5505 21H6.85953M6.85953 9.33707V21"
+                      stroke="#252525"
+                      strokeWidth="2"
+                    />
+                  </svg>
+                  <span>{comment.likes}</span>
+                </div>
+                <div
+                  className={`${styles.comment__dislike} ${
+                    comment.dislikedByUser ? styles.active : ""
+                  }`}
+                >
+                  <svg
+                    onClick={() => handleDislike(comment.id)}
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6.85953 9.33707C6.69755 9.33707 5.98482 9.33707 4.42977 9.33707C2.87472 9.33707 2 10.309 2 11.2809V19.0562C2 20.6112 3.61984 21 4.42977 21H6.85953M6.85953 9.33707L12.205 3.50562C13.1769 2.53374 14.6348 3.01971 14.1488 4.47754L12.691 7.87923C12.529 8.36518 12.8854 9.33709 13.6629 9.33709C14.4404 9.33709 18.3604 9.33709 20.4662 9.33709C21.1142 9.33709 22.3128 9.72586 21.9241 11.2809L20.9522 15.1685L19.9803 19.0562C19.8183 19.7041 19.1056 21 17.5505 21H6.85953M6.85953 9.33707V21"
+                      stroke="#252525"
+                      strokeWidth="2"
+                    />
+                  </svg>
+                  <span>{comment.dislikes}</span>
+                </div>
+              </div>
             </div>
           </div>
         ))}

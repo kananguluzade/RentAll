@@ -137,64 +137,121 @@
   ],
   "comments": [
     {
-      "id": "72c7",
-      "text": "Bu test ucun yazilmis reydir",
-      "productId": "1"
+      "id": "a1b2",
+      "text": "Məhsul keyfiyyətlidir, lakin qiymət bir az baha gəldi.",
+      "productId": "1",
+      "likes": 15,
+      "dislikes": 4,
+      "likedByUser": false,
+      "dislikedByUser": true
     },
     {
-      "id": "ec67",
-      "text": "Bla bla bla bla bla Bla bla bla bla bla",
-      "productId": "1"
+      "id": "e5f6",
+      "text": "Bu məhsuldan gözləntim çox idi, lakin nəticə məyus etdi.",
+      "productId": "3",
+      "likes": 3,
+      "dislikes": 10,
+      "likedByUser": false,
+      "dislikedByUser": true
     },
     {
-      "id": "143b",
-      "text": "Id 1 olan mehsulun reyleridir",
-      "productId": "1"
+      "id": "g7h8",
+      "text": "Məncə, bu məhsul tam qiymətini haqq edir, çox razı qaldım.",
+      "productId": "1",
+      "likes": 22,
+      "dislikes": 0,
+      "likedByUser": true,
+      "dislikedByUser": false
     },
     {
-      "id": "0ef8",
-      "text": "Test ucun mesaj",
-      "productId": "2"
+      "id": "k1l2",
+      "text": "Məhsul ümidləri doğrultdu, təkrar sifariş verəcəyəm.",
+      "productId": "3",
+      "likes": 17,
+      "dislikes": 1,
+      "likedByUser": true,
+      "dislikedByUser": false
     },
     {
-      "id": "32be",
-      "text": "Id 2 mexsusdur",
-      "productId": "2"
+      "id": "m3n4",
+      "text": "Keyfiyyətinə görə bu məhsulu tövsiyə etmərəm.",
+      "productId": "1",
+      "likes": 5,
+      "dislikes": 12,
+      "likedByUser": false,
+      "dislikedByUser": true
     },
     {
-      "id": "2b98",
-      "text": "4",
-      "productId": "4"
+      "id": "o5p6",
+      "text": "Çatdırılma çox sürətli oldu, buna görə minnətdaram.",
+      "productId": "2",
+      "likes": 8,
+      "dislikes": 0,
+      "likedByUser": false,
+      "dislikedByUser": false
     },
     {
-      "id": "ed0d",
-      "text": "test",
-      "productId": "4"
+      "id": "q7r8",
+      "text": "Qutunun içində çatlaq vardı, amma məhsul sağlam çıxdı.",
+      "productId": "3",
+      "likes": 3,
+      "dislikes": 2,
+      "likedByUser": false,
+      "dislikedByUser": false
     },
     {
-      "id": "545f",
-      "text": "mesahha",
-      "productId": "4"
+      "id": "s9t0",
+      "text": "Sifariş etdiyim məhsul qüsursuz və vaxtında çatdı.",
+      "productId": "1",
+      "likes": 20,
+      "dislikes": 0,
+      "likedByUser": true,
+      "dislikedByUser": false
     },
     {
-      "id": "ff17",
-      "text": "linkler ve linkler",
-      "productId": "6"
+      "id": "u1v2",
+      "text": "Məhsulun istifadəsi çox rahatdır, amma uzunömürlü olacağını zənn etmirəm.",
+      "productId": "2",
+      "likes": 13,
+      "dislikes": 4,
+      "likedByUser": false,
+      "dislikedByUser": false
     },
     {
-      "id": "5edc",
-      "text": "addsadas",
-      "productId": "2"
+      "id": "w3x4",
+      "text": "Əvvəlcə tərəddüd etdim, amma istifadə etdikcə çox xoşuma gəldi.",
+      "productId": "3",
+      "likes": 18,
+      "dislikes": 1,
+      "likedByUser": true,
+      "dislikedByUser": false
     },
     {
-      "id": "059e",
-      "text": "bura biye bosdurrrrrrrrrrrrrrrrr",
-      "productId": "8"
+      "id": "y5z6",
+      "text": "Qiyməti uyğun olsa da, məhsul gözlədiyimdən aşağı keyfiyyətdə çıxdı.",
+      "productId": "1",
+      "likes": 2,
+      "dislikes": 7,
+      "likedByUser": false,
+      "dislikedByUser": true
     },
     {
-      "id": "5af1",
-      "text": "saaaaaaalam",
-      "productId": "3"
+      "id": "a7b8",
+      "text": "Məncə bu məhsul ən yaxşı seçim idi, hər şey ideal idi.",
+      "productId": "2",
+      "likes": 23,
+      "dislikes": 0,
+      "likedByUser": true,
+      "dislikedByUser": false
+    },
+    {
+      "id": "c9d0",
+      "text": "Çox keyfiyyətli məhsuldur, lakin qiymət bir qədər yüksəkdir.",
+      "productId": "3",
+      "likes": 9,
+      "dislikes": 3,
+      "likedByUser": false,
+      "dislikedByUser": true
     }
   ],
   "mostliked": [
