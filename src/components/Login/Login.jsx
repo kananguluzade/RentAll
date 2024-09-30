@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
-import { loginUser as loginService } from "../Services/authService";
 import styles from "./Login.module.css";
 import { AuthContext } from "../Services/authContext";
 
@@ -11,6 +10,7 @@ const Login = ({ onForgotPassword, onClose }) => {
   const [error, setError] = useState("");
   const { login } = useContext(AuthContext);
 
+  
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
@@ -18,10 +18,12 @@ const Login = ({ onForgotPassword, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!email || !password) {
       setError("Both fields are required.");
       return;
     }
+
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
       return;
@@ -30,13 +32,25 @@ const Login = ({ onForgotPassword, onClose }) => {
     setError("");
 
     try {
-      const user = await loginService(email, password);
-      login(user);
-      onClose();
-      setEmail("");
-      setPassword("");
+      const response = await fetch("http://localhost:3000/users");
+      const users = await response.json();
+
+      const user = users.find(
+        (user) => user.email === email && user.password === password
+      );
+
+      if (user) {
+
+        login(user);
+        onClose();
+        setEmail("");
+        setPassword("");
+      } else {
+        setError("Invalid email or password. Please try again.");
+      }
     } catch (error) {
-      setError(error.message || "An error occurred during login.");
+      setError("An error occurred while logging in. Please try again.");
+      console.error("Login error:", error);
     }
   };
 
