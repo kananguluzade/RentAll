@@ -113,7 +113,7 @@
 }
 
 .form__submit input,
-button {
+.edit__btn {
   background-color: var(--blue-default);
   max-width: 182px;
   width: 100%;
