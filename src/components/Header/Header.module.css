@@ -258,6 +258,28 @@
   -o-border-radius: 50%;
 }
 
+.user__panel {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.user__panel img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.user__panel svg {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 1000px) {
   .hamburger {
     display: block;

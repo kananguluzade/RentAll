@@ -200,15 +200,6 @@
       "dislikedByUser": false
     },
     {
-      "id": "s9t0",
-      "text": "Sifariş etdiyim məhsul qüsursuz və vaxtında çatdı.",
-      "productId": "1",
-      "likes": 20,
-      "dislikes": 0,
-      "likedByUser": true,
-      "dislikedByUser": false
-    },
-    {
       "id": "u1v2",
       "text": "Məhsulun istifadəsi çox rahatdır, amma uzunömürlü olacağını zənn etmirəm.",
       "productId": "2",
@@ -239,9 +230,9 @@
       "id": "a7b8",
       "text": "Məncə bu məhsul ən yaxşı seçim idi, hər şey ideal idi.",
       "productId": "2",
-      "likes": 23,
+      "likes": 22,
       "dislikes": 0,
-      "likedByUser": true,
+      "likedByUser": false,
       "dislikedByUser": false
     },
     {
@@ -252,6 +243,13 @@
       "dislikes": 3,
       "likedByUser": false,
       "dislikedByUser": true
+    },
+    {
+      "id": "62b2",
+      "text": "Yorum deneme test",
+      "productId": "4",
+      "likes": 0,
+      "dislikes": 0
     }
   ],
   "mostliked": [
@@ -356,6 +354,19 @@
       "question": "Necə qeydiyyatdan keçə bilərəm?",
       "answer": "Qeydiyyatdan keçmək üçün veb-saytın əsas səhifəsindəki `Qeydiyyat` düyməsinə klikləyin. Açılan formada adınız, e-poçt ünvanınız və şifrənizi daxil edin. Məlumatları doldurduqdan sonra e-poçtunuza təsdiq mesajı göndəriləcək. Linkə klikləyərək qeydiyyatınızı tamamlayın və hesabınıza daxil olun.",
       "category": "SecondLife"
+    }
+  ],
+  "users": [
+    {
+      "id": "8e51",
+      "username": "Ümüd Quliyev",
+      "email": "umudguliyev@outlook.com",
+      "password": "$2a$10$mqhJT8aE2vuI1mwUxkidHeiIkyihUEdmLwkhAycusn44RAOzqlR0C",
+      "phone_number": "554064043",
+      "profile_image": "",
+      "user_role": "user",
+      "created_at": "2024-09-30T11:29:36.641Z",
+      "updated_at": "2024-09-30T11:29:36.643Z"
     }
   ]
 }

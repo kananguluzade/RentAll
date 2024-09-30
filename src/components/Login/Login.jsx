@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import { loginUser as loginService } from "../Services/authService";
 import styles from "./Login.module.css";
+import { AuthContext } from "../Services/authContext";
 
-const Login = ({ onForgotPassword }) => {
+const Login = ({ onForgotPassword, onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { login } = useContext(AuthContext);
 
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       setError("Both fields are required.");
@@ -23,8 +26,18 @@ const Login = ({ onForgotPassword }) => {
       setError("Please enter a valid email address.");
       return;
     }
+
     setError("");
-    console.log("Logging in with:", { email, password });
+
+    try {
+      const user = await loginService(email, password);
+      login(user);
+      onClose();
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      setError(error.message || "An error occurred during login.");
+    }
   };
 
   return (
@@ -40,6 +53,8 @@ const Login = ({ onForgotPassword }) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="E-mail ünvanınızı daxil edin"
+              aria-label="Email"
+              required
             />
           </div>
         </div>
@@ -54,6 +69,8 @@ const Login = ({ onForgotPassword }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Şifrənizi daxil edin"
+              aria-label="Password"
+              required
             />
           </div>
         </div>
@@ -61,12 +78,14 @@ const Login = ({ onForgotPassword }) => {
         {error && <p className={styles.error}>{error}</p>}
 
         <div className={styles.form__save}>
-          <input type="checkbox" name="rules" />
-          <p>Yadda Saxla</p>
+          <input type="checkbox" name="rules" id="remember" />
+          <label htmlFor="remember">Yadda Saxla</label>
         </div>
 
         <div className={styles.forgot__password}>
-          <p onClick={onForgotPassword}>Şifrənizi unutmusunuz?</p>
+          <p onClick={onForgotPassword} style={{ cursor: "pointer" }}>
+            Şifrənizi unutmusunuz?
+          </p>
         </div>
 
         <div className={styles.other}>

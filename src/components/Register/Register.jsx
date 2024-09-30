@@ -7,6 +7,7 @@ import {
   faLock,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Register.module.css";
+import bcrypt from "bcryptjs"; // bcryptjs paketini ekleyin
 
 const Register = () => {
   const [fullname, setFullname] = useState("");
@@ -20,7 +21,7 @@ const Register = () => {
     return regex.test(email);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!fullname || !phone || !email || !password) {
       setError("All fields are required.");
@@ -36,7 +37,40 @@ const Register = () => {
     }
     setError("");
 
-    console.log("Registering with:", { fullname, phone, email, password });
+    const hashedPassword = bcrypt.hashSync(password, 10);
+
+    const newUser = {
+      username: fullname,
+      email,
+      password: hashedPassword,
+      phone_number: phone,
+      profile_image: "",
+      user_role: "user",
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      if (response.ok) {
+        console.log("User registered successfully:", newUser);
+        setFullname("");
+        setPhone("");
+        setEmail("");
+        setPassword("");
+      } else {
+        throw new Error("Failed to register user");
+      }
+    } catch (error) {
+      setError(error.message || "An error occurred during registration.");
+    }
   };
 
   return (
