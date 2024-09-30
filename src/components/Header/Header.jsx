@@ -14,7 +14,7 @@ import styles from "./Header.module.css";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +24,7 @@ const Header = () => {
   const [activeTab, setActiveTab] = useState("register");
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const getUserInitials = (fullName) => {
     if (!fullName) return "";
@@ -37,6 +38,7 @@ const Header = () => {
   const handleLogout = () => {
     logout();
     setIsUserMenuOpen(false);
+    navigate("/");
   };
 
   const userimg = user?.profile_image || "";
@@ -278,7 +280,10 @@ const Header = () => {
                       <div className={styles.user__settings}>
                         <p>Menu</p>
                         <ul className={styles.setting__list}>
-                          <NavLink to="cabinet/parametrler">
+                          <NavLink
+                            onClick={() => setIsUserMenuOpen(false)}
+                            to="cabinet/parametrler"
+                          >
                             <li>
                               <svg
                                 width="24"

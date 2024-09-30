@@ -20,7 +20,14 @@ const Hero = () => {
   }, []);
 
   return (
-    <Carousel arrows infinite={false} className={styles.carousel}>
+    <Carousel
+      autoplay
+      autoplaySpeed={3000}
+      arrows
+      infinite={true}
+      draggable={true}
+      className={styles.carousel}
+    >
       {slides.map((slide, index) => (
         <div key={index} className={styles.heroPage}>
           <div className={styles.heroLeftContent}>

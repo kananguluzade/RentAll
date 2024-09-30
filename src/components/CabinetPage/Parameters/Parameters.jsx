@@ -120,7 +120,7 @@ const Parameters = () => {
           <label for="files">Select file</label>
         </div>
       </div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.form__container}>
         <div className={styles.form__head}>
           <div className={styles.email}>
             <h4>E-mailiniz</h4>
@@ -165,10 +165,10 @@ const Parameters = () => {
         </div>
         <div className={styles.form__submit}>
           {isEditing ? (
-            <>
+            <div className={styles.form__save}>
               <input type="submit" value="Yadda saxla" />
               <p onClick={() => setIsEditing(false)}>Ləğv Elə</p>
-            </>
+            </div>
           ) : (
             <button
               type="button"
