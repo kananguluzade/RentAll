@@ -157,6 +157,7 @@ video {
   text-size-adjust: none;
   text-decoration: none;
   list-style: none;
+  user-select: none;
 }
 
 a:hover {
@@ -369,7 +370,7 @@ body {
 
 @media screen and (max-width: 1124px) {
   .custom-prev,
-.custom-next{
-  display: none;
-}
+  .custom-next {
+    display: none;
+  }
 }
