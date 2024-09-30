@@ -259,12 +259,16 @@
 }
 
 .user__panel {
+  max-width: 294px;
+  width: 100%;
+  justify-content: end;
   display: flex;
   align-items: center;
   gap: 24px;
 }
 
-.user__panel img {
+.user__panel .user__img {
+  cursor: pointer;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -280,11 +284,98 @@
   cursor: pointer;
 }
 
+.user__initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: var(--blue-default);
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+}
+
+.user__profile {
+  position: relative;
+}
+
+.user__menu {
+  margin-top: 8px;
+  border-radius: 12px;
+  padding: 12px;
+  background-color: #fafafa;
+  position: absolute;
+  z-index: 999;
+  right: 5%;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+}
+
+.menu__head {
+  margin-bottom: 24px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.menu__head ul {
+  display: flex;
+  width: 169px;
+  flex-direction: column;
+}
+
+.menu__head ul li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user__settings p {
+  margin-bottom: 8px;
+}
+
+.user__settings ul li {
+  display: flex;
+  cursor: pointer;
+  padding: 8px;
+  padding-left: 16px;
+  align-items: center;
+  gap: 16px;
+}
+
+.setting__list {
+  margin-bottom: 24px;
+}
+
+.log__out {
+  cursor: pointer;
+  color: #eb4a4a;
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  gap: 16px;
+}
+
 @media screen and (max-width: 1000px) {
   .hamburger {
     display: block;
     font-size: 24px;
     order: 1;
+  }
+
+  .hamburger__panels {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .user__panel {
+    display: none;
   }
 
   .header__search {
