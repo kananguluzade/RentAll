@@ -137,119 +137,46 @@
   ],
   "comments": [
     {
-      "id": "a1b2",
-      "text": "Məhsul keyfiyyətlidir, lakin qiymət bir az baha gəldi.",
-      "productId": "1",
-      "likes": 15,
-      "dislikes": 4,
-      "likedByUser": false,
-      "dislikedByUser": true
-    },
-    {
-      "id": "e5f6",
-      "text": "Bu məhsuldan gözləntim çox idi, lakin nəticə məyus etdi.",
-      "productId": "3",
-      "likes": 3,
-      "dislikes": 10,
-      "likedByUser": false,
-      "dislikedByUser": true
-    },
-    {
-      "id": "g7h8",
-      "text": "Məncə, bu məhsul tam qiymətini haqq edir, çox razı qaldım.",
-      "productId": "1",
-      "likes": 22,
+      "id": "a40f",
+      "text": "salam",
+      "productId": "2",
+      "likes": 1,
       "dislikes": 0,
+      "creatorByEmail": "umudguliyev@outlook.com",
+      "userName": "Ümüd Quliyev",
       "likedByUser": true,
       "dislikedByUser": false
     },
     {
-      "id": "k1l2",
-      "text": "Məhsul ümidləri doğrultdu, təkrar sifariş verəcəyəm.",
-      "productId": "3",
-      "likes": 17,
-      "dislikes": 1,
-      "likedByUser": true,
-      "dislikedByUser": false
-    },
-    {
-      "id": "m3n4",
-      "text": "Keyfiyyətinə görə bu məhsulu tövsiyə etmərəm.",
-      "productId": "1",
-      "likes": 5,
-      "dislikes": 12,
-      "likedByUser": false,
-      "dislikedByUser": true
-    },
-    {
-      "id": "o5p6",
-      "text": "Çatdırılma çox sürətli oldu, buna görə minnətdaram.",
+      "id": "aaba",
+      "text": "ela mehsuldur",
       "productId": "2",
-      "likes": 8,
-      "dislikes": 0,
-      "likedByUser": false,
-      "dislikedByUser": false
-    },
-    {
-      "id": "q7r8",
-      "text": "Qutunun içində çatlaq vardı, amma məhsul sağlam çıxdı.",
-      "productId": "3",
-      "likes": 3,
-      "dislikes": 2,
-      "likedByUser": false,
-      "dislikedByUser": false
-    },
-    {
-      "id": "u1v2",
-      "text": "Məhsulun istifadəsi çox rahatdır, amma uzunömürlü olacağını zənn etmirəm.",
-      "productId": "2",
-      "likes": 13,
-      "dislikes": 4,
-      "likedByUser": false,
-      "dislikedByUser": false
-    },
-    {
-      "id": "w3x4",
-      "text": "Əvvəlcə tərəddüd etdim, amma istifadə etdikcə çox xoşuma gəldi.",
-      "productId": "3",
-      "likes": 18,
-      "dislikes": 1,
-      "likedByUser": true,
-      "dislikedByUser": false
-    },
-    {
-      "id": "y5z6",
-      "text": "Qiyməti uyğun olsa da, məhsul gözlədiyimdən aşağı keyfiyyətdə çıxdı.",
-      "productId": "1",
-      "likes": 2,
-      "dislikes": 7,
-      "likedByUser": false,
-      "dislikedByUser": true
-    },
-    {
-      "id": "a7b8",
-      "text": "Məncə bu məhsul ən yaxşı seçim idi, hər şey ideal idi.",
-      "productId": "2",
-      "likes": 22,
-      "dislikes": 0,
-      "likedByUser": false,
-      "dislikedByUser": false
-    },
-    {
-      "id": "c9d0",
-      "text": "Çox keyfiyyətli məhsuldur, lakin qiymət bir qədər yüksəkdir.",
-      "productId": "3",
-      "likes": 9,
-      "dislikes": 3,
-      "likedByUser": false,
-      "dislikedByUser": true
-    },
-    {
-      "id": "62b2",
-      "text": "Yorum deneme test",
-      "productId": "4",
       "likes": 0,
-      "dislikes": 0
+      "dislikes": 1,
+      "creatorByEmail": "umudguliyev@outlook.com",
+      "userName": "Ümüd Quliyev",
+      "dislikedByUser": true,
+      "likedByUser": false
+    },
+    {
+      "id": "e39e",
+      "text": "her sey isleyir",
+      "productId": "2",
+      "likes": 1,
+      "dislikes": 0,
+      "creatorByEmail": "umudguliyev@outlook.com",
+      "userName": "Ümüd Quliyev",
+      "dislikedByUser": false,
+      "likedByUser": true
+    },
+    {
+      "id": "163e",
+      "text": "seviyye",
+      "productId": "1",
+      "likes": 0,
+      "dislikes": 0,
+      "creatorByEmail": "umudguliyev@outlook.com",
+      "userName": "Ümüd Quliyev"
     }
   ],
   "mostliked": [
@@ -362,7 +289,7 @@
       "username": "Ümüd Quliyev",
       "email": "umudguliyev@outlook.com",
       "password": "$2a$10$mqhJT8aE2vuI1mwUxkidHeiIkyihUEdmLwkhAycusn44RAOzqlR0C",
-      "phone_number": "554064043",
+      "phone_number": "0554064043",
       "profile_image": "",
       "user_role": "user",
       "created_at": "2024-09-30T11:29:36.641Z",

@@ -185,3 +185,9 @@
   font-size: 20px;
   font-weight: 500;
 }
+
+.guest__user{
+  font-size: 18px;
+  color:#585a5c;
+  text-align: center;
+}
