@@ -189,6 +189,7 @@ const Review = ({ productId }) => {
         dislikes: 0,
         creatorByEmail: user.email,
         userName: user.username,
+        userImg: user.profile_image,
         createdAt: new Date().toISOString(),
       };
 
@@ -220,7 +221,7 @@ const Review = ({ productId }) => {
       {user ? (
         <div className={styles.comment__maker}>
           <div className={styles.profile__picture}>
-            <img src={profilPicture} alt="profile-pic" />
+            <img src={user.profile_image} className={styles.comment__picture} alt="profile-pic" />
           </div>
 
           <div className={styles.text__write__line}>
@@ -259,7 +260,7 @@ const Review = ({ productId }) => {
           <div key={comment.id} className={styles.comment}>
             <div className={styles.comment__upper}>
               <img
-                src={profilPicture}
+                src={comment.userImg}
                 className={styles.profile__picture}
                 alt="profil-pic"
               />

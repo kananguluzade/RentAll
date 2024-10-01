@@ -8,6 +8,13 @@
 .profile__picture {
   max-width: 50px;
   max-height: 50px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.comment__picture {
+  border-radius: 50%;
 }
 
 .comment__maker {
@@ -186,8 +193,8 @@
   font-weight: 500;
 }
 
-.guest__user{
+.guest__user {
   font-size: 18px;
-  color:#585a5c;
+  color: #585a5c;
   text-align: center;
 }

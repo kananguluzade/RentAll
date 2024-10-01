@@ -81,22 +81,21 @@ const Header = () => {
     handleClose();
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target) &&
-        userMenuRef.current &&
-        !userMenuRef.current.contains(event.target)
-      ) {
-        setIsOpen(false);
-        setIsUserMenuOpen(false);
-      }
-    };
+ useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (
+      (dropdownRef.current && !dropdownRef.current.contains(event.target)) &&
+      (userMenuRef.current && !userMenuRef.current.contains(event.target))
+    ) {
+      setIsOpen(false);
+      setIsUserMenuOpen(false);
+    }
+  };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [dropdownRef, userMenuRef]);
+  document.addEventListener("mousedown", handleClickOutside);
+  
+  return () => document.removeEventListener("mousedown", handleClickOutside);
+}, [dropdownRef, userMenuRef]);
 
   const categories = [
     { label: "Evlər və mənzillər", icon: "fa-code" },
