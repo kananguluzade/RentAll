@@ -137,57 +137,34 @@
   ],
   "comments": [
     {
-      "id": "a40f",
-      "text": "salam",
-      "productId": "2",
-      "likes": 1,
-      "dislikes": 0,
-      "creatorByEmail": "umudguliyev@outlook.com",
-      "userName": "Ümüd Quliyev",
-      "likedByUser": true,
-      "dislikedByUser": false
-    },
-    {
-      "id": "aaba",
-      "text": "ela mehsuldur",
+      "id": "bb18",
+      "text": "Test message",
       "productId": "2",
       "likes": 0,
-      "dislikes": 1,
-      "creatorByEmail": "umudguliyev@outlook.com",
-      "userName": "Ümüd Quliyev",
-      "dislikedByUser": true,
-      "likedByUser": false
-    },
-    {
-      "id": "e39e",
-      "text": "her sey isleyir",
-      "productId": "2",
-      "likes": 1,
       "dislikes": 0,
       "creatorByEmail": "umudguliyev@outlook.com",
       "userName": "Ümüd Quliyev",
-      "dislikedByUser": false,
-      "likedByUser": true
+      "createdAt": "2024-09-30T23:58:42.350Z"
     },
     {
-      "id": "163e",
-      "text": "seviyye",
-      "productId": "1",
+      "id": "7629",
+      "text": "Bizden hizli si yok ",
+      "productId": "2",
       "likes": 0,
       "dislikes": 0,
       "creatorByEmail": "umudguliyev@outlook.com",
-      "userName": "Ümüd Quliyev"
+      "userName": "Ümüd Quliyev",
+      "createdAt": "2024-09-30T23:58:53.881Z"
     },
     {
-      "id": "4244",
-      "text": "Ozuduki var",
+      "id": "0a13",
+      "text": "Salaaaaaaaaaaaaaaaaaam",
       "productId": "1",
       "likes": 0,
       "dislikes": 0,
       "creatorByEmail": "umudguliyev@outlook.com",
       "userName": "Ümüd Quliyev",
-      "likedByUser": false,
-      "dislikedByUser": false
+      "createdAt": "2024-10-01T00:03:08.274Z"
     }
   ],
   "mostliked": [

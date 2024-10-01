@@ -19,18 +19,35 @@ const Review = ({ productId }) => {
     }));
   };
 
-  const handleDelete = (comment) => {
-    fetch(`http://localhost:3000/comments/${comment.id}`, {
+  const handleDelete = (commentToDelete) => {
+    fetch(`http://localhost:3000/comments/${commentToDelete.id}`, {
       method: "DELETE",
     })
       .then(() => {
-        setCommentsList(
-          commentsList.filter((comment) => {
-            comment.id !== comment.id;
-          })
+        setCommentsList((prevComments) =>
+          prevComments.filter((comment) => comment.id !== commentToDelete.id)
         );
       })
       .catch((error) => console.error("Error deleting comment:", error));
+  };
+
+  const formatRelativeDate = (dateString) => {
+    const now = new Date();
+    const date = new Date(dateString);
+    const diffInSeconds = Math.floor((now - date) / 1000);
+
+    if (diffInSeconds < 60) {
+      return `${diffInSeconds} saniyə əvvəl`;
+    } else if (diffInSeconds < 3600) {
+      const minutes = Math.floor(diffInSeconds / 60);
+      return `${minutes} dəqiqə əvvəl`;
+    } else if (diffInSeconds < 86400) {
+      const hours = Math.floor(diffInSeconds / 3600);
+      return `${hours} saat əvvəl`;
+    } else {
+      const days = Math.floor(diffInSeconds / 86400);
+      return `${days} gün əvvəl`;
+    }
   };
 
   const handleLike = (id) => {
@@ -172,6 +189,7 @@ const Review = ({ productId }) => {
         dislikes: 0,
         creatorByEmail: user.email,
         userName: user.username,
+        createdAt: new Date().toISOString(),
       };
 
       fetch("http://localhost:3000/comments", {
@@ -248,7 +266,7 @@ const Review = ({ productId }) => {
               <div className={styles.comment__username__options}>
                 <div className={styles.comment__about}>
                   <h6>{comment.userName}</h6>
-                  <span>3 gün əvvəl</span>
+                  {formatRelativeDate(comment.createdAt)}
                 </div>
                 {user && (
                   <div className={styles.comment__option__menu}>

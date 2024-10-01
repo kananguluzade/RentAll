@@ -115,9 +115,9 @@ const Parameters = () => {
             type="file"
             onChange={handleImageChange}
             id="files"
-            class="hidden"
+            className="hidden"
           />
-          <label for="files">Select file</label>
+          <label htmlFor="files">Select file</label>
         </div>
       </div>
       <form onSubmit={handleSubmit} className={styles.form__container}>

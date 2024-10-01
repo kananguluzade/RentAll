@@ -26,13 +26,13 @@
   gap: 8px;
 }
 
-.share__desc .share__price {
+.share__desc .share__category {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.share__price h4 {
+.share__category h4 {
   color: var(--black);
 }
 

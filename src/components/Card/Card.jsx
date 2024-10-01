@@ -8,8 +8,8 @@ const Card = ({ share }) => {
         <img src={share.image} alt={share.description} />
       </div>
       <div className={styles.share__desc}>
-        <div className={styles.share__price}>
-          <h4>{share.price}</h4>
+        <div className={styles.share__category}>
+          <h4>{share.category}</h4>
           <svg
             width="20"
             height="18"
