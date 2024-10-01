@@ -225,7 +225,7 @@ const Review = ({ productId }) => {
           </div>
 
           <div className={styles.text__write__line}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={styles.text__form}>
               <input
                 type="text"
                 placeholder="Rəy yaz..."
