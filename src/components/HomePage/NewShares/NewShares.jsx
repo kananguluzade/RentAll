@@ -7,7 +7,7 @@ const NewShares = () => {
   const [shares, setShares] = useState([]);
   const [visibleSharesCount, setVisibleSharesCount] = useState(4);
   const [showMore, setShowMore] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); // Yükleme durumu için ekledik
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchShares = async () => {
@@ -18,7 +18,7 @@ const NewShares = () => {
       } catch (error) {
         console.error("Error fetching shares:", error);
       } finally {
-        setIsLoading(false); // Veriler yüklendikten sonra yükleme durumunu kapat
+        setIsLoading(false);
       }
     };
 

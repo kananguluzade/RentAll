@@ -8,6 +8,7 @@ import Cabinet from "./pages/Cabinet/Cabinet";
 import Sharing from "./components/CabinetPage/Sharing/Sharing";
 import Parameters from "./components/CabinetPage/Parameters/Parameters";
 import Activity from "./components/CabinetPage/Activity/Activity";
+import AddProduct from "./pages/AddProduct/AddProduct";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="parametrler" element={<Parameters />} />
           <Route path="aktivlik" element={<Activity />} />
         </Route>
+        <Route path="cabinet/elan-yerlesdir" element={<AddProduct />} />
       </Route>
     </Routes>
   );

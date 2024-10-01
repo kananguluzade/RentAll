@@ -1,0 +1,342 @@
+.tutorial__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 0;
+}
+
+.tutorial__text {
+  max-width: 509px;
+  width: 100%;
+}
+
+.tutorial__text h4 {
+  margin-bottom: 16px;
+}
+
+.tutorial__video {
+  max-width: 500px;
+  height: 300px;
+  width: 100%;
+}
+
+.tutorial__video img {
+  border-radius: 24px;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  -ms-border-radius: 24px;
+  -o-border-radius: 24px;
+}
+
+.add__product {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 0;
+}
+
+.product__main__img {
+  max-width: 436px;
+  width: 100%;
+  height: 400px;
+}
+
+.product__main__img img {
+  border-radius: 24px;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  -ms-border-radius: 24px;
+  -o-border-radius: 24px;
+}
+
+.product__main__img input[type="file"] {
+  display: none;
+}
+
+.product__img {
+  width: 100%;
+  max-width: 436px;
+}
+
+.product__no__img {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #e4e4e4;
+}
+
+.product__no__img svg {
+  width: 100px;
+  height: 92px;
+  margin-bottom: 40px;
+}
+
+.product__img__sidebar {
+  margin-top: 32px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product__img__sidebar .product__img__other {
+  display: flex;
+}
+
+.product__img__sidebar .placeholderImage {
+  width: 100px;
+  height: 100px;
+  border: 1px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.placeholderImage svg {
+  width: 25px;
+  height: 25px;
+}
+
+.product__img__sidebar .uploadedImage {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.select__options {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+}
+
+.category__dropdown,
+.cities__dropdown {
+  position: relative;
+  width: 338px;
+}
+
+.category__dropdown .dropdown__menu {
+  overflow: hidden;
+}
+
+.category__dropdown .dropdown__item {
+  width: 338px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dropdown__label {
+  padding: 12px 24px;
+  background-color: var(--blue-default);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+}
+
+.dropdown__label span {
+  color: var(--white);
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.dropdown__label svg {
+  width: 24px;
+  height: 24px;
+  color: var(--white);
+}
+
+.dropdown__label,
+.dropdown__item {
+  display: block;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.dropdown__item {
+  width: 330px;
+  height: 40px;
+  padding: 8px 36px 8px 36px;
+}
+
+.dropdown__item:first-child {
+  border-radius: 12px 12px 0px 0px;
+  -webkit-border-radius: 12px 12px 0px 0px;
+  -moz-border-radius: 12px 12px 0px 0px;
+  -ms-border-radius: 12px 12px 0px 0px;
+  -o-border-radius: 12px 12px 0px 0px;
+}
+
+.dropdown__item:last-child {
+  border-radius: 0 0 12px 12px;
+  -webkit-border-radius: 0 0 12px 12px;
+  -moz-border-radius: 0 0 12px 12px;
+  -ms-border-radius: 0 0 12px 12px;
+  -o-border-radius: 0 0 12px 12px;
+}
+
+.dropdown__item:hover {
+  color: #000;
+  background: var(--gray-light);
+}
+
+.dropdown__label {
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dropdown__menu {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  overflow-y: scroll;
+  border-radius: 12px;
+  top: 100%;
+  z-index: 1;
+  transition: height 0.8s ease, opacity 0.5s ease;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  -webkit-transition: height 0.8s ease, opacity 0.5s ease;
+  -moz-transition: height 0.8s ease, opacity 0.5s ease;
+  -ms-transition: height 0.8s ease, opacity 0.5s ease;
+  -o-transition: height 0.8s ease, opacity 0.5s ease;
+}
+
+.dropdown__menu::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 4px;
+  height: 272px;
+  background-color: var(--gray-light);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+
+.dropdown__menu::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  height: 60px;
+  background-color: var(--blue-default);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+
+.dropdown__menu.show {
+  visibility: visible;
+  opacity: 1;
+  height: 320px;
+}
+
+.dropdown__item {
+  color: #2c3e50;
+  z-index: 100;
+}
+
+.dropdown__item {
+  color: #2c3e50;
+  z-index: 100;
+}
+
+.active {
+  background: var(--blue-default);
+  color: white;
+}
+
+.icon__rotate__true {
+  transform: rotate(180deg);
+  transition: 0.3s;
+}
+
+.icon__rotate__false {
+  transform: rotate(360deg);
+  transition: 0.3s;
+}
+
+.product__head {
+  margin: 32px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.product__info h6 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  padding-left: 16px;
+  margin-bottom: 4px;
+  color: #585a5c;
+}
+
+.product__info input {
+  width: 338px;
+  height: 50px;
+  padding: 8px 16px 8px 16px;
+  border-radius: 12px;
+  border: 1p solid #252525;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+}
+
+.product__info textarea {
+  border: 2px solid #585a5c;
+  padding: 15px;
+  width: 100% !important;
+  min-height: 210px;
+  max-height: 290px;
+  border-radius: 12px;
+  resize: vertical;
+  background-color: transparent;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+}
+
+.product__desc {
+  margin-bottom: 32px;
+}
+
+.product__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product__buttons input {
+  height: 62px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+}
+
+.product__buttons .edited__button {
+  background-color: transparent;
+  border: 2px solid var(--blue-default);
+  color: var(--blue-default);
+}
+
+.product__buttons .save__button {
+  color: var(--white);
+  background-color: var(--blue-default);
+}
