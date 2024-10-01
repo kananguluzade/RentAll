@@ -7,6 +7,7 @@ const NewShares = () => {
   const [shares, setShares] = useState([]);
   const [visibleSharesCount, setVisibleSharesCount] = useState(4);
   const [showMore, setShowMore] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Yükleme durumu için ekledik
 
   useEffect(() => {
     const fetchShares = async () => {
@@ -16,6 +17,8 @@ const NewShares = () => {
         setShares(data.shares);
       } catch (error) {
         console.error("Error fetching shares:", error);
+      } finally {
+        setIsLoading(false); // Veriler yüklendikten sonra yükleme durumunu kapat
       }
     };
 
@@ -37,11 +40,15 @@ const NewShares = () => {
         <h3>Yeni paylaşılanlar</h3>
       </div>
       <div className={styles.shares__list}>
-        {shares.slice(0, visibleSharesCount).map((share) => (
-          <Link key={share.id} to={`/product/${share.id}`}>
-            <Card share={share} />
-          </Link>
-        ))}
+        {isLoading
+          ? Array.from({ length: visibleSharesCount }).map((_, index) => (
+              <Card key={index} isLoading={true} />
+            ))
+          : shares.slice(0, visibleSharesCount).map((share) => (
+              <Link key={share.id} to={`/product/${share.id}`}>
+                <Card share={share} isLoading={false} />
+              </Link>
+            ))}
       </div>
       <div className={styles.more__shares}>
         <button onClick={loadMoreShares}>

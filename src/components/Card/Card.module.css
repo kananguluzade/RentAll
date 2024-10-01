@@ -4,10 +4,55 @@
   border-radius: 12px;
   padding: 14px 12px;
   background-color: var(--gray-light);
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  -ms-border-radius: 12px;
-  -o-border-radius: 12px;
+  position: relative; /* Gölgelerin düzgün görünmesi için */
+}
+
+.card {
+  width: 100%;
+  height: 340px; /* Kart yüksekliği */
+  border-radius: 12px;
+  box-shadow: 0 10px 45px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Yuvarlatılmış kenarlar için */
+
+  &:empty::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+
+    background-image: linear-gradient(
+        90deg,
+        rgba(211, 211, 211, 0) 0%,
+        rgba(211, 211, 211, 0.8) 50%,
+        rgba(211, 211, 211, 0) 100%
+      ),
+      /* Blur animasyonu */ linear-gradient(white 32px, transparent 0),
+      /* Başlık */ linear-gradient(white 16px, transparent 0),
+      /* Açıklama 1 */ linear-gradient(white 16px, transparent 0),
+      /* Açıklama 2 */
+        radial-gradient(circle 16px at center, white 99%, transparent 0),
+      /* Avatar */ linear-gradient(white 40px, transparent 0); /* Alt kısım */
+
+    background-size: 200px calc(340px - 40px), /* Blur animasyonu */ 200px 32px,
+      /* Başlık */ 230px 16px, /* Açıklama 1 */ 180px 16px,
+      /* Açıklama 2 */ 32px 32px, /* Avatar */ 100% 40px; /* Alt kısım */
+
+    background-position: -150% 0, /* Animasyon */ 24px 180px,
+      /* Başlık */ 24px 242px, /* Açıklama 1 */ 24px 265px,
+      /* Açıklama 2 */ 24px 24px, /* Avatar */ 0 calc(340px - 40px); /* Alt kısım */
+
+    background-repeat: no-repeat;
+    animation: loading 1.5s infinite;
+  }
+}
+
+@keyframes loading {
+  to {
+    background-position: 350% 0, /* Animasyon */ 24px 180px,
+      /* Başlık */ 24px 242px, /* Açıklama 1 */ 24px 265px,
+      /* Açıklama 2 */ 24px 24px, /* Avatar */ 0 calc(340px - 40px); /* Alt kısım */
+  }
 }
 
 .share__img {
@@ -55,10 +100,6 @@
   height: 30px;
   border-radius: 50%;
   object-fit: contain;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
 }
 
 .heart__icon {
@@ -73,6 +114,7 @@
 @media screen and (max-width: 375px) {
   .share {
     max-width: 152px;
+    width: 100%;
     padding: 12px 8px;
   }
 
