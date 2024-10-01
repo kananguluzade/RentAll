@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./ProductDetails.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,14 +19,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Review from "../Review/Review";
 import MostLiked from "../HomePage/MostLiked/MostLiked";
-import { AuthContext } from "../Services/authContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
-  const { user } = useContext(AuthContext);
 
   const images = ["/test.png", "/test.png", "/test.png", "/test.png"];
 
