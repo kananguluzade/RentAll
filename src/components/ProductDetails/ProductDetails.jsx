@@ -71,7 +71,7 @@ const ProductDetails = () => {
         <div className={styles.product__detail}>
           <div className={styles.product__img}>
             <div className={styles.img__sidebar}>
-              {images.map((image, index) => (
+              {product.otherImages.map((image, index) => (
                 <div key={index} className={styles.sidebar__img}>
                   <img
                     src={image}
@@ -122,7 +122,7 @@ const ProductDetails = () => {
           <div className={styles.product__info}>
             <div className={styles.info__container}>
               <div className={styles.product__author}>
-                <img src={product.image} alt="" />
+                <img src={product.authorImg} alt="" />
                 <span>{product.author}</span>
               </div>
               <div className={styles.details}>
@@ -152,15 +152,7 @@ const ProductDetails = () => {
             </div>
           </div>
           <div className={styles.product__description}>
-            <p>
-              Baki şəhərinin sakit və əlverişli ərazisində yerləşən bu rahat və
-              geniş həyət evi uzunmüddətli yaşayış üçün ideal variantdır. Ev 120
-              m² sahəsi olan 3 geniş otaqdan, işıqlı mətbəxdən və sanitar
-              qovşaqdan ibarətdir. Evin ən böyük üstünlüyü yaşıllıqla əhatə
-              olunmuş geniş həyətidir. Həyət, ailəvi istirahət, bağçılıq və açıq
-              havada vaxt keçirmək üçün əlverişlidir. Evdə zəruri olan hər bir
-              şərait mövcuddur və kirayəçilər rahat yaşayış təminatı tapacaqlar.
-            </p>
+            <p>{product.content}</p>
           </div>
         </div>
         <Review productId={product.id} />

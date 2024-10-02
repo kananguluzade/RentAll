@@ -83,6 +83,10 @@
 
 .share__desc .share__info p {
   color: var(--black);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .share__desc .share__author {

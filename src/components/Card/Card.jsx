@@ -32,10 +32,10 @@ const Card = ({ share, isLoading }) => {
               </svg>
             </div>
             <div className={styles.share__info}>
-              <p>{share.description}</p>
+              <p>{share.content}</p>
             </div>
             <div className={styles.share__author}>
-              <img src={share.authorImage} alt={share.author} />
+              <img src={share.authorImg} alt={share.author} />
               <p>{share.author}</p>
             </div>
           </div>
