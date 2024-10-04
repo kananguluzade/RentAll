@@ -44,9 +44,11 @@ const MostLiked = () => {
         ))}
       </div>
       <div className={styles.more__shares}>
-        <button onClick={loadMoreShares}>
-          {showMore ? "Daha az göstər" : "Daha çox göstər"}
-        </button>
+        {mostLiked.length > 4 && (
+          <button onClick={loadMoreShares}>
+            {showMore ? "Daha az göstər" : "Daha çox göstər"}
+          </button>
+        )}
       </div>
     </div>
   );

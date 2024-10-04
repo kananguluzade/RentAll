@@ -117,7 +117,7 @@ const Parameters = () => {
             id="files"
             className="hidden"
           />
-          <label htmlFor="files">Select file</label>
+          <label htmlFor="files">Fayıl seçin</label>
         </div>
       </div>
       <form onSubmit={handleSubmit} className={styles.form__container}>

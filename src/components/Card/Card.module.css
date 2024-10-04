@@ -2,7 +2,7 @@
   max-width: 282px;
   width: 100%;
   border-radius: 12px;
-  padding: 14px 12px;
+  padding: 14px 16px;
   background-color: var(--gray-light);
   position: relative;
 }
@@ -63,6 +63,7 @@
 
 .share__desc {
   display: flex;
+  width: 250px;
   flex-direction: column;
   gap: 8px;
 }
