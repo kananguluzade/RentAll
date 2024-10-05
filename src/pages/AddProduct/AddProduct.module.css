@@ -321,6 +321,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-align: center;
+  position: relative;
 }
 
 .product__buttons input {
@@ -336,7 +338,42 @@
   color: var(--blue-default);
 }
 
-.product__buttons .save__button {
+.product__buttons .save__button input {
   color: var(--white);
   background-color: var(--blue-default);
+}
+
+.product__buttons .save__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 338px;
+  width: 100%;
+}
+
+.circularProgress {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
+
+.loader {
+  text-align: center;
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid var(--blue-default);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

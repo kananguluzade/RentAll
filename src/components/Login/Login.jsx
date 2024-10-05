@@ -1,56 +1,91 @@
 import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faLock,
+  faCheckCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import styles from "./Login.module.css";
 import { AuthContext } from "../Services/authContext";
+import Validation from "../Validation/Validation";
+import { notification } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ onForgotPassword, onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
   const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  
-  const validateEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
+    setErrors((prevErrors) => ({ ...prevErrors, email: "", general: "" }));
+  };
+
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value);
+    setErrors((prevErrors) => ({ ...prevErrors, password: "", general: "" }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!email || !password) {
-      setError("Both fields are required.");
+    setLoading(true);
+    setSuccess(false);
+
+    const validationErrors = Validation({ email, password }, "login");
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      setLoading(false);
       return;
     }
-
-    if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
-      return;
-    }
-
-    setError("");
 
     try {
       const response = await fetch("http://localhost:3000/users");
       const users = await response.json();
 
-      const user = users.find(
-        (user) => user.email === email && user.password === password
-      );
+      const user = users.find((user) => user.gmail === email);
 
-      if (user) {
-
+      if (user && user.password === password) {
         login(user);
-        onClose();
-        setEmail("");
-        setPassword("");
+
+        setTimeout(() => {
+          setSuccess(true);
+          setLoading(false);
+
+          notification.success({
+            message: "Uğurla Giriş Etdiniz!",
+            description: "Yönləndirilirsiniz...",
+            duration: 2,
+          });
+
+          setEmail("");
+          setPassword("");
+
+          setTimeout(() => {
+            navigate("/");
+            onClose();
+          }, 2000);
+        }, 2000);
       } else {
-        setError("Invalid email or password. Please try again.");
+        setErrors({
+          general:
+            "Yanlış e-mail və ya şifrə. Zəhmət olmasa, yenidən cəhd edin.",
+        });
+        setLoading(false);
       }
     } catch (error) {
-      setError("An error occurred while logging in. Please try again.");
-      console.error("Login error:", error);
+      setErrors({
+        general:
+          "Giriş edərkən bir səhv baş verdi. Zəhmət olmasa, yenidən cəhd edin.",
+      });
+      console.error("Giriş xətası:", error);
+      setLoading(false);
     }
   };
 
@@ -65,12 +100,12 @@ const Login = ({ onForgotPassword, onClose }) => {
               type="email"
               name="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChangeEmail}
               placeholder="E-mail ünvanınızı daxil edin"
               aria-label="Email"
-              required
             />
           </div>
+          {errors.email && <p className={styles.error}>{errors.email}</p>}
         </div>
 
         <div className={styles.password}>
@@ -81,15 +116,15 @@ const Login = ({ onForgotPassword, onClose }) => {
               type="password"
               name="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChangePassword}
               placeholder="Şifrənizi daxil edin"
               aria-label="Password"
-              required
             />
           </div>
+          {errors.password && <p className={styles.error}>{errors.password}</p>}
         </div>
 
-        {error && <p className={styles.error}>{error}</p>}
+        {errors.general && <p className={styles.error}>{errors.general}</p>}
 
         <div className={styles.form__save}>
           <input type="checkbox" name="rules" id="remember" />
@@ -107,7 +142,29 @@ const Login = ({ onForgotPassword, onClose }) => {
         </div>
 
         <div className={styles.form__submit}>
-          <input type="submit" value="Giriş" />
+          {loading ? (
+            <div className={styles.loader}></div>
+          ) : (
+            !success && <input type="submit" value="Giriş" />
+          )}
+          {success && (
+            <svg
+              width="24"
+              height="24"
+              className={styles.success__icon}
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.5 12.2381L10 17L19.5 7"
+                stroke="#FAFAFA"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          )}
         </div>
       </form>
     </div>

@@ -8,6 +8,21 @@
   margin-bottom: 40px;
 }
 
+.user__initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background-color: var(--blue-default);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+}
+
 .add__preview {
   margin-top: 16px;
   display: flex;
@@ -137,4 +152,14 @@
 .form__submit p {
   cursor: pointer;
   margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .form__head {
+    flex-direction: column; 
+  }
+
+  .email, .phone {
+    max-width: 100%;
+  }
 }

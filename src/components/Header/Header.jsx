@@ -8,6 +8,14 @@ import {
   faBars,
   faTimes,
   faCircleXmark,
+  faHouse,
+  faCar,
+  faGamepad,
+  faFutbol,
+  faStore,
+  faTv,
+  faCashRegister,
+  faCamera,
 } from "@fortawesome/free-solid-svg-icons";
 import { Modal } from "rsuite";
 import styles from "./Header.module.css";
@@ -22,30 +30,38 @@ const Header = () => {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("register");
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const getUserInitials = (fullName) => {
-    if (!fullName) return "";
-    const nameParts = fullName.split(" ");
-    const initials = nameParts
-      .map((part) => part.charAt(0).toUpperCase())
-      .join("");
-    return initials;
+  const userFullName = `${user?.name || ""} ${user?.surname || ""}`;
+
+  const userimg = user?.profile_image || "";
+
+  const dropdownRef = useRef(null);
+  const userMenuRef = useRef(null);
+
+  const getUserInitials = () => {
+    const [first, last] = [user?.name || "", user?.surname || ""];
+    return `${first.charAt(0).toUpperCase()}${last.charAt(0).toUpperCase()}`;
   };
 
   const handleLogout = () => {
     logout();
     setIsUserMenuOpen(false);
     navigate("/");
+    setShowLogoutModal(false);
   };
 
-  const userimg = user?.profile_image || "";
-  const userFullName = user?.username;
+  const handleCloseLogoutModal = () => {
+    setShowLogoutModal(false);
+  };
 
-  const dropdownRef = useRef(null);
-  const userMenuRef = useRef(null);
+  const confirmLogout = () => {
+    setShowLogoutModal(true);
+  };
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
@@ -81,26 +97,33 @@ const Header = () => {
     handleClose();
   };
 
- useEffect(() => {
-  const handleClickOutside = (event) => {
-    if (
-      (dropdownRef.current && !dropdownRef.current.contains(event.target)) &&
-      (userMenuRef.current && !userMenuRef.current.contains(event.target))
-    ) {
-      setIsOpen(false);
-      setIsUserMenuOpen(false);
-    }
-  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target)
+      ) {
+        setIsOpen(false);
+        setIsUserMenuOpen(false);
+      }
+    };
 
-  document.addEventListener("mousedown", handleClickOutside);
-  
-  return () => document.removeEventListener("mousedown", handleClickOutside);
-}, [dropdownRef, userMenuRef]);
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [dropdownRef, userMenuRef]);
 
   const categories = [
-    { label: "Evlər və mənzillər", icon: "fa-code" },
-    { label: "Avtomobillər", icon: "fa-arrows-alt" },
-    { label: "Əyləncə", icon: "fa-cog" },
+    { label: "Evlər və mənzillər", icon: faHouse },
+    { label: "Avtomobillər", icon: faCar },
+    { label: "Əyləncə", icon: faGamepad },
+    { label: "İdman", icon: faFutbol },
+    { label: "Ticarət sahələri", icon: faStore },
+    { label: "Elektronika", icon: faTv },
+    { label: "Məişət texnikası", icon: faCashRegister },
+    { label: "Tədbir avadanlığı", icon: faCamera },
   ];
 
   return (
@@ -176,7 +199,7 @@ const Header = () => {
                       <img src={userimg} alt="User" />
                     ) : (
                       <span className={styles.user__initials}>
-                        {getUserInitials(userFullName)}
+                        {getUserInitials()}
                       </span>
                     )}
                   </div>
@@ -191,7 +214,7 @@ const Header = () => {
                   }`}
                   onClick={toggleDropdown}
                 >
-                  Kateqoriyalar
+                  <span>Kateqoriyalar</span>
                   <FontAwesomeIcon
                     icon={faAngleDown}
                     className={`${
@@ -208,6 +231,7 @@ const Header = () => {
                 >
                   {categories.map((item, index) => (
                     <li key={index} className={styles.dropdown__item}>
+                      <FontAwesomeIcon icon={item.icon} />
                       {item.label}
                     </li>
                   ))}
@@ -346,7 +370,7 @@ const Header = () => {
                           </li>
                         </ul>
                       </div>
-                      <div onClick={handleLogout} className={styles.log__out}>
+                      <div onClick={confirmLogout} className={styles.log__out}>
                         <svg
                           width="24"
                           height="24"
@@ -390,6 +414,47 @@ const Header = () => {
           </div>
         </div>
       </div>
+
+      <Modal
+        open={showLogoutModal}
+        onClose={handleCloseLogoutModal}
+        backdrop="static"
+        className={styles.logout__modal}
+      >
+        <Modal.Body>
+          <div className={styles.logout__container}>
+            <div className={styles.logout__title}>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 8V12.5M12 3.5C8 3.5 3.5 6.5 3.5 12C3.5 17.5 8 20.5 12 20.5C16 20.5 20.5 17.5 20.5 12C20.5 6.5 16 3.5 12 3.5ZM12 15C11.8333 15 11.5 15.1 11.5 15.5C11.5 15.9 11.8333 16 12 16C12.1667 16 12.5 15.9 12.5 15.5C12.5 15.1 12.1667 15 12 15Z"
+                  stroke="#FAFAFA"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+
+              <h5>Çıxmaq istədiyinizə əminsiniz?</h5>
+            </div>
+            <div className={styles.logout__submit}>
+              <button className={styles.logout__button} onClick={handleLogout}>
+                Bəli
+              </button>
+              <button
+                className={styles.cancel__button}
+                onClick={handleCloseLogoutModal}
+              >
+                Xeyr
+              </button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
 
       <Modal size="full" open={isRegisterOpen} onClose={handleClose}>
         <Modal.Body className={`${styles.modal__form} ${activeTab}`}>

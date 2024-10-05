@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./Card.module.css";
+import { AuthContext } from "../Services/authContext";
 
 const Card = ({ share, isLoading }) => {
+  const { user } = useContext(AuthContext);
   return (
     <div className={styles.share}>
       {isLoading ? (
@@ -35,8 +37,8 @@ const Card = ({ share, isLoading }) => {
               <p>{share.content}</p>
             </div>
             <div className={styles.share__author}>
-              <img src={share.authorImg} alt={share.author} />
-              <p>{share.author}</p>
+              <img src={user?.profile_image} alt={share.author} />
+              <p>{user?.fullname}</p>
             </div>
           </div>
         </>

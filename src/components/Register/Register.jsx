@@ -1,58 +1,77 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faPhone,
   faEnvelope,
   faLock,
+  faEye,
+  faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Register.module.css";
-import bcrypt from "bcryptjs"; // bcryptjs paketini ekleyin
+import Validation from "../Validation/Validation";
 
 const Register = () => {
   const [fullname, setFullname] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [profileImage, setProfileImage] = useState("");
+  const [roleType, setRoleType] = useState("user");
+  const [errors, setErrors] = useState({});
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
-
-  const validateEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+  const handleChange = (setter) => (e) => {
+    setter(e.target.value);
+    setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: "" }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!fullname || !phone || !email || !password) {
-      setError("All fields are required.");
-      return;
-    }
-    if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
-      return;
-    }
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters long.");
-      return;
-    }
-    setError("");
 
-    const hashedPassword = bcrypt.hashSync(password, 10);
+    const validationErrors = Validation(
+      { fullname, phone, email, password },
+      "register"
+    );
 
-    const newUser = {
-      username: fullname,
-      email,
-      password: hashedPassword,
-      phone_number: phone,
-      profile_image: "",
-      user_role: "user",
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    };
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     try {
-      const response = await fetch("http://localhost:3000/users", {
+      const response = await fetch("http://localhost:3000/users");
+      const users = await response.json();
+
+      const emailExists = users.some((user) => user.gmail === email);
+      if (emailExists) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "Bu e-mail artıq istifadə olunur.",
+        }));
+        return;
+      }
+
+      setErrors({}); // Clear previous errors
+
+      const [name, surname] = fullname.split(" "); // Extract name and surname
+      const newUser = {
+        name,
+        surname,
+        fullname,
+        gmail: email,
+        password,
+        phone_number: phone,
+        profile_image: profileImage || "",
+        role_type: roleType,
+        token: "",
+        is_verified: false,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        uploaded_at: new Date().toISOString(),
+      };
+
+      const registerResponse = await fetch("http://localhost:3000/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,17 +79,21 @@ const Register = () => {
         body: JSON.stringify(newUser),
       });
 
-      if (response.ok) {
+      if (registerResponse.ok) {
         console.log("User registered successfully:", newUser);
         setFullname("");
         setPhone("");
         setEmail("");
         setPassword("");
+        setProfileImage("");
+        setRoleType("user");
       } else {
         throw new Error("Failed to register user");
       }
     } catch (error) {
-      setError(error.message || "An error occurred during registration.");
+      setErrors({
+        general: error.message || "An error occurred during registration.",
+      });
     }
   };
 
@@ -78,7 +101,7 @@ const Register = () => {
     <div className="container">
       <div className={styles.register}>
         <form onSubmit={handleSubmit} className={styles.register__form}>
-          <div className={styles.regiser__fullname}>
+          <div className={styles.register__fullname}>
             <h4>Ad və soyad</h4>
             <div className={styles.form__input}>
               <FontAwesomeIcon icon={faUser} />
@@ -86,13 +109,16 @@ const Register = () => {
                 type="text"
                 name="fullname"
                 value={fullname}
-                onChange={(e) => setFullname(e.target.value)}
+                onChange={handleChange(setFullname)}
                 placeholder="Ad və soyadınızı daxil edin"
               />
             </div>
+            {errors.fullname && (
+              <p className={styles.error}>{errors.fullname}</p>
+            )}
           </div>
 
-          <div className={styles.regiser__phone}>
+          <div className={styles.register__phone}>
             <h4>Telefon</h4>
             <div className={styles.form__input}>
               <FontAwesomeIcon icon={faPhone} />
@@ -100,13 +126,15 @@ const Register = () => {
                 type="text"
                 name="phone"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={handleChange(setPhone)}
                 placeholder="Telefon nömrənizi daxil edin"
+                maxLength={10}
               />
             </div>
+            {errors.phone && <p className={styles.error}>{errors.phone}</p>}
           </div>
 
-          <div className={styles.regiser__email}>
+          <div className={styles.register__email}>
             <h4>E-mail</h4>
             <div className={styles.form__input}>
               <FontAwesomeIcon icon={faEnvelope} />
@@ -114,10 +142,11 @@ const Register = () => {
                 type="email"
                 name="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleChange(setEmail)}
                 placeholder="E-mail ünvanınızı daxil edin"
               />
             </div>
+            {errors.email && <p className={styles.error}>{errors.email}</p>}
           </div>
 
           <div className={styles.password}>
@@ -125,16 +154,24 @@ const Register = () => {
             <div className={styles.form__input}>
               <FontAwesomeIcon icon={faLock} />
               <input
-                type="password"
+                type={passwordVisible ? "text" : "password"}
                 name="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handleChange(setPassword)}
                 placeholder="Şifrənizi daxil edin"
               />
+              <button
+                type="button"
+                onClick={() => setPasswordVisible((prev) => !prev)}
+                className={styles.password__toggle}
+              >
+                <FontAwesomeIcon icon={passwordVisible ? faEye : faEyeSlash} />
+              </button>
             </div>
+            {errors.password && (
+              <p className={styles.error}>{errors.password}</p>
+            )}
           </div>
-
-          {error && <p className={styles.error}>{error}</p>}
 
           <div className={styles.form__rules}>
             <input type="checkbox" name="rules" />
@@ -143,6 +180,8 @@ const Register = () => {
               şərtləri” və məxfilik ilə razılaşırsınız.
             </p>
           </div>
+
+          {errors.general && <p className={styles.error}>{errors.general}</p>}
 
           <div className={styles.form__submit}>
             <input type="submit" value="Qeydiyyat" />

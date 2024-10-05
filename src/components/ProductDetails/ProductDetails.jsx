@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./ProductDetails.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,14 +19,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Review from "../Review/Review";
 import MostLiked from "../HomePage/MostLiked/MostLiked";
+import { AuthContext } from "../Services/authContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const { user } = useContext(AuthContext);
   const [product, setProduct] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
-
-  const images = ["/test.png", "/test.png", "/test.png", "/test.png"];
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -49,21 +49,21 @@ const ProductDetails = () => {
     }
   }, [activeIndex]);
 
-  const props = {
-    width: 450,
-    height: 360,
-    zoomWidth: 500,
-    zoomPosition: "original",
-    img: images[activeIndex],
-  };
-
   const handleImageChange = (index) => {
     setActiveIndex(index);
   };
 
-  if (!product) {
+  if (!product || !user) {
     return <div>Loading...</div>;
   }
+
+  const zoomProps = {
+    width: 450,
+    height: 360,
+    zoomWidth: 500,
+    zoomPosition: "original",
+    img: product.otherImages[activeIndex],
+  };
 
   return (
     <div className={styles.detail__container}>
@@ -101,10 +101,12 @@ const ProductDetails = () => {
                 loop={false}
                 initialSlide={activeIndex}
               >
-                {images.map((image, index) => (
+                {product.otherImages.map((image, index) => (
                   <SwiperSlide key={index} className={styles.carousel__img}>
                     <ReactImageZoom
-                      {...props}
+                      key={activeIndex}
+                      {...zoomProps}
+                      img={image}
                       className={styles.carousel__img}
                     />
                   </SwiperSlide>
@@ -122,11 +124,11 @@ const ProductDetails = () => {
           <div className={styles.product__info}>
             <div className={styles.info__container}>
               <div className={styles.product__author}>
-                <img src={product.authorImg} alt="" />
-                <span>{product.author}</span>
+                <img src={user.profile_image} alt="" />
+                <span>{`${user.name} ${user.surname}`}</span>
               </div>
               <div className={styles.details}>
-                <h4>Kiraye Ev</h4>
+                <h4>{product.title}</h4>
                 <ul>
                   <li>
                     <FontAwesomeIcon icon={faHouse} />
@@ -134,11 +136,11 @@ const ProductDetails = () => {
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faEnvelope} />
-                    <p>seyid.hüseyinov@gmail.com</p>
+                    <p>{user.gmail}</p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faLocationDot} />
-                    <p>Bakı, Nizami rayonu, Moskva pr.</p>
+                    <p>{product.place}</p>
                   </li>
                 </ul>
                 <button>

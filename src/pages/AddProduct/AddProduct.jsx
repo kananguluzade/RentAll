@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "./AddProduct.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { notification, Form } from "antd";
 import {
   faAngleDown,
   faHouse,
@@ -14,6 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../components/Services/authContext";
 import img from "/test.png";
+import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
@@ -21,18 +23,20 @@ const AddProduct = () => {
   const { user } = useContext(AuthContext);
   const [cities, setCities] = useState([]);
   const [shares, setShares] = useState([]);
+  const navigate = useNavigate();
   const [newShare, setNewShare] = useState({
     id: "",
     category: "",
     title: "",
     place: "",
-    author_phone: "",
+    owner_id: user.id,
     image: "",
-    image2: "",
-    image3: "",
-    image4: "",
+    otherImages: "",
     content: "",
   });
+
+  const [loading, setLoading] = useState(false);
+  const [loadingVisible, setLoadingVisible] = useState(false);
 
   const [images, setImages] = useState([]);
   const [otherImages, setOtherImages] = useState([]);
@@ -41,6 +45,8 @@ const AddProduct = () => {
   const cityDropdownRef = useRef(null);
   const fileInputRef = useRef(null);
   const otherFileInputRef = useRef(null);
+
+  const [form] = Form.useForm();
 
   const toggleCategoryDropdown = () => setIsCategoryOpen((prev) => !prev);
   const toggleCityDropdown = () => setIsCityOpen((prev) => !prev);
@@ -77,22 +83,107 @@ const AddProduct = () => {
   ];
 
   useEffect(() => {
-    const fetchCities = async () => {
-      try {
-        const response = await fetch(
-          "https://api.opendata.az/v2/az/json/map/geographic/district"
-        );
-        const data = await response.json();
-        const districts = data.districts
-          .map((district) => ({ label: district.name }))
-          .sort((a, b) => a.label.localeCompare(b.label));
-        setCities(districts);
-      } catch (error) {
-        console.error("Error fetching districts:", error);
-      }
+    const loadCities = () => {
+      const regions = [
+        "Bakı, Yasamal rayonu",
+        "Bakı, Binəqədi rayonu",
+        "Bakı, Nərimanov rayonu",
+        "Bakı, Nəsimi rayonu",
+        "Bakı, Nizami rayonu",
+        "Bakı, Sabunçu rayonu",
+        "Bakı, Səbail rayonu",
+        "Bakı, Suraxanı rayonu",
+        "Bakı, Xətai rayonu",
+        "Bakı, Xəzər rayonu",
+        "Bakı, Qaradağ rayonu",
+        "Gəncə şəhəri",
+        "Sumqayıt şəhəri",
+        "Mingəçevir şəhəri",
+        "Naftalan şəhəri",
+        "Naxçıvan şəhəri",
+        "Abşeron rayonu",
+        "Ağcabədi rayonu",
+        "Ağdam rayonu",
+        "Ağdaş rayonu",
+        "Ağstafa rayonu",
+        "Astara rayonu",
+        "Babək rayonu",
+        "Balakən rayonu",
+        "Beyləqan rayonu",
+        "Bərdə rayonu",
+        "Biləsuvar rayonu",
+        "Cəlilabad rayonu",
+        "Culfa rayonu",
+        "Daşkəsən rayonu",
+        "Füzuli rayonu",
+        "Gədəbəy rayonu",
+        "Goranboy rayonu",
+        "Göygöl rayonu",
+        "Göyçay rayonu",
+        "Hacıqabul rayonu",
+        "İmişli rayonu",
+        "İsmayıllı rayonu",
+        "Kəngərli rayonu",
+        "Kəlbəcər rayonu",
+        "Kürdəmir rayonu",
+        "Laçın rayonu",
+        "Lerik rayonu",
+        "Lənkəran rayonu",
+        "Masallı rayonu",
+        "Naftalan şəhəri",
+        "Naxçıvan şəhəri",
+        "Neftçala rayonu",
+        "Oğuz rayonu",
+        "Ordubad rayonu",
+        "Qax rayonu",
+        "Qazax rayonu",
+        "Qobustan rayonu",
+        "Quba rayonu",
+        "Qubadlı rayonu",
+        "Qusar rayonu",
+        "Sabirabad rayonu",
+        "Salyan rayonu",
+        "Samux rayonu",
+        "Saatlı rayonu",
+        "Sədərək rayonu",
+        "Siyəzən rayonu",
+        "Şabran rayonu",
+        "Şahbuz rayonu",
+        "Şamaxı rayonu",
+        "Şəmkir rayonu",
+        "Şəki rayonu",
+        "Şəki şəhəri",
+        "Şirvan şəhəri",
+        "Şuşa rayonu",
+        "Tərtər rayonu",
+        "Tovuz rayonu",
+        "Ucar rayonu",
+        "Xaçmaz rayonu",
+        "Xankəndi şəhəri",
+        "Xızı rayonu",
+        "Xocalı rayonu",
+        "Xocavənd rayonu",
+        "Yardımlı rayonu",
+        "Yevlax şəhəri",
+        "Zaqatala rayonu",
+        "Zəngilan rayonu",
+        "Zərdab rayonu",
+      ];
+
+      const bakuCity = regions.filter((region) => region.startsWith("Bakı"));
+      const otherCities = regions.filter(
+        (region) => !region.startsWith("Bakı")
+      );
+
+      const formattedRegions = [...bakuCity, ...otherCities].map((region) => ({
+        label: region,
+      }));
+      setCities(
+        formattedRegions.sort((a, b) => a.label.localeCompare(b.label))
+      );
     };
 
-    fetchCities();
+    loadCities();
   }, []);
 
   useEffect(() => {
@@ -113,39 +204,61 @@ const AddProduct = () => {
     setNewShare((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleMainImageChange = (e) => {
+  const uploadImageToCloudinary = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "sharecare");
+
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/difymycwt/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const data = await response.json();
+      return data.secure_url;
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      return null;
+    }
+  };
+
+  const handleMainImageChange = async (e) => {
     const files = Array.from(e.target.files);
-    const newImages = files.map((file) => URL.createObjectURL(file));
+    const uploadedImages = await Promise.all(
+      files.map((file) => uploadImageToCloudinary(file))
+    );
 
     setImages((prevImages) => {
       const updatedImages = [...prevImages];
-      for (let i = 0; i < newImages.length && i < 4; i++) {
-        updatedImages[i] = newImages[i];
+      for (let i = 0; i < uploadedImages.length && i < 4; i++) {
+        updatedImages[i] = uploadedImages[i];
       }
       return updatedImages;
     });
 
     setNewShare((prev) => ({
       ...prev,
-      image: newImages[0] || "",
-      image2: newImages[1] || "",
-      image3: newImages[2] || "",
-      image4: newImages[3] || "",
+      image: uploadedImages[0] || "",
     }));
   };
 
-  const handleOtherImageChange = (e) => {
+  const handleOtherImageChange = async (e) => {
     const files = Array.from(e.target.files);
-    const newOtherImages = files.map((file) => URL.createObjectURL(file));
+    const uploadedOtherImages = await Promise.all(
+      files.map((file) => uploadImageToCloudinary(file))
+    );
 
     setOtherImages((prevImages) => {
       const updatedImages = [...prevImages];
       for (
         let i = 0;
-        i < newOtherImages.length && updatedImages.length < 4;
+        i < uploadedOtherImages.length && updatedImages.length < 4;
         i++
       ) {
-        updatedImages.push(newOtherImages[i]);
+        updatedImages.push(uploadedOtherImages[i]);
       }
       return updatedImages.slice(0, 4);
     });
@@ -161,13 +274,68 @@ const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const validateInputs = () => {
+      if (
+        !newShare.title ||
+        newShare.title.length < 5 ||
+        newShare.title.length > 30
+      ) {
+        return "Elanın adı 5-30 karakter arasında olmalıdır.";
+      }
+
+      const phonePattern = /^[0-9]{10}$/;
+
+      const cleanedPhone = newShare.author_phone.replace(/\D/g, "");
+
+      if (!cleanedPhone || !phonePattern.test(cleanedPhone)) {
+        return "Telefon nömrəsi 10 reqemli olmalıdır.";
+      }
+
+      if (!newShare.place) {
+        return "Ərazi seçilməlidir.";
+      }
+
+      if (!newShare.category) {
+        return "Kateqoriya seçilməlidir.";
+      }
+
+      if (
+        !newShare.content ||
+        newShare.content.length < 10 ||
+        newShare.content.length > 300
+      ) {
+        return "Məzmun 10-300 karakter arasında olmalıdır.";
+      }
+
+      if (images.length === 0) {
+        return "Ən azı bir şəkil əlavə edilməlidir.";
+      }
+
+      return null;
+    };
+
+    const errorMessage = validateInputs();
+    if (errorMessage) {
+      notification.error({
+        message: "Xəta",
+        description: errorMessage,
+        placement: "topRight",
+      });
+      return;
+    }
+
+    setLoading(true);
+    setLoadingVisible(true);
+
     const newId = (shares.length + 1).toString();
     const newEntry = {
       ...newShare,
       id: newId,
       otherImages: otherImages,
-      author: user.username,
+      author: user.fullname,
       authorImg: user.profile_image,
+      author_phone: `994${user.phone}`,
     };
 
     try {
@@ -182,22 +350,44 @@ const AddProduct = () => {
       if (response.ok) {
         const savedEntry = await response.json();
         setShares((prev) => [...prev, savedEntry]);
+      } else {
+        console.error("Error saving new share");
+        notification.error({
+          message: "Error",
+          description: "Zehmet olmasa admin ile elaqe saxlayin.",
+          placement: "topRight",
+        });
+      }
+    } catch (error) {
+      console.error("Error saving share:", error);
+    } finally {
+      setTimeout(() => {
+        setLoading(false);
+        setLoadingVisible(false);
+
         setNewShare({
           id: "",
           category: "",
           title: "",
-          place: "",
           author_phone: "",
-          image: "/logo.png",
+          place: "",
+          owner_id: user.id,
+          image: "",
           content: "",
         });
         setImages([]);
         setOtherImages([]);
-      } else {
-        console.error("Error saving new share");
-      }
-    } catch (error) {
-      console.error("Error saving share:", error);
+
+        notification.success({
+          message: "Uğurlu",
+          description: "Elanınız uğurla paylaşıldı, yönlendirilirsiniz...",
+          placement: "topRight",
+        });
+
+        setTimeout(() => {
+          navigate("/cabinet/elanlar");
+        }, 2000);
+      }, 3000);
     }
   };
 
@@ -407,7 +597,6 @@ const AddProduct = () => {
                   value={newShare.title}
                   onChange={handleChange}
                   placeholder="Xananı doldurun"
-                  required
                 />
               </div>
               <div className={styles.product__phone}>
@@ -418,7 +607,7 @@ const AddProduct = () => {
                   value={newShare.author_phone}
                   onChange={handleChange}
                   placeholder="Xananı doldurun"
-                  required
+                  maxLength={10}
                 />
               </div>
             </div>
@@ -430,7 +619,6 @@ const AddProduct = () => {
                 value={newShare.content}
                 onChange={handleChange}
                 placeholder="Xananı doldurun"
-                required
               ></textarea>
             </div>
 
@@ -440,11 +628,13 @@ const AddProduct = () => {
                 value="Redaktə et"
                 className={styles.edited__button}
               />
-              <input
-                type="submit"
-                className={styles.save__button}
-                value="Yadda saxla"
-              />
+              <span className={styles.save__button}>
+                {loading ? (
+                  <div className={styles.loader}></div>
+                ) : (
+                  <input type="submit" value="Yadda saxla" />
+                )}
+              </span>
             </div>
           </form>
         </div>

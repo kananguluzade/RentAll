@@ -16,9 +16,17 @@
   gap: 8px;
 }
 
+.password__toggle {
+  background: transparent;
+}
+
 .register__form > div {
   max-width: 548px;
   width: 100%;
+}
+
+.error {
+  color: red;
 }
 
 .register__form h4 {
@@ -50,6 +58,7 @@
   text-align: center;
   font-size: 20px;
   font-weight: 500;
+  color: var(--white);
   line-height: 30px;
   text-align: left;
 }

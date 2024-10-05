@@ -1,25 +1,32 @@
-import React, { useContext, useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import styles from "./Cabinet.module.css";
 import { AuthContext } from "../../components/Services/authContext";
 
 const Cabinet = () => {
-  const [currentPage, setCurrentPage] = useState("parametrler");
   const { user } = useContext(AuthContext);
+  const location = useLocation();
+  const [currentPage, setCurrentPage] = useState("parametrler");
+
+  useEffect(() => {
+    const currentPath = location.pathname.split("/")[2] || "parametrler";
+    setCurrentPage(currentPath);
+  }, [location]);
 
   return (
     <div className="container">
       <div className={styles.cabinet__head}>
         <div className={styles.user__info}>
-          <h4>{user?.username}</h4>
+          <h4>{user?.fullname}</h4>
           <p>{user?.phone_number}</p>
         </div>
         <ul className={styles.cabinet__pages}>
           <li>
             <NavLink
               to="elanlar"
-              className={`${currentPage === "elanlar" ? styles.active : ""}`}
-              onClick={() => setCurrentPage("elanlar")}
+              className={({ isActive }) =>
+                isActive ? styles.active : undefined
+              }
             >
               Elanlarım
             </NavLink>
@@ -27,10 +34,9 @@ const Cabinet = () => {
           <li>
             <NavLink
               to="parametrler"
-              className={`${
-                currentPage === "parametrler" ? styles.active : ""
-              }`}
-              onClick={() => setCurrentPage("parametrler")}
+              className={({ isActive }) =>
+                isActive ? styles.active : undefined
+              }
             >
               Profil parametrləri
             </NavLink>
@@ -38,8 +44,9 @@ const Cabinet = () => {
           <li>
             <NavLink
               to="aktivlik"
-              className={`${currentPage === "aktivlik" ? styles.active : ""}`}
-              onClick={() => setCurrentPage("aktivlik")}
+              className={({ isActive }) =>
+                isActive ? styles.active : undefined
+              }
             >
               Aktivlik
             </NavLink>

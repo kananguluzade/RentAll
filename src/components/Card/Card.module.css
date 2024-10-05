@@ -58,7 +58,12 @@
 }
 
 .share__img img {
-  object-fit: contain;
+  object-fit: cover;
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
 }
 
 .share__desc {

@@ -9,7 +9,7 @@ export const loginUser = async (email, password) => {
     const isPasswordValid = bcrypt.compareSync(password, user.password); // Compare plain password with hashed password
 
     if (isPasswordValid) {
-      return user; // Return user data if password is valid
+      return user;
     }
   }
   throw new Error("Invalid email or password");

@@ -1,41 +1,65 @@
 import React, { useContext, useState, useEffect } from "react";
 import styles from "./Parameters.module.css";
 import { AuthContext } from "../../Services/authContext";
+import { notification } from "antd";
 
 const Parameters = () => {
   const { user, login } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    email: user?.email || "",
+    email: user?.gmail || "",
     phone_number: user?.phone_number || "",
-    username: user?.username || "",
+    name: user?.name || "",
+    surname: user?.surname || "",
     about: user?.about || "",
     profile_image: user?.profile_image || "",
+    fullname: `${user?.name || ""} ${user?.surname || ""}`.trim(),
   });
 
   useEffect(() => {
     if (user) {
       setFormData({
-        email: user.email || "",
+        email: user.gmail || "",
         phone_number: user.phone_number || "",
-        username: user.username || "",
+        name: user.name || "",
+        surname: user.surname || "",
         about: user.about || "",
         profile_image: user.profile_image || "",
+        fullname: `${user.name || ""} ${user.surname || ""}`.trim(),
       });
     }
   }, [user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    setFormData((prevData) => {
+      const updatedData = { ...prevData, [name]: value };
+      updatedData.fullname =
+        `${updatedData.name} ${updatedData.surname}`.trim();
+      return updatedData;
+    });
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const newProfileImage = reader.result;
+      const imageData = new FormData();
+      imageData.append("file", file);
+      imageData.append("upload_preset", "sharecare");
+
+      try {
+        const res = await fetch(
+          `https://api.cloudinary.com/v1_1/difymycwt/image/upload`,
+          {
+            method: "POST",
+            body: imageData,
+          }
+        );
+
+        if (!res.ok) throw new Error("Resim yükleme başarısız.");
+
+        const data = await res.json();
+        const newProfileImage = data.secure_url;
 
         setFormData((prevData) => ({
           ...prevData,
@@ -48,26 +72,21 @@ const Parameters = () => {
           updated_at: new Date().toISOString(),
         };
 
-        fetch(`http://localhost:3000/users/${user.id}`, {
+        await fetch(`http://localhost:3000/users/${user.id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedUser),
-        })
-          .then((res) => {
-            if (!res.ok) throw new Error("Güncelleme başarısız.");
-            return res.json();
-          })
-          .then((data) => {
-            login(data);
-            alert("Profil güncellendi!");
-          })
-          .catch((error) => console.error("Güncelleme hatası:", error));
-      };
-      reader.readAsDataURL(file);
+        });
+
+        login(updatedUser);
+        openNotification("success", "Profil şəkli güncellenmişdir!");
+      } catch (error) {
+        console.error("Güncelleme hatası:", error);
+      }
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const updatedUser = {
@@ -76,29 +95,34 @@ const Parameters = () => {
       updated_at: new Date().toISOString(),
     };
 
-    fetch(`http://localhost:3000/users/${user.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedUser),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Güncelleme başarısız.");
-        return res.json();
-      })
-      .then((data) => {
-        login(data);
-        alert("Profil güncellendi!");
-        setIsEditing(false);
-      })
-      .catch((error) => console.error("Güncelleme hatası:", error));
+    try {
+      const res = await fetch(`http://localhost:3000/users/${user.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedUser),
+      });
+
+      if (!res.ok) throw new Error("Yeniləmə uğursuz oldu.");
+      const data = await res.json();
+      login(data);
+      openNotification("success", "Profiliniz uğurla yeniləndi!");
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Yeniləmə xətası:", error);
+      openNotification("error", "Yeniləmə zamanı xəta baş verdi.");
+    }
+  };
+
+  const openNotification = (type, message) => {
+    notification[type]({
+      message: message,
+      duration: 2,
+    });
   };
 
   const getUserInitials = () => {
-    if (!user?.username) return "";
-    return user.username
-      .split(" ")
-      .map((name) => name[0].toUpperCase())
-      .join("");
+    const [first, last] = [user?.name || "", user?.surname || ""];
+    return `${first.charAt(0).toUpperCase()}${last.charAt(0).toUpperCase()}`;
   };
 
   return (
@@ -143,12 +167,22 @@ const Parameters = () => {
             />
           </div>
         </div>
-        <div className={styles.fullname}>
-          <h4>Adınız və soyadınız</h4>
+        <div className={styles.name}>
+          <h4>Adınız</h4>
           <input
             type="text"
-            name="username"
-            value={formData.username}
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            disabled={!isEditing}
+          />
+        </div>
+        <div className={styles.surname}>
+          <h4>Soyadınız</h4>
+          <input
+            type="text"
+            name="surname"
+            value={formData.surname}
             onChange={handleInputChange}
             disabled={!isEditing}
           />

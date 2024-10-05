@@ -46,7 +46,7 @@
   align-items: center;
   gap: 8px;
   width: 182px;
-  height: 58px;
+  height: 62px;
   padding: 12px 16px;
   border-radius: 12px;
   outline: none;
@@ -59,6 +59,12 @@
   -moz-transition: ease-in-out 0.3s;
   -ms-transition: ease-in-out 0.3s;
   -o-transition: ease-in-out 0.3s;
+}
+
+.button__edited {
+  background-color: transparent;
+  color: var(--blue-default);
+  border: 2px solid var(--blue-default) !important;
 }
 
 .button__added {

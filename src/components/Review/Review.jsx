@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import styles from "./Review.module.css";
-import profilPicture from "../../../public/logo.png";
 import { AuthContext } from "../Services/authContext";
 
 const Review = ({ productId }) => {
@@ -188,7 +187,7 @@ const Review = ({ productId }) => {
         likes: 0,
         dislikes: 0,
         creatorByEmail: user.email,
-        userName: user.username,
+        fullname: user.fullname,
         userImg: user.profile_image,
         createdAt: new Date().toISOString(),
       };
@@ -221,7 +220,11 @@ const Review = ({ productId }) => {
       {user ? (
         <div className={styles.comment__maker}>
           <div className={styles.profile__picture}>
-            <img src={user.profile_image} className={styles.comment__picture} alt="profile-pic" />
+            <img
+              src={user.profile_image}
+              className={styles.comment__picture}
+              alt="profile-pic"
+            />
           </div>
 
           <div className={styles.text__write__line}>
@@ -266,7 +269,7 @@ const Review = ({ productId }) => {
               />
               <div className={styles.comment__username__options}>
                 <div className={styles.comment__about}>
-                  <h6>{comment.userName}</h6>
+                  <h6>{comment.fullname}</h6>
                   {formatRelativeDate(comment.createdAt)}
                 </div>
                 {user && (
