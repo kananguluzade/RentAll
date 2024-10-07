@@ -49,64 +49,12 @@ const Review = ({ productId }) => {
     }
   };
 
+  const userId = user ? user.id : null;
+
   const handleLike = (id) => {
     const currentComment = commentsList.find((comment) => comment.id === id);
 
-    if (currentComment.likedByUser) {
-      const updatedLikes = currentComment.likes - 1;
-      fetch(`http://localhost:3000/comments/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          likes: updatedLikes,
-          likedByUser: false,
-        }),
-      })
-        .then((response) => response.json())
-        .then((updatedComment) => {
-          setCommentsList((prevComments) =>
-            prevComments.map((comment) =>
-              comment.id === id ? updatedComment : comment
-            )
-          );
-        })
-        .catch((error) => console.error("Error unliking comment:", error));
-    } else {
-      const updatedLikes = currentComment.likes + 1;
-      const updatedDislikes = currentComment.dislikedByUser
-        ? currentComment.dislikes - 1
-        : currentComment.dislikes;
-
-      fetch(`http://localhost:3000/comments/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          likes: updatedLikes,
-          dislikes: updatedDislikes,
-          likedByUser: true,
-          dislikedByUser: false,
-        }),
-      })
-        .then((response) => response.json())
-        .then((updatedComment) => {
-          setCommentsList((prevComments) =>
-            prevComments.map((comment) =>
-              comment.id === id ? updatedComment : comment
-            )
-          );
-        })
-        .catch((error) => console.error("Error liking comment:", error));
-    }
-  };
-
-  const handleDislike = (id) => {
-    const currentComment = commentsList.find((comment) => comment.id === id);
-
-    if (currentComment.dislikedByUser) {
+    if (currentComment.dislikedBy.includes(userId)) {
       const updatedDislikes = currentComment.dislikes - 1;
       fetch(`http://localhost:3000/comments/${id}`, {
         method: "PATCH",
@@ -115,46 +63,89 @@ const Review = ({ productId }) => {
         },
         body: JSON.stringify({
           dislikes: updatedDislikes,
-          dislikedByUser: false,
+          dislikedBy: currentComment.dislikedBy.filter((id) => id !== userId),
         }),
-      })
-        .then((response) => response.json())
-        .then((updatedComment) => {
-          setCommentsList((prevComments) =>
-            prevComments.map((comment) =>
-              comment.id === id ? updatedComment : comment
-            )
-          );
-        })
-        .catch((error) => console.error("Error undisliking comment:", error));
-    } else {
-      const updatedDislikes = currentComment.dislikes + 1;
-      const updatedLikes = currentComment.likedByUser
-        ? currentComment.likes - 1
-        : currentComment.likes;
+      }).catch((error) => console.error("Error undisliking comment:", error));
+    }
 
+    const likedBy = currentComment.likedBy.includes(userId);
+    const updatedLikes = likedBy
+      ? currentComment.likes - 1
+      : currentComment.likes + 1;
+    const updatedLikedBy = likedBy
+      ? currentComment.likedBy.filter((id) => id !== userId)
+      : [...currentComment.likedBy, userId];
+
+    fetch(`http://localhost:3000/comments/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        likes: updatedLikes,
+        likedBy: updatedLikedBy,
+      }),
+    })
+      .then((response) => response.json())
+      .then((updatedComment) => {
+        setCommentsList((prevComments) =>
+          prevComments.map((comment) =>
+            comment.id === id ? updatedComment : comment
+          )
+        );
+      })
+      .catch((error) => console.error("Error liking comment:", error));
+  };
+
+  const handleDislike = (id) => {
+    const currentComment = commentsList.find((comment) => comment.id === id);
+
+    if (currentComment.likedBy.includes(userId)) {
+      const updatedLikes = currentComment.likes - 1;
       fetch(`http://localhost:3000/comments/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          dislikes: updatedDislikes,
           likes: updatedLikes,
-          dislikedByUser: true,
-          likedByUser: false,
+          likedBy: currentComment.likedBy.filter((id) => id !== userId),
         }),
-      })
-        .then((response) => response.json())
-        .then((updatedComment) => {
-          setCommentsList((prevComments) =>
-            prevComments.map((comment) =>
-              comment.id === id ? updatedComment : comment
-            )
-          );
-        })
-        .catch((error) => console.error("Error disliking comment:", error));
+      }).catch((error) => console.error("Error unliking comment:", error));
     }
+
+    const dislikedBy = currentComment.dislikedBy.includes(userId);
+    const updatedDislikes = dislikedBy
+      ? currentComment.dislikes - 1
+      : currentComment.dislikes + 1;
+    const updatedDislikedBy = dislikedBy
+      ? currentComment.dislikedBy.filter((id) => id !== userId)
+      : [...currentComment.dislikedBy, userId];
+
+    fetch(`http://localhost:3000/comments/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        dislikes: updatedDislikes,
+        dislikedBy: updatedDislikedBy,
+      }),
+    })
+      .then((response) => response.json())
+      .then((updatedComment) => {
+        setCommentsList((prevComments) =>
+          prevComments.map((comment) =>
+            comment.id === id ? updatedComment : comment
+          )
+        );
+      })
+      .catch((error) => console.error("Error disliking comment:", error));
+  };
+
+  const getUserInitials = () => {
+    const [first, last] = [user?.name || "", user?.surname || ""];
+    return `${first.charAt(0).toUpperCase()}${last.charAt(0).toUpperCase()}`;
   };
 
   useEffect(() => {
@@ -190,6 +181,8 @@ const Review = ({ productId }) => {
         fullname: user.fullname,
         userImg: user.profile_image,
         createdAt: new Date().toISOString(),
+        likedBy: [],
+        dislikedBy: [],
       };
 
       fetch("http://localhost:3000/comments", {
@@ -220,11 +213,15 @@ const Review = ({ productId }) => {
       {user ? (
         <div className={styles.comment__maker}>
           <div className={styles.profile__picture}>
-            <img
-              src={user.profile_image}
-              className={styles.comment__picture}
-              alt="profile-pic"
-            />
+            {user.profile_image ? (
+              <img
+                className={styles.comment__picture}
+                src={user.profile_image}
+                alt="User"
+              />
+            ) : (
+              <span className={styles.user__initials}>{getUserInitials()}</span>
+            )}
           </div>
 
           <div className={styles.text__write__line}>
@@ -262,11 +259,17 @@ const Review = ({ productId }) => {
         {displayedComments.map((comment) => (
           <div key={comment.id} className={styles.comment}>
             <div className={styles.comment__upper}>
-              <img
-                src={comment.userImg}
-                className={styles.profile__picture}
-                alt="profil-pic"
-              />
+              {comment.userImg ? (
+                <img
+                  className={styles.profile__picture}
+                  src={comment.userImg}
+                  alt="User"
+                />
+              ) : (
+                <span className={styles.user__initials}>
+                  {getUserInitials()}
+                </span>
+              )}
               <div className={styles.comment__username__options}>
                 <div className={styles.comment__about}>
                   <h6>{comment.fullname}</h6>
@@ -331,7 +334,7 @@ const Review = ({ productId }) => {
                 <div className={styles.comment__buttons}>
                   <div
                     className={`${styles.comment__like} ${
-                      comment.likedByUser ? styles.active : ""
+                      comment.likedBy.includes(userId) ? styles.active : ""
                     }`}
                   >
                     <svg
@@ -352,7 +355,7 @@ const Review = ({ productId }) => {
                   </div>
                   <div
                     className={`${styles.comment__dislike} ${
-                      comment.dislikedByUser ? styles.active : ""
+                      comment.dislikedBy.includes(userId) ? styles.active : ""
                     }`}
                   >
                     <svg

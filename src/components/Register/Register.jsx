@@ -8,29 +8,52 @@ import {
   faEye,
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
+import { notification, Modal, Spin } from "antd";
 import styles from "./Register.module.css";
 import Validation from "../Validation/Validation";
 
-const Register = () => {
+const Register = ({ onRegisterSuccess }) => {
   const [fullname, setFullname] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [profileImage, setProfileImage] = useState("");
   const [roleType, setRoleType] = useState("user");
   const [errors, setErrors] = useState({});
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (setter) => (e) => {
     setter(e.target.value);
     setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: "" }));
   };
 
+  const openNotification = () => {
+    notification.success({
+      message: "Qeydiyyat uğurlu oldu",
+      description: "Təbrik edirik! Qeydiyyatdan keçdiniz. Yönlədirilirsiniz...",
+      placement: "topRight",
+    });
+  };
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const validationErrors = Validation(
-      { fullname, phone, email, password },
+      { fullname, phone, email, password, confirmPassword },
       "register"
     );
 
@@ -52,44 +75,61 @@ const Register = () => {
         return;
       }
 
-      setErrors({}); // Clear previous errors
+      setLoading(true);
+      setSuccess(false);
 
-      const [name, surname] = fullname.split(" "); // Extract name and surname
-      const newUser = {
-        name,
-        surname,
-        fullname,
-        gmail: email,
-        password,
-        phone_number: phone,
-        profile_image: profileImage || "",
-        role_type: roleType,
-        token: "",
-        is_verified: false,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        uploaded_at: new Date().toISOString(),
-      };
+      setErrors({});
 
-      const registerResponse = await fetch("http://localhost:3000/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      });
+      setTimeout(async () => {
+        const [name, surname] = fullname.split(" ");
+        const newUser = {
+          name,
+          surname,
+          fullname,
+          gmail: email,
+          password,
+          phone_number: phone,
+          profile_image: profileImage || "",
+          role_type: roleType,
+          token: "",
+          is_verified: false,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          uploaded_at: new Date().toISOString(),
+        };
 
-      if (registerResponse.ok) {
-        console.log("User registered successfully:", newUser);
-        setFullname("");
-        setPhone("");
-        setEmail("");
-        setPassword("");
-        setProfileImage("");
-        setRoleType("user");
-      } else {
-        throw new Error("Failed to register user");
-      }
+        const registerResponse = await fetch("http://localhost:3000/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        });
+
+        setLoading(false);
+        setSuccess(true);
+
+        if (registerResponse.ok) {
+          openNotification();
+          setFullname("");
+          setPhone("");
+          setEmail("");
+          setPassword("");
+          setConfirmPassword("");
+          setProfileImage("");
+          setRoleType("user");
+
+          showModal();
+
+          setTimeout(() => {
+            if (onRegisterSuccess) {
+              onRegisterSuccess(newUser);
+            }
+          }, 2000);
+        } else {
+          throw new Error("Failed to register user");
+        }
+      }, 2000);
     } catch (error) {
       setErrors({
         general: error.message || "An error occurred during registration.",
@@ -173,6 +213,32 @@ const Register = () => {
             )}
           </div>
 
+          <div className={styles.password}>
+            <h4>Şifrənizi təsdiqləyin</h4>
+            <div className={styles.form__input}>
+              <FontAwesomeIcon icon={faLock} />
+              <input
+                type={confirmPasswordVisible ? "text" : "password"}
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={handleChange(setConfirmPassword)}
+                placeholder="Şifrənizi təkrar daxil edin"
+              />
+              <button
+                type="button"
+                onClick={() => setConfirmPasswordVisible((prev) => !prev)}
+                className={styles.password__toggle}
+              >
+                <FontAwesomeIcon
+                  icon={confirmPasswordVisible ? faEye : faEyeSlash}
+                />
+              </button>
+            </div>
+            {errors.confirmPassword && (
+              <p className={styles.error}>{errors.confirmPassword}</p>
+            )}
+          </div>
+
           <div className={styles.form__rules}>
             <input type="checkbox" name="rules" />
             <p>
@@ -184,7 +250,29 @@ const Register = () => {
           {errors.general && <p className={styles.error}>{errors.general}</p>}
 
           <div className={styles.form__submit}>
-            <input type="submit" value="Qeydiyyat" />
+            {loading ? (
+              <div className={styles.loader}></div>
+            ) : (
+              !success && <input type="submit" value="Qeydiyyat" />
+            )}
+            {success && (
+              <svg
+                width="24"
+                height="24"
+                className={styles.success__icon}
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.5 12.2381L10 17L19.5 7"
+                  stroke="#FAFAFA"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            )}
           </div>
         </form>
       </div>

@@ -19,12 +19,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Review from "../Review/Review";
 import MostLiked from "../HomePage/MostLiked/MostLiked";
-import { AuthContext } from "../Services/authContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const { user } = useContext(AuthContext);
   const [product, setProduct] = useState(null);
+  const [users, setUsers] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
 
@@ -33,8 +32,10 @@ const ProductDetails = () => {
       try {
         const response = await fetch("/db.json");
         const data = await response.json();
+
         const selectedProduct = data.shares.find((share) => share.id === id);
         setProduct(selectedProduct);
+        setUsers(data.users);
       } catch (error) {
         console.error("Error fetching product:", error);
       }
@@ -53,9 +54,11 @@ const ProductDetails = () => {
     setActiveIndex(index);
   };
 
-  if (!product || !user) {
+  if (!product || users.length === 0) {
     return <div>Loading...</div>;
   }
+
+  const productOwner = users.find((user) => user.id === product.owner_id);
 
   const zoomProps = {
     width: 450,
@@ -124,8 +127,8 @@ const ProductDetails = () => {
           <div className={styles.product__info}>
             <div className={styles.info__container}>
               <div className={styles.product__author}>
-                <img src={user.profile_image} alt="" />
-                <span>{`${user.name} ${user.surname}`}</span>
+                <img src={productOwner?.profile_image} alt="" />
+                <span>{`${productOwner?.name} ${productOwner?.surname}`}</span>
               </div>
               <div className={styles.details}>
                 <h4>{product.title}</h4>
@@ -136,7 +139,7 @@ const ProductDetails = () => {
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faEnvelope} />
-                    <p>{user.gmail}</p>
+                    <p>{productOwner?.gmail}</p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faLocationDot} />

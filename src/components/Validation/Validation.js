@@ -45,9 +45,14 @@ const Validation = (values, type) => {
       errors.password =
         "Şifrəniz ən azı 8 simvoldan ibarət olmalı, bir böyük hərf, bir kiçik hərf, bir rəqəm və bir xüsusi simvol içerməlidir.";
     }
+
+    if (!values.confirmPassword) {
+      errors.confirmPassword = "Şifrənin təkrarını daxil edin.";
+    } else if (values.password !== values.confirmPassword) {
+      errors.confirmPassword = "Şifrələr uyğun gəlmir.";
+    }
   }
 
-  // Product addition validations
   if (type === "addProduct") {
     if (!values.productName.trim()) {
       errors.productName = "Məhsul adı tələb olunur.";

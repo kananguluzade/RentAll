@@ -55,6 +55,11 @@ const Header = () => {
     setShowLogoutModal(false);
   };
 
+  const handleRegisterSuccess = () => {
+    setActiveTab("login");
+    setIsRegisterOpen(true);
+  };
+
   const handleCloseLogoutModal = () => {
     setShowLogoutModal(false);
   };
@@ -171,22 +176,6 @@ const Header = () => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M21.0527 8.88722C21.0527 3.43045 14.0527 2.43046 12.0591 6.80562C10.0527 2.4305 3.05273 3.43054 3.05273 8.88722C3.05273 14.3439 9.05908 18.1142 12.0591 19.9305C16.0528 17.0584 21.0527 12.9502 21.0527 8.88722Z"
-                      stroke="#585A5C"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-
-                  <svg
-                    width="25"
-                    height="24"
-                    viewBox="0 0 25 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
                       d="M9.05451 16.9935H5.04724C4.30136 16.9935 4.06736 16.3404 4.05273 16.0138C4.05273 15.9456 4.05273 15.7301 4.05273 15.4143C4.05273 15.0195 4.27211 14.8002 4.34524 14.7124C4.37899 14.6719 4.65236 14.3907 4.85711 14.2006C5.02091 14.0486 5.04724 13.8497 5.04724 13.7181V10.0041C5.04724 5.03025 9.32405 3 12.0527 3C14.9427 3 19.0581 5.3645 19.0581 10.0041C19.0581 11.169 19.0581 13.5426 19.0581 13.7181C19.0581 13.9374 19.2043 14.1275 19.2482 14.186C19.2921 14.2445 19.4676 14.3907 19.7601 14.6978C20.0087 14.9588 20.0526 15.2535 20.0526 15.4143V16.0138C20.0643 16.7391 19.4237 16.9935 19.0581 16.9935H15.0508M9.05451 16.9935V18.0024C9.05451 19.0549 9.87887 21 12.0673 21C14.7875 21 15.0654 18.6309 15.0654 18.0024L15.0508 16.9935M9.05451 16.9935H15.0508"
                       stroke="#585A5C"
                       strokeWidth="2"
@@ -244,22 +233,6 @@ const Header = () => {
             </div>
             {user && (
               <div className={styles.user__panel}>
-                <svg
-                  width="25"
-                  height="24"
-                  viewBox="0 0 25 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21.0527 8.88722C21.0527 3.43045 14.0527 2.43046 12.0591 6.80562C10.0527 2.4305 3.05273 3.43054 3.05273 8.88722C3.05273 14.3439 9.05908 18.1142 12.0591 19.9305C16.0528 17.0584 21.0527 12.9502 21.0527 8.88722Z"
-                    stroke="#585A5C"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-
                 <svg
                   width="25"
                   height="24"
@@ -478,7 +451,7 @@ const Header = () => {
             </div>
           </div>
           {activeTab === "register" ? (
-            <Register />
+            <Register onRegisterSuccess={handleRegisterSuccess} />
           ) : (
             <Login
               onForgotPassword={handleForgotPasswordOpen}

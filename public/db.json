@@ -73,100 +73,73 @@
     {
       "id": "1",
       "category": "Evlər və mənzillər",
-      "title": "Iki nəfərlik divan bağışlayıra",
-      "place": "Ağdam rayonu",
+      "title": "Ev verilir bla",
+      "place": "Bakı, Qaradağ rayonu",
       "owner_id": "ac00",
-      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728103504/sp8odddbwgi9q1ueolsx.jpg",
+      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728252312/uccka48oennoa2v57hh9.jpg",
       "otherImages": [
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728103505/aj51bzx4ybylxph6683j.jpg",
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728103508/ie0ohho9zubq5gd2ej0c.jpg"
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728252332/hvu4jrfc1itwnjorl2gy.jpg",
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728252332/y3olqwbsl9q09rt4eppz.jpg",
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728252332/yyxudrn68pazuaes30oy.png",
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728252333/pdpuasfygsabc2tbk1mw.jpg"
       ],
-      "content": "Yenidir, lakin evdə yer olmadığı üçün bağışlayıram. İstəyən varsa, götürə bilər. Müxtəlif rənglərdədir.",
+      "content": "blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla",
       "author_phone": "994undefined",
       "author": "Umud Quliyev",
-      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728081986/u2zr8l6n739e0rdu1nf9.avif"
-    },
-    {
-      "id": "2",
-      "category": "Avtomobillər",
-      "title": "Uşaq beşiyi bağışlayıram",
-      "place": "Ağdam rayonu",
-      "owner_id": "ac00",
-      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728103715/i2fywxddailasvwb678s.png",
-      "otherImages": [
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728103717/foriaq6cqhdu1xzqsabb.jpg",
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728103717/mmlrwv70yebsbnv3dcz5.jpg",
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728103718/yoewad9lbstli5fgsdq6.png",
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728103718/l7ld5psidnqi1ntdwo8w.jpg"
-      ],
-      "content": "Təmiz, istifadəyə yararlı uşaq beşiyi. İstifadə etmədiyim üçün bağışlayıram. İstəyən varsa, əlaqə saxlasın.",
-      "author_phone": "994undefined",
-      "author": "Umud Quliyev",
-      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728081986/u2zr8l6n739e0rdu1nf9.avif"
+      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif",
+      "likes":"2"
     }
   ],
-  "comments": [],
-  "mostliked": [
+  "comments": [
     {
-      "id": "1",
-      "category": "Evlər və mənzillər",
-      "title": "Küçədə qalan iki nəfərlik divan bağışlayıram",
-      "place": "Bakı, Yasamal",
-      "owner_id": "ac00",
-      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728101654/ugamndjq2nmetm3rayo4.png",
-      "otherImages": [
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728101656/amk2e9hmqilyspq8dpet.jpg",
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728101658/e70vcdafmjjh2qvkk7dn.jpg"
-      ],
-      "content": "Yenidir, lakin evdə yer olmadığı üçün bağışlayıram. İstəyən varsa, götürə bilər. Müxtəlif rənglərdədir.",
-      "author_phone": "994501234567",
-      "author": "Leyla Məmmədova",
-      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728081986/u2zr8l6n739e0rdu1nf9.avif"
+      "id": "dbf3",
+      "text": "test",
+      "productId": "1",
+      "likes": 1,
+      "dislikes": 1,
+      "creatorByEmail": "umudguliyev@outlook.com",
+      "fullname": "Umud Quliyev",
+      "userImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif",
+      "createdAt": "2024-10-06T22:27:01.196Z",
+      "likedBy": ["ac00"],
+      "dislikedBy": ["636c"]
     },
     {
-      "id": "2",
-      "category": "Uşaq əşyaları",
-      "title": "Uşaq beşiyi bağışlayıram",
-      "place": "Sumqayıt",
-      "owner_id": "ac00",
-      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728101654/ugamndjq2nmetm3rayo4.png",
-      "otherImages": [
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728101656/amk2e9hmqilyspq8dpet.jpg"
-      ],
-      "content": "Təmiz, istifadəyə yararlı uşaq beşiyi. İstifadə etmədiyim üçün bağışlayıram. İstəyən varsa, əlaqə saxlasın.",
-      "author_phone": "994507654321",
-      "author": "Rəşad Qurbanov",
-      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728081986/u2zr8l6n739e0rdu1nf9.avif"
+      "id": "bb35",
+      "text": "testt",
+      "productId": "1",
+      "likes": 1,
+      "dislikes": 1,
+      "creatorByEmail": "umudguliyev@outlook.com",
+      "fullname": "Umud Quliyev",
+      "userImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif",
+      "createdAt": "2024-10-06T22:29:41.457Z",
+      "likedBy": ["ac00"],
+      "dislikedBy": ["636c"]
     },
     {
-      "id": "3",
-      "category": "Mebel",
-      "title": "Küçədə qalan masanı bağışlayıram",
-      "place": "Gəncə",
-      "owner_id": "ac00",
-      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728101654/ugamndjq2nmetm3rayo4.png",
-      "otherImages": [
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728101656/amk2e9hmqilyspq8dpet.jpg"
-      ],
-      "content": "Küçədə tapdığım, bir az zədələnmiş masanı bağışlayıram. İstəyən varsa, götürə bilər. Rahat istifadə üçün uyğunlaşdıra bilərsiniz.",
-      "author_phone": "994507890123",
-      "author": "Aytən Rzayeva",
-      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728081986/u2zr8l6n739e0rdu1nf9.avif"
+      "id": "be04",
+      "text": "test",
+      "productId": "1",
+      "likes": 1,
+      "dislikes": 0,
+      "fullname": "Ehmed Abbasov",
+      "userImg": "",
+      "createdAt": "2024-10-06T22:30:14.051Z",
+      "likedBy": ["636c"],
+      "dislikedBy": []
     },
     {
-      "id": "4",
-      "category": "Mebel",
-      "title": "Küçədə qalan masanı bağışlayıram",
-      "place": "Gəncə",
-      "owner_id": "ac00",
-      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728101654/ugamndjq2nmetm3rayo4.png",
-      "otherImages": [
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728101656/amk2e9hmqilyspq8dpet.jpg"
-      ],
-      "content": "Küçədə tapdığım, bir az zədələnmiş masanı bağışlayıram. İstəyən varsa, götürə bilər. Rahat istifadə üçün uyğunlaşdıra bilərsiniz.",
-      "author_phone": "994507890123",
-      "author": "Aytən Rzayeva",
-      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728081986/u2zr8l6n739e0rdu1nf9.avif"
+      "id": "f43b",
+      "text": "sd",
+      "productId": "1",
+      "likes": 0,
+      "dislikes": 1,
+      "fullname": "Ehmed Abbasov",
+      "userImg": "",
+      "createdAt": "2024-10-06T22:38:26.133Z",
+      "likedBy": [],
+      "dislikedBy": ["636c"]
     }
   ],
   "faq": [
@@ -225,6 +198,36 @@
       "uploaded_at": "2024-10-04T22:40:39.461Z",
       "email": "umudguliyev@outlook.com",
       "about": "I am programmer"
+    },
+    {
+      "id": "636c",
+      "name": "Ehmed",
+      "surname": "Abbasov",
+      "fullname": "Ehmed Abbasov",
+      "gmail": "ehmed@gmail.com",
+      "password": "Umud9999!",
+      "phone_number": "4389387482",
+      "profile_image": "",
+      "role_type": "user",
+      "token": "",
+      "is_verified": false,
+      "created_at": "2024-10-06T21:59:07.650Z",
+      "updated_at": "2024-10-06T21:59:07.652Z",
+      "uploaded_at": "2024-10-06T21:59:07.652Z"
     }
+  ],
+  "activityData": [
+    { "month": "JAN", "count": 8000 },
+    { "month": "FEB", "count": 7000 },
+    { "month": "MAR", "count": 9000 },
+    { "month": "APR", "count": 8000 },
+    { "month": "MAY", "count": 10000 },
+    { "month": "JUN", "count": 12000 },
+    { "month": "JUL", "count": 11000 },
+    { "month": "AUG", "count": 9500 },
+    { "month": "SEP", "count": 10500 },
+    { "month": "OCT", "count": 7000 },
+    { "month": "NOV", "count": 8000 },
+    { "month": "DEC", "count": 9000 }
   ]
 }
