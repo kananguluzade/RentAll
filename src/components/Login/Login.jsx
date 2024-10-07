@@ -49,7 +49,7 @@ const Login = ({ onForgotPassword, onClose }) => {
       const response = await fetch("http://localhost:3000/users");
       const users = await response.json();
 
-      const user = users.find((user) => user.gmail === email);
+      const user = users.find((user) => user.email === email);
 
       if (user && user.password === password) {
         login(user);
@@ -159,9 +159,9 @@ const Login = ({ onForgotPassword, onClose }) => {
               <path
                 d="M4.5 12.2381L10 17L19.5 7"
                 stroke="#FAFAFA"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           )}

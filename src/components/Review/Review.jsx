@@ -148,6 +148,17 @@ const Review = ({ productId }) => {
     return `${first.charAt(0).toUpperCase()}${last.charAt(0).toUpperCase()}`;
   };
 
+  const commentMakerImg = (comment) => {
+    const names = comment.fullname.split(" ");
+    let initials = names[0][0];
+
+    if (names.length > 1) {
+      initials += names[names.length - 1][0];
+    }
+
+    return initials.toUpperCase();
+  };
+
   useEffect(() => {
     fetch(`http://localhost:3000/comments?productId=${productId}`)
       .then((response) => response.json())
@@ -267,7 +278,7 @@ const Review = ({ productId }) => {
                 />
               ) : (
                 <span className={styles.user__initials}>
-                  {getUserInitials()}
+                  {commentMakerImg(comment)}
                 </span>
               )}
               <div className={styles.comment__username__options}>

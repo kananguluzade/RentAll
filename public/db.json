@@ -87,59 +87,42 @@
       "author_phone": "994undefined",
       "author": "Umud Quliyev",
       "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif",
-      "likes":"2"
+      "likes": "2"
     }
   ],
   "comments": [
     {
-      "id": "dbf3",
-      "text": "test",
+      "id": "cb72",
+      "text": "ilk yorum",
       "productId": "1",
       "likes": 1,
       "dislikes": 1,
-      "creatorByEmail": "umudguliyev@outlook.com",
-      "fullname": "Umud Quliyev",
-      "userImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif",
-      "createdAt": "2024-10-06T22:27:01.196Z",
-      "likedBy": ["ac00"],
-      "dislikedBy": ["636c"]
+      "creatorByEmail": "kenan123@gmail.com",
+      "fullname": "Kenan Guluzada",
+      "userImg": "",
+      "createdAt": "2024-10-07T19:08:22.883Z",
+      "likedBy": [
+        "ac00"
+      ],
+      "dislikedBy": [
+        "07ac"
+      ]
     },
     {
-      "id": "bb35",
-      "text": "testt",
+      "id": "521f",
+      "text": "2 ci yorum. product sahibi",
       "productId": "1",
-      "likes": 1,
-      "dislikes": 1,
-      "creatorByEmail": "umudguliyev@outlook.com",
-      "fullname": "Umud Quliyev",
-      "userImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif",
-      "createdAt": "2024-10-06T22:29:41.457Z",
-      "likedBy": ["ac00"],
-      "dislikedBy": ["636c"]
-    },
-    {
-      "id": "be04",
-      "text": "test",
-      "productId": "1",
-      "likes": 1,
+      "likes": 2,
       "dislikes": 0,
-      "fullname": "Ehmed Abbasov",
-      "userImg": "",
-      "createdAt": "2024-10-06T22:30:14.051Z",
-      "likedBy": ["636c"],
+      "creatorByEmail": "umudguliyev@outlook.com",
+      "fullname": "Umud Quliyev",
+      "userImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif",
+      "createdAt": "2024-10-07T19:10:24.846Z",
+      "likedBy": [
+        "ac00",
+        "07ac"
+      ],
       "dislikedBy": []
-    },
-    {
-      "id": "f43b",
-      "text": "sd",
-      "productId": "1",
-      "likes": 0,
-      "dislikes": 1,
-      "fullname": "Ehmed Abbasov",
-      "userImg": "",
-      "createdAt": "2024-10-06T22:38:26.133Z",
-      "likedBy": [],
-      "dislikedBy": ["636c"]
     }
   ],
   "faq": [
@@ -186,7 +169,6 @@
       "name": "Umud",
       "surname": "Quliyev",
       "fullname": "Umud Quliyev",
-      "gmail": "umudguliyev@outlook.com",
       "password": "umud9999",
       "phone_number": "0554064043",
       "profile_image": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif",
@@ -204,7 +186,7 @@
       "name": "Ehmed",
       "surname": "Abbasov",
       "fullname": "Ehmed Abbasov",
-      "gmail": "ehmed@gmail.com",
+      "email": "ehmed@gmail.com",
       "password": "Umud9999!",
       "phone_number": "4389387482",
       "profile_image": "",
@@ -214,20 +196,84 @@
       "created_at": "2024-10-06T21:59:07.650Z",
       "updated_at": "2024-10-06T21:59:07.652Z",
       "uploaded_at": "2024-10-06T21:59:07.652Z"
+    },
+    {
+      "id": "07ac",
+      "name": "Kenan",
+      "surname": "Guluzada",
+      "fullname": "Kenan Guluzada",
+      "email": "kenan123@gmail.com",
+      "password": "Kenan123$",
+      "phone_number": "0553686988",
+      "profile_image": "",
+      "role_type": "user",
+      "token": "",
+      "is_verified": false,
+      "created_at": "2024-10-07T18:50:29.060Z",
+      "updated_at": "2024-10-07T18:50:29.060Z",
+      "uploaded_at": "2024-10-07T18:50:29.060Z"
     }
   ],
   "activityData": [
-    { "month": "JAN", "count": 8000 },
-    { "month": "FEB", "count": 7000 },
-    { "month": "MAR", "count": 9000 },
-    { "month": "APR", "count": 8000 },
-    { "month": "MAY", "count": 10000 },
-    { "month": "JUN", "count": 12000 },
-    { "month": "JUL", "count": 11000 },
-    { "month": "AUG", "count": 9500 },
-    { "month": "SEP", "count": 10500 },
-    { "month": "OCT", "count": 7000 },
-    { "month": "NOV", "count": 8000 },
-    { "month": "DEC", "count": 9000 }
+    {
+      "month": "JAN",
+      "count": 8000,
+      "id": "5e96"
+    },
+    {
+      "month": "FEB",
+      "count": 7000,
+      "id": "f355"
+    },
+    {
+      "month": "MAR",
+      "count": 9000,
+      "id": "e068"
+    },
+    {
+      "month": "APR",
+      "count": 8000,
+      "id": "f533"
+    },
+    {
+      "month": "MAY",
+      "count": 10000,
+      "id": "5fb4"
+    },
+    {
+      "month": "JUN",
+      "count": 12000,
+      "id": "0c64"
+    },
+    {
+      "month": "JUL",
+      "count": 11000,
+      "id": "8e39"
+    },
+    {
+      "month": "AUG",
+      "count": 9500,
+      "id": "5ddf"
+    },
+    {
+      "month": "SEP",
+      "count": 10500,
+      "id": "4ede"
+    },
+    {
+      "month": "OCT",
+      "count": 7000,
+      "id": "1027"
+    },
+    {
+      "month": "NOV",
+      "count": 8000,
+      "id": "acc3"
+    },
+    {
+      "month": "DEC",
+      "count": 9000,
+      "id": "aa3e"
+    }
   ]
 }

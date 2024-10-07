@@ -30,9 +30,11 @@ const Header = () => {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("register");
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [userComments, setUserComments] = useState([]);
+  const [usersList, setUsersList] = useState([]);
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -42,6 +44,7 @@ const Header = () => {
 
   const dropdownRef = useRef(null);
   const userMenuRef = useRef(null);
+  const notificationsMenuRef = useRef(null);
 
   const getUserInitials = () => {
     const [first, last] = [user?.name || "", user?.surname || ""];
@@ -71,6 +74,11 @@ const Header = () => {
   const toggleDropdown = () => setIsOpen((prev) => !prev);
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const toggleUserMenu = () => setIsUserMenuOpen((prev) => !prev);
+
+  const handleNotifications = () => {
+    setIsUserMenuOpen((prev) => !prev);
+    setIsNotificationsOpen(!isNotificationsOpen);
+  };
 
   const handleRegisterOpen = () => {
     setActiveTab("register");
@@ -105,20 +113,35 @@ const Header = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target) &&
-        userMenuRef.current &&
-        !userMenuRef.current.contains(event.target)
+        notificationsMenuRef.current &&
+        !notificationsMenuRef.current.contains(event.target)
       ) {
-        setIsOpen(false);
+        setIsNotificationsOpen(false);
+      }
+    };
+
+    const handleCloseMenu = (event) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
         setIsUserMenuOpen(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    const handleCloseCategory = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
 
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [dropdownRef, userMenuRef]);
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleCloseCategory);
+    document.addEventListener("mousedown", handleCloseMenu);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleCloseCategory);
+      document.removeEventListener("mousedown", handleCloseMenu);
+    };
+  }, [isOpen, notificationsMenuRef, userMenuRef]);
 
   const categories = [
     { label: "Evlər və mənzillər", icon: faHouse },
@@ -131,6 +154,64 @@ const Header = () => {
     { label: "Tədbir avadanlığı", icon: faCamera },
   ];
 
+  const fetchUserNotifications = () => {
+    fetch(`http://localhost:3000/users`)
+      .then((response) => response.json())
+      .then((data) => setUsersList(data))
+      .catch((error) => console.error("Error fetching users:", error));
+
+    fetch(`http://localhost:3000/comments?creatorByEmail=${user.email}`)
+      .then((response) => response.json())
+      .then((data) => setUserComments(data))
+      .catch((error) => console.error("Error fetching comments:", error));
+  };
+
+  useEffect(() => {
+    if (isNotificationsOpen) {
+      fetchUserNotifications();
+    }
+  }, [isNotificationsOpen]);
+
+  const renderUserComments = () => {
+    return userComments
+      .filter((comment) => comment.creatorByEmail === user.email)
+      .map((comment) => {
+        const likedUsers = comment.likedBy
+          .filter((likeId) => likeId !== user.id)
+          .map((likeId) => {
+            const likedUser = usersList.find((usr) => usr.id === likeId);
+            return likedUser ? likedUser.fullname : null;
+          })
+          .filter(Boolean);
+
+        const dislikedUsers = comment.dislikedBy
+          .filter((dislikeId) => dislikeId !== user.id)
+          .map((dislikeId) => {
+            const dislikedUser = usersList.find((usr) => usr.id === dislikeId);
+            return dislikedUser ? dislikedUser.fullname : null;
+          })
+          .filter(Boolean);
+
+        return (
+          <ul key={comment.id}>
+            <li>
+              {likedUsers.length > 0
+                ? `${likedUsers.join(", ")} adlı istifadəçi "${
+                    comment.text
+                  }" rəyinizi bəyəndi`
+                : ""}
+            </li>
+            <li>
+              {dislikedUsers.length > 0
+                ? `${dislikedUsers.join(", ")} adlı istifadəçi "${
+                    comment.text
+                  }" rəyinizi bəyənmədi`
+                : ""}
+            </li>
+          </ul>
+        );
+      });
+  };
   return (
     <>
       <div className="header-border">
@@ -324,7 +405,7 @@ const Header = () => {
                             </svg>
                             Favorites
                           </li>
-                          <li>
+                          <li onClick={handleNotifications}>
                             <svg
                               width="24"
                               height="24"
@@ -362,6 +443,18 @@ const Header = () => {
 
                         <p>Log out</p>
                       </div>
+                    </div>
+                  )}
+                  {isNotificationsOpen && (
+                    <div
+                      className={styles.notifications__menu}
+                      ref={notificationsMenuRef}
+                    >
+                      {userComments.length > 0 ? (
+                        renderUserComments()
+                      ) : (
+                        <p>Bildiriş yoxdur</p>
+                      )}
                     </div>
                   )}
                 </div>
@@ -407,8 +500,8 @@ const Header = () => {
                 <path
                   d="M12 8V12.5M12 3.5C8 3.5 3.5 6.5 3.5 12C3.5 17.5 8 20.5 12 20.5C16 20.5 20.5 17.5 20.5 12C20.5 6.5 16 3.5 12 3.5ZM12 15C11.8333 15 11.5 15.1 11.5 15.5C11.5 15.9 11.8333 16 12 16C12.1667 16 12.5 15.9 12.5 15.5C12.5 15.1 12.1667 15 12 15Z"
                   stroke="#FAFAFA"
-                  stroke-width="2"
-                  stroke-linecap="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
                 />
               </svg>
 

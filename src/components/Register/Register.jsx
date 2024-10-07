@@ -66,7 +66,7 @@ const Register = ({ onRegisterSuccess }) => {
       const response = await fetch("http://localhost:3000/users");
       const users = await response.json();
 
-      const emailExists = users.some((user) => user.gmail === email);
+      const emailExists = users.some((user) => user.email === email);
       if (emailExists) {
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -86,7 +86,7 @@ const Register = ({ onRegisterSuccess }) => {
           name,
           surname,
           fullname,
-          gmail: email,
+          email: email,
           password,
           phone_number: phone,
           profile_image: profileImage || "",
@@ -267,9 +267,9 @@ const Register = ({ onRegisterSuccess }) => {
                 <path
                   d="M4.5 12.2381L10 17L19.5 7"
                   stroke="#FAFAFA"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             )}
