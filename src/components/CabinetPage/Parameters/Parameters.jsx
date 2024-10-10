@@ -7,7 +7,7 @@ const Parameters = () => {
   const { user, login } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    email: user?.gmail || "",
+    email: user?.email || "",
     phone_number: user?.phone_number || "",
     name: user?.name || "",
     surname: user?.surname || "",
@@ -19,7 +19,7 @@ const Parameters = () => {
   useEffect(() => {
     if (user) {
       setFormData({
-        email: user.gmail || "",
+        email: user.email || "",
         phone_number: user.phone_number || "",
         name: user.name || "",
         surname: user.surname || "",

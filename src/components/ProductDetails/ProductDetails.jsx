@@ -139,7 +139,7 @@ const ProductDetails = () => {
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faEnvelope} />
-                    <p>{productOwner?.gmail}</p>
+                    <p>{productOwner?.email}</p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faLocationDot} />
