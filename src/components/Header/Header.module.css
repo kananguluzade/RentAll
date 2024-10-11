@@ -579,8 +579,57 @@
   -ms-border-radius: 12px;
   -o-border-radius: 12px;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
-  width: 225px;
-  height: 310px;
+  width: 300px;
+  height: 450px;
+  overflow: auto;
+}
+
+.notifications__Picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.notifications__fullname {
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.notifications__liked__list,
+.notifications__disliked__list,
+.notifications__shared__comment {
+  border: 1px solid #000;
+  border-radius: 12px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notifications__liked__list:empty,
+.notifications__disliked__list:empty {
+  display: none;
+}
+
+.user__liked__by,
+.user__disliked__by {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 8px;
+}
+
+.comment__likedBy__text,
+.comment__dislikedBy__text {
+  border-top: 1px solid #000;
+  padding-top: 10px;
+  padding-left: 8px;
+}
+
+.notifications__like__dislike__lists {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 @media screen and (max-width: 1000px) {

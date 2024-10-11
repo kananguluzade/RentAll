@@ -35,6 +35,8 @@ const Header = () => {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [userComments, setUserComments] = useState([]);
   const [usersList, setUsersList] = useState([]);
+  const [shares, setShares] = useState([]);
+  const [shareComments, setShareComments] = useState([]);
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -49,6 +51,14 @@ const Header = () => {
   const getUserInitials = () => {
     const [first, last] = [user?.name || "", user?.surname || ""];
     return `${first.charAt(0).toUpperCase()}${last.charAt(0).toUpperCase()}`;
+  };
+
+  const getInitials = (fullname) => {
+    const nameParts = fullname.split(" ");
+    const initials = nameParts
+      .map((part) => part.charAt(0).toUpperCase())
+      .join("");
+    return initials;
   };
 
   const handleLogout = () => {
@@ -164,6 +174,26 @@ const Header = () => {
       .then((response) => response.json())
       .then((data) => setUserComments(data))
       .catch((error) => console.error("Error fetching comments:", error));
+
+    fetch(`http://localhost:3000/shares?owner_id=${user.id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setShares(data);
+
+        const shareProductIds = data.map((share) => share.id);
+
+        fetch(
+          `http://localhost:3000/comments?productId=${shareProductIds.join(
+            ","
+          )}`
+        )
+          .then((response) => response.json())
+          .then((comments) => setShareComments(comments))
+          .catch((error) =>
+            console.error("Error fetching share comments:", error)
+          );
+      })
+      .catch((error) => console.error("Error fetching shares:", error));
   };
 
   useEffect(() => {
@@ -180,7 +210,9 @@ const Header = () => {
           .filter((likeId) => likeId !== user.id)
           .map((likeId) => {
             const likedUser = usersList.find((usr) => usr.id === likeId);
-            return likedUser ? likedUser.fullname : null;
+            return likedUser
+              ? { fullname: likedUser.fullname, userImg: likedUser.userImg }
+              : null;
           })
           .filter(Boolean);
 
@@ -188,30 +220,152 @@ const Header = () => {
           .filter((dislikeId) => dislikeId !== user.id)
           .map((dislikeId) => {
             const dislikedUser = usersList.find((usr) => usr.id === dislikeId);
-            return dislikedUser ? dislikedUser.fullname : null;
+            return dislikedUser
+              ? {
+                  fullname: dislikedUser.fullname,
+                  userImg: dislikedUser.userImg,
+                }
+              : null;
           })
           .filter(Boolean);
 
+        const getInitials = (fullname) => {
+          const nameParts = fullname.split(" ");
+          const initials = nameParts
+            .map((part) => part.charAt(0).toUpperCase())
+            .join("");
+          return initials;
+        };
+
         return (
-          <ul key={comment.id}>
-            <li>
-              {likedUsers.length > 0
-                ? `${likedUsers.join(", ")} adlı istifadəçi "${
-                    comment.text
-                  }" rəyinizi bəyəndi`
-                : ""}
+          <ul
+            className={styles.notifications__like__dislike__lists}
+            key={comment.id}
+          >
+            <li className={styles.notifications__liked__list}>
+              {likedUsers.length > 0 && likedUsers.length < 3 ? (
+                <>
+                  <div className={styles.user__liked__by}>
+                    {likedUsers.map((user, index) => (
+                      <span
+                        key={user.fullname}
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          marginRight: "5px",
+                        }}
+                      >
+                        {user.userImg ? (
+                          <img
+                            src={user.userImg}
+                            alt={user.fullname}
+                            className={styles.notifications__Picture}
+                          />
+                        ) : (
+                          <span
+                            style={{
+                              width: "40px",
+                              height: "40px",
+                              borderRadius: "50%",
+                              backgroundColor: "#548AEA",
+                              display: "inline-flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              marginRight: "5px",
+                              color: "white",
+                            }}
+                          >
+                            {getInitials(user.fullname)}
+                          </span>
+                        )}
+                        <span className={styles.notifications__fullname}>
+                          {user.fullname}
+                        </span>
+                        {index < likedUsers.length - 1 && ", "}
+                      </span>
+                    ))}
+                    {`adlı istifadəçilər rəyinizi bəyəndi`}
+                  </div>
+                  <div
+                    className={styles.comment__likedBy__text}
+                  >{`"${comment.text}"`}</div>
+                </>
+              ) : likedUsers.length >= 3 ? (
+                `${likedUsers
+                  .slice(0, 2)
+                  .map((user) => user.fullname)
+                  .join(", ")} və ${likedUsers.length - 2} digər istifadəçi "${
+                  comment.text
+                }" rəyinizi bəyəndi`
+              ) : (
+                ""
+              )}
             </li>
-            <li>
-              {dislikedUsers.length > 0
-                ? `${dislikedUsers.join(", ")} adlı istifadəçi "${
-                    comment.text
-                  }" rəyinizi bəyənmədi`
-                : ""}
+
+            <li className={styles.notifications__disliked__list}>
+              {dislikedUsers.length > 0 && dislikedUsers.length < 3 ? (
+                <>
+                  <div className={styles.user__disliked__by}>
+                    {dislikedUsers.map((user, index) => (
+                      <span
+                        key={user.fullname}
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          marginRight: "5px",
+                        }}
+                      >
+                        {user.userImg ? (
+                          <img
+                            src={user.userImg}
+                            alt={user.fullname}
+                            className={styles.notifications__Picture}
+                          />
+                        ) : (
+                          <span
+                            style={{
+                              width: "40px",
+                              height: "40px",
+                              borderRadius: "50%",
+                              backgroundColor: "#548AEA",
+                              display: "inline-flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              marginRight: "5px",
+                              color: "white",
+                            }}
+                          >
+                            {getInitials(user.fullname)}
+                          </span>
+                        )}
+                        <span className={styles.notifications__fullname}>
+                          {user.fullname}
+                        </span>
+                        {index < dislikedUsers.length - 1 && ", "}
+                      </span>
+                    ))}
+                    {`adlı istifadəçilər rəyinizi bəyənmədi`}
+                  </div>
+                  <div
+                    className={styles.comment__dislikedBy__text}
+                  >{`"${comment.text}"`}</div>
+                </>
+              ) : dislikedUsers.length >= 3 ? (
+                `${dislikedUsers
+                  .slice(0, 2)
+                  .map((user) => user.fullname)
+                  .join(", ")} və ${
+                  dislikedUsers.length - 2
+                } digər istifadəçi "${comment.text}" rəyinizi bəyənmədi`
+              ) : (
+                ""
+              )}
             </li>
           </ul>
         );
       });
   };
+
   return (
     <>
       <div className="header-border">
@@ -450,10 +604,44 @@ const Header = () => {
                       className={styles.notifications__menu}
                       ref={notificationsMenuRef}
                     >
-                      {userComments.length > 0 ? (
-                        renderUserComments()
-                      ) : (
-                        <p>Bildiriş yoxdur</p>
+                      {userComments.length > 0 && renderUserComments()}
+
+                      {shareComments.length > 0 && (
+                        <ul>
+                          {shareComments
+                            .filter(
+                              (comment) => comment.creatorByEmail !== user.email
+                            )
+                            .map((comment) => (
+                              <li
+                                key={comment.id}
+                                className={
+                                  styles.notifications__shared__comment
+                                }
+                              >
+                                <div className={styles.comment__header}>
+                                  <img
+                                    src={comment.userImg}
+                                    alt={comment.fullname}
+                                  />
+                                  <div>
+                                    <p>
+                                      {comment.fullname} Paylaşımınıza rəy
+                                      bildirdi
+                                    </p>
+                                    <span>
+                                      {new Date(
+                                        comment.createdAt
+                                      ).toLocaleString()}
+                                    </span>{" "}
+                                  </div>
+                                </div>
+                                <div className={styles.comment__body}>
+                                  <p>{comment.text}</p>
+                                </div>
+                              </li>
+                            ))}
+                        </ul>
                       )}
                     </div>
                   )}
