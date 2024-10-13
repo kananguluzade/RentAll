@@ -13,7 +13,6 @@ const MostLiked = () => {
       try {
         const response = await fetch("/db.json");
         const data = await response.json();
-        // Sort shares by likes in descending order
         const sortedShares = data.shares.sort((a, b) => b.likes - a.likes);
         setMostLiked(sortedShares);
       } catch (error) {

@@ -68,7 +68,6 @@
 
 .share__desc {
   display: flex;
-  width: 250px;
   flex-direction: column;
   gap: 8px;
 }
@@ -117,36 +116,3 @@
   fill: #eb4a4a;
 }
 
-@media screen and (max-width: 375px) {
-  .share {
-    max-width: 152px;
-    width: 100%;
-    padding: 12px 8px;
-  }
-
-  .share__img {
-    min-width: inherit;
-  }
-
-  .share__img img {
-    width: 136px;
-    height: 120px;
-  }
-
-  .share__img {
-    height: auto;
-  }
-
-  .share__info p {
-    font-size: 12px;
-  }
-
-  .share__author p {
-    font-size: 12px;
-  }
-
-  .share__author img {
-    width: 24px;
-    height: 24px;
-  }
-}

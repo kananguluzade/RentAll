@@ -26,7 +26,6 @@ const Card = ({ share, isLoading }) => {
 
   const handleLike = async () => {
     try {
-      // Update likes in db.json
       const updatedLikes = likes + 1;
       setLikes(updatedLikes);
 

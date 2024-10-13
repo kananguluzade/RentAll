@@ -73,9 +73,10 @@
     {
       "id": "1",
       "category": "Evlər və mənzillər",
-      "title": "Ev verilir bla",
+      "title": "Modern Ev Satışı",
       "place": "Bakı, Qaradağ rayonu",
       "owner_id": "ac00",
+      "status": "Yeni",
       "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728252312/uccka48oennoa2v57hh9.jpg",
       "otherImages": [
         "https://res.cloudinary.com/difymycwt/image/upload/v1728252332/hvu4jrfc1itwnjorl2gy.jpg",
@@ -83,11 +84,65 @@
         "https://res.cloudinary.com/difymycwt/image/upload/v1728252332/yyxudrn68pazuaes30oy.png",
         "https://res.cloudinary.com/difymycwt/image/upload/v1728252333/pdpuasfygsabc2tbk1mw.jpg"
       ],
-      "content": "blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla",
-      "author_phone": "994undefined",
+      "content": "Bu ev Qaradağ rayonunda yerləşən geniş, müasir dizaynlı, hər cür şəraitə sahib yeni bir evdir. Yüksək keyfiyyətli materiallardan istifadə edilmişdir. Evin daxilində geniş salon, mətbəx, 3 yataq otağı və 2 vanna otağı mövcuddur.",
+      "author_phone": "994501234567",
       "author": "Umud Quliyev",
       "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif",
-      "likes": "2"
+      "likes": "12"
+    },
+    {
+      "id": "2",
+      "category": "Avtomobillər",
+      "title": "Sedan Avtomobil Satışı",
+      "place": "Gəncə",
+      "owner_id": "ac00",
+      "status": "İşlənmiş",
+      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728252334/sedan.jpg",
+      "otherImages": [
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728252334/sedan_inside.jpg",
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728252334/sedan_back.jpg"
+      ],
+      "content": "İdeal vəziyyətdə olan 2018 model sedan avtomobili. Texniki baxışdan keçib və heç bir problemi yoxdur. Avtomobilin daxili dizaynı geniş və komfortludur. Benzin yanacaqla işləyir, qənaətcil və rahatdır.",
+      "author_phone": "994556789123",
+      "author": "Emin Məmmədov",
+      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/author2.jpg",
+      "likes": "8"
+    },
+    {
+      "id": "3",
+      "category": "Elektronika",
+      "title": "Smart TV Satışı",
+      "place": "Sumqayıt",
+      "owner_id": "ac00",
+      "status": "Yeni",
+      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728252335/tv.jpg",
+      "otherImages": [
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728252335/tv_front.jpg",
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728252335/tv_back.jpg"
+      ],
+      "content": "Son model Smart TV. 55 düymlük geniş ekran, 4K keyfiyyətində görüntü və smart xüsusiyyətləri ilə təchiz olunmuşdur. Netflix, YouTube kimi platformalara rahatlıqla qoşula biləcəyiniz ideal televizor.",
+      "author_phone": "994504567890",
+      "author": "Leyla Əhmədova",
+      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/author3.jpg",
+      "likes": "20"
+    },
+    {
+      "id": "4",
+      "category": "İdman",
+      "title": "Fitness Avadanlığı Satışı",
+      "place": "Bakı, Nərimanov rayonu",
+      "owner_id": "ac00",
+      "status": "İşlənmiş",
+      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728252336/fitness_equipment.jpg",
+      "otherImages": [
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728252336/treadmill.jpg",
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728252336/weights.jpg"
+      ],
+      "content": "İşlənmiş, amma yaxşı vəziyyətdə olan fitness avadanlıqları. Daxilində qaçış bandı, ağırlıqlar və digər aksesuarlar mövcuddur. Evinizdə idmanla məşğul olmaq üçün ideal seçimdir.",
+      "author_phone": "994504321098",
+      "author": "Fuad Əliyev",
+      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/author4.jpg",
+      "likes": "5"
     }
   ],
   "comments": [
@@ -101,13 +156,8 @@
       "fullname": "Kenan Guluzada",
       "userImg": "",
       "createdAt": "2024-10-07T19:08:22.883Z",
-      "likedBy": [
-        "07ac"
-      ],
-      "dislikedBy": [
-        "ac00",
-        "636c"
-      ]
+      "likedBy": ["07ac"],
+      "dislikedBy": ["ac00", "636c"]
     },
     {
       "id": "521f",
@@ -119,13 +169,21 @@
       "fullname": "Umud Quliyev",
       "userImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif",
       "createdAt": "2024-10-07T19:10:24.846Z",
-      "likedBy": [
-        "07ac",
-        "ac00"
-      ],
-      "dislikedBy": [
-        "636c"
-      ]
+      "likedBy": ["07ac", "ac00"],
+      "dislikedBy": ["636c"]
+    },
+    {
+      "id": "9a07",
+      "text": "test",
+      "productId": "1",
+      "likes": 0,
+      "dislikes": 0,
+      "creatorByEmail": "kenan123@gmail.com",
+      "fullname": "Kenan Guluzada",
+      "userImg": "",
+      "createdAt": "2024-10-11T00:11:51.794Z",
+      "likedBy": [],
+      "dislikedBy": []
     }
   ],
   "faq": [

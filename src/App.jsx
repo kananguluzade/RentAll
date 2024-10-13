@@ -9,6 +9,7 @@ import Sharing from "./components/CabinetPage/Sharing/Sharing";
 import Parameters from "./components/CabinetPage/Parameters/Parameters";
 import Activity from "./components/CabinetPage/Activity/Activity";
 import AddProduct from "./pages/AddProduct/AddProduct";
+import AllProducts from "./pages/AllProducts/AllProducts";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="aktivlik" element={<Activity />} />
         </Route>
         <Route path="cabinet/elan-yerlesdir" element={<AddProduct />} />
+        <Route path="allproducts" element={<AllProducts />} />
       </Route>
     </Routes>
   );

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./Categories.module.css";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -18,6 +20,11 @@ const Categories = () => {
     fetchCategories();
   }, []);
 
+  const handleCategoryClick = (category) => {
+    window.scrollTo(0, 0);
+    navigate(`/allproducts?category=${category.name}`);
+  };
+
   return (
     <div className={styles.categories}>
       <div className={styles.categories__title}>
@@ -29,6 +36,7 @@ const Categories = () => {
             key={category.id}
             className={styles.categorie}
             style={{ background: category.background }}
+            onClick={() => handleCategoryClick(category)}
           >
             <p>{category.name}</p>
             <img src={category.image} alt={category.name} />
