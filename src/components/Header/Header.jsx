@@ -35,9 +35,9 @@ const Header = () => {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [userComments, setUserComments] = useState([]);
   const [usersList, setUsersList] = useState([]);
-  const [shares, setShares] = useState([]);
   const [shareComments, setShareComments] = useState([]);
   const { user, logout } = useContext(AuthContext);
+  const [shareProductImgs, setShareProductImgs] = useState([]);
   const navigate = useNavigate();
 
   const userFullName = `${user?.name || ""} ${user?.surname || ""}`;
@@ -47,6 +47,25 @@ const Header = () => {
   const dropdownRef = useRef(null);
   const userMenuRef = useRef(null);
   const notificationsMenuRef = useRef(null);
+
+  const formatRelativeDate = (dateString) => {
+    const now = new Date();
+    const date = new Date(dateString);
+    const diffInSeconds = Math.floor((now - date) / 1000);
+
+    if (diffInSeconds < 60) {
+      return `${diffInSeconds} saniyə əvvəl`;
+    } else if (diffInSeconds < 3600) {
+      const minutes = Math.floor(diffInSeconds / 60);
+      return `${minutes} dəqiqə əvvəl`;
+    } else if (diffInSeconds < 86400) {
+      const hours = Math.floor(diffInSeconds / 3600);
+      return `${hours} saat əvvəl`;
+    } else {
+      const days = Math.floor(diffInSeconds / 86400);
+      return `${days} gün əvvəl`;
+    }
+  };
 
   const getUserInitials = () => {
     const [first, last] = [user?.name || "", user?.surname || ""];
@@ -174,23 +193,37 @@ const Header = () => {
       .then((response) => response.json())
       .then((data) => setUserComments(data))
       .catch((error) => console.error("Error fetching comments:", error));
+  };
 
+  const fetchUserSharesAndComments = () => {
     fetch(`http://localhost:3000/shares?owner_id=${user.id}`)
       .then((response) => response.json())
-      .then((data) => {
-        setShares(data);
+      .then((shares) => {
+        const shareProductIds = shares.map((share) => share.id);
+        const productImages = shares
+          .filter((share) => share.owner_id === user.id)
+          .map((share) => ({
+            id: share.id,
+            image: share.image,
+          }));
 
-        const shareProductIds = data.map((share) => share.id);
+        setShareProductImgs(productImages);
 
-        fetch(
-          `http://localhost:3000/comments?productId=${shareProductIds.join(
-            ","
-          )}`
+        console.log("Ürün Resimleri:", productImages);
+
+        Promise.all(
+          shareProductIds.map((id) =>
+            fetch(`http://localhost:3000/comments?productId=${id}`).then(
+              (response) => response.json()
+            )
+          )
         )
-          .then((response) => response.json())
-          .then((comments) => setShareComments(comments))
+          .then((commentsArray) => {
+            const allComments = commentsArray.flat();
+            setShareComments(allComments);
+          })
           .catch((error) =>
-            console.error("Error fetching share comments:", error)
+            console.error("Error fetching comments for shares:", error)
           );
       })
       .catch((error) => console.error("Error fetching shares:", error));
@@ -199,6 +232,7 @@ const Header = () => {
   useEffect(() => {
     if (isNotificationsOpen) {
       fetchUserNotifications();
+      fetchUserSharesAndComments();
     }
   }, [isNotificationsOpen]);
 
@@ -246,13 +280,14 @@ const Header = () => {
               {likedUsers.length > 0 && likedUsers.length < 3 ? (
                 <>
                   <div className={styles.user__liked__by}>
-                    {likedUsers.map((user, index) => (
+                    {likedUsers.map((user) => (
                       <span
                         key={user.fullname}
                         style={{
                           display: "inline-flex",
                           alignItems: "center",
                           marginRight: "5px",
+                          gap: "5px",
                         }}
                       >
                         {user.userImg ? (
@@ -278,21 +313,22 @@ const Header = () => {
                             {getInitials(user.fullname)}
                           </span>
                         )}
-                        <span className={styles.notifications__fullname}>
-                          {user.fullname}
-                        </span>
-                        {index < likedUsers.length - 1 && ", "}
+                        <div className={styles.comment__sender__fullname}>
+                          <span className={styles.notifications__fullname}>
+                            {user.fullname}
+                          </span>
+                          <p>adlı istifadəçi rəyinizi bəyəndi</p>
+                        </div>
                       </span>
                     ))}
-                    {`adlı istifadəçilər rəyinizi bəyəndi`}
                   </div>
                   <div
                     className={styles.comment__likedBy__text}
                   >{`"${comment.text}"`}</div>
                 </>
-              ) : likedUsers.length >= 3 ? (
+              ) : likedUsers.length >= 2 ? (
                 `${likedUsers
-                  .slice(0, 2)
+                  .slice(0, 1)
                   .map((user) => user.fullname)
                   .join(", ")} və ${likedUsers.length - 2} digər istifadəçi "${
                   comment.text
@@ -303,16 +339,17 @@ const Header = () => {
             </li>
 
             <li className={styles.notifications__disliked__list}>
-              {dislikedUsers.length > 0 && dislikedUsers.length < 3 ? (
+              {dislikedUsers.length > 0 && dislikedUsers.length < 2 ? (
                 <>
                   <div className={styles.user__disliked__by}>
-                    {dislikedUsers.map((user, index) => (
-                      <span
+                    {dislikedUsers.map((user) => (
+                      <div
                         key={user.fullname}
                         style={{
                           display: "inline-flex",
                           alignItems: "center",
                           marginRight: "5px",
+                          gap: "5px",
                         }}
                       >
                         {user.userImg ? (
@@ -338,21 +375,22 @@ const Header = () => {
                             {getInitials(user.fullname)}
                           </span>
                         )}
-                        <span className={styles.notifications__fullname}>
-                          {user.fullname}
-                        </span>
-                        {index < dislikedUsers.length - 1 && ", "}
-                      </span>
+                        <div className={styles.comment__sender__fullname}>
+                          <span className={styles.notifications__fullname}>
+                            {user.fullname}
+                          </span>
+                          <p>adlı istifadəçi rəyinizi bəyənmədi</p>
+                        </div>
+                      </div>
                     ))}
-                    {`adlı istifadəçilər rəyinizi bəyənmədi`}
                   </div>
                   <div
                     className={styles.comment__dislikedBy__text}
                   >{`"${comment.text}"`}</div>
                 </>
-              ) : dislikedUsers.length >= 3 ? (
+              ) : dislikedUsers.length >= 2 ? (
                 `${dislikedUsers
-                  .slice(0, 2)
+                  .slice(0, 1)
                   .map((user) => user.fullname)
                   .join(", ")} və ${
                   dislikedUsers.length - 2
@@ -606,8 +644,12 @@ const Header = () => {
                     >
                       {userComments.length > 0 && renderUserComments()}
 
-                      {shareComments.length > 0 && (
-                        <ul>
+                      {shareComments.length > 0 ? (
+                        <ul
+                          className={
+                            styles.notifications__coming__comments__lists
+                          }
+                        >
                           {shareComments
                             .filter(
                               (comment) => comment.creatorByEmail !== user.email
@@ -620,28 +662,75 @@ const Header = () => {
                                 }
                               >
                                 <div className={styles.comment__header}>
-                                  <img
-                                    src={comment.userImg}
-                                    alt={comment.fullname}
-                                  />
+                                  {comment.userImg ? (
+                                    <img
+                                      src={comment.userImg}
+                                      alt={comment.fullname}
+                                    />
+                                  ) : (
+                                    <span
+                                      style={{
+                                        width: "40px",
+                                        height: "40px",
+                                        borderRadius: "50%",
+                                        backgroundColor: "#548AEA",
+                                        display: "inline-flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        marginRight: "5px",
+                                        color: "white",
+                                      }}
+                                    >
+                                      {getInitials(comment.fullname)}
+                                    </span>
+                                  )}
                                   <div>
-                                    <p>
-                                      {comment.fullname} Paylaşımınıza rəy
-                                      bildirdi
-                                    </p>
-                                    <span>
-                                      {new Date(
-                                        comment.createdAt
-                                      ).toLocaleString()}
-                                    </span>{" "}
+                                    <div
+                                      className={
+                                        styles.comment__sender__fullname
+                                      }
+                                    >
+                                      <span
+                                        className={
+                                          styles.notifications__fullname
+                                        }
+                                      >
+                                        {comment.fullname}
+                                      </span>
+                                      <p>
+                                        adlı istifadəçi paylaşımınıza rəy
+                                        bildirdi
+                                      </p>
+                                    </div>
+                                    <span className={styles.comment__createdAt}>
+                                      {formatRelativeDate(comment.createdAt)}
+                                    </span>
                                   </div>
                                 </div>
                                 <div className={styles.comment__body}>
-                                  <p>{comment.text}</p>
+                                  {shareProductImgs.find(
+                                    (shareProductImg) =>
+                                      shareProductImg.id === comment.productId
+                                  ) && (
+                                    <img
+                                      src={
+                                        shareProductImgs.find(
+                                          (shareProductImg) =>
+                                            shareProductImg.id ===
+                                            comment.productId
+                                        ).image
+                                      }
+                                      alt="Product Image"
+                                      className={styles.product__image}
+                                    />
+                                  )}
+                                  <p>{`"${comment.text}"`}</p>
                                 </div>
                               </li>
                             ))}
                         </ul>
+                      ) : (
+                        <p>Bildiriş yoxdur</p>
                       )}
                     </div>
                   )}
