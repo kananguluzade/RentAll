@@ -92,57 +92,39 @@
     },
     {
       "id": "2",
-      "category": "Avtomobillər",
-      "title": "Sedan Avtomobil Satışı",
-      "place": "Gəncə",
+      "category": "Evlər və mənzillər",
+      "title": "Test Test",
+      "place": "Bakı, Səbail rayonu",
       "owner_id": "ac00",
-      "status": "İşlənmiş",
-      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728252334/sedan.jpg",
+      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728860813/pafsr2olhwgkckttheu4.jpg",
       "otherImages": [
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728252334/sedan_inside.jpg",
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728252334/sedan_back.jpg"
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728860819/vtsskj0podsgv4ryxgoh.jpg",
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728860822/mbuuebmoshm9maqbsuky.jpg",
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728860823/ydwuw1odfu0y7alqtsqe.png",
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728860824/pop5myzobtzkp0rkrjae.jpg"
       ],
-      "content": "İdeal vəziyyətdə olan 2018 model sedan avtomobili. Texniki baxışdan keçib və heç bir problemi yoxdur. Avtomobilin daxili dizaynı geniş və komfortludur. Benzin yanacaqla işləyir, qənaətcil və rahatdır.",
-      "author_phone": "994556789123",
-      "author": "Emin Məmmədov",
-      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/author2.jpg",
-      "likes": "8"
+      "content": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt ex pariatur ad placeat debitis? Corrupti nihil a odit laborum sed.",
+      "author_phone": "994undefined",
+      "author": "Umud Quliyev",
+      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif"
     },
     {
       "id": "3",
-      "category": "Elektronika",
-      "title": "Smart TV Satışı",
-      "place": "Sumqayıt",
-      "owner_id": "ac00",
-      "status": "Yeni",
-      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728252335/tv.jpg",
+      "category": "Avtomobillər",
+      "title": "Blok Blok",
+      "place": "Ağdam rayonu",
+      "owner_id": "636c",
+      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728863758/gclvozmflcb1vvz8zm9p.png",
       "otherImages": [
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728252335/tv_front.jpg",
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728252335/tv_back.jpg"
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728863761/fvcal9lo3ddzobpehzcz.png",
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728863762/vyliv0wrnjwdtlsyrwm2.png",
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728863762/cw0fxy7hlepkvrty6m1k.png",
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728863762/iivfiwykk4fwg0oz3gqs.png"
       ],
-      "content": "Son model Smart TV. 55 düymlük geniş ekran, 4K keyfiyyətində görüntü və smart xüsusiyyətləri ilə təchiz olunmuşdur. Netflix, YouTube kimi platformalara rahatlıqla qoşula biləcəyiniz ideal televizor.",
-      "author_phone": "994504567890",
-      "author": "Leyla Əhmədova",
-      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/author3.jpg",
-      "likes": "20"
-    },
-    {
-      "id": "4",
-      "category": "İdman",
-      "title": "Fitness Avadanlığı Satışı",
-      "place": "Bakı, Nərimanov rayonu",
-      "owner_id": "ac00",
-      "status": "İşlənmiş",
-      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728252336/fitness_equipment.jpg",
-      "otherImages": [
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728252336/treadmill.jpg",
-        "https://res.cloudinary.com/difymycwt/image/upload/v1728252336/weights.jpg"
-      ],
-      "content": "İşlənmiş, amma yaxşı vəziyyətdə olan fitness avadanlıqları. Daxilində qaçış bandı, ağırlıqlar və digər aksesuarlar mövcuddur. Evinizdə idmanla məşğul olmaq üçün ideal seçimdir.",
-      "author_phone": "994504321098",
-      "author": "Fuad Əliyev",
-      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/author4.jpg",
-      "likes": "5"
+      "content": "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum",
+      "author_phone": "994undefined",
+      "author": "Ehmed Abbasov",
+      "authorImg": ""
     }
   ],
   "comments": [
@@ -156,8 +138,13 @@
       "fullname": "Kenan Guluzada",
       "userImg": "",
       "createdAt": "2024-10-07T19:08:22.883Z",
-      "likedBy": ["07ac"],
-      "dislikedBy": ["ac00", "636c"]
+      "likedBy": [
+        "07ac"
+      ],
+      "dislikedBy": [
+        "ac00",
+        "636c"
+      ]
     },
     {
       "id": "521f",
@@ -169,21 +156,201 @@
       "fullname": "Umud Quliyev",
       "userImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif",
       "createdAt": "2024-10-07T19:10:24.846Z",
-      "likedBy": ["07ac", "ac00"],
-      "dislikedBy": ["636c"]
+      "likedBy": [
+        "07ac",
+        "ac00"
+      ],
+      "dislikedBy": [
+        "636c"
+      ]
     },
     {
       "id": "9a07",
       "text": "test",
       "productId": "1",
-      "likes": 0,
+      "likes": 1,
       "dislikes": 0,
       "creatorByEmail": "kenan123@gmail.com",
       "fullname": "Kenan Guluzada",
       "userImg": "",
       "createdAt": "2024-10-11T00:11:51.794Z",
+      "likedBy": [
+        "ac00"
+      ],
+      "dislikedBy": []
+    },
+    {
+      "id": "8f42",
+      "text": "test",
+      "productId": "1",
+      "likes": 0,
+      "dislikes": 0,
+      "creatorByEmail": "umudguliyev@outlook.com",
+      "fullname": "Umud Quliyev",
+      "userImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif",
+      "createdAt": "2024-10-13T21:20:44.296Z",
       "likedBy": [],
       "dislikedBy": []
+    },
+    {
+      "id": "4216",
+      "text": "ASHJHSDAHSADASDHDJ",
+      "productId": "1",
+      "likes": 0,
+      "dislikes": 0,
+      "creatorByEmail": "ehmed@gmail.com",
+      "fullname": "Ehmed Abbasov",
+      "userImg": "",
+      "createdAt": "2024-10-13T21:21:42.271Z",
+      "likedBy": [],
+      "dislikedBy": []
+    },
+    {
+      "id": "457b",
+      "text": "lorem ipsim dolar",
+      "productId": "1",
+      "likes": 0,
+      "dislikes": 0,
+      "creatorByEmail": "ehmed@gmail.com",
+      "fullname": "Ehmed Abbasov",
+      "userImg": "",
+      "createdAt": "2024-10-13T21:22:09.577Z",
+      "likedBy": [],
+      "dislikedBy": []
+    },
+    {
+      "id": "cd80",
+      "text": "d",
+      "productId": "1",
+      "likes": 0,
+      "dislikes": 0,
+      "creatorByEmail": "ehmed@gmail.com",
+      "fullname": "Ehmed Abbasov",
+      "userImg": "",
+      "createdAt": "2024-10-13T21:25:52.374Z",
+      "likedBy": [],
+      "dislikedBy": []
+    },
+    {
+      "id": "2ded",
+      "text": "Test yorum",
+      "productId": "1",
+      "likes": 0,
+      "dislikes": 0,
+      "creatorByEmail": "ehmed@gmail.com",
+      "fullname": "Ehmed Abbasov",
+      "userImg": "",
+      "createdAt": "2024-10-13T23:01:01.977Z",
+      "likedBy": [],
+      "dislikedBy": []
+    },
+    {
+      "id": "b2fe",
+      "text": "Yoxlama 1 2 3",
+      "productId": "2",
+      "likes": 0,
+      "dislikes": 0,
+      "creatorByEmail": "ehmed@gmail.com",
+      "fullname": "Ehmed Abbasov",
+      "userImg": "",
+      "createdAt": "2024-10-13T23:09:39.153Z",
+      "likedBy": [],
+      "dislikedBy": []
+    },
+    {
+      "id": "07fd",
+      "text": "Test 1 2 3",
+      "productId": "2",
+      "likes": 0,
+      "dislikes": 0,
+      "creatorByEmail": "ehmed@gmail.com",
+      "fullname": "Ehmed Abbasov",
+      "userImg": "",
+      "createdAt": "2024-10-13T23:09:51.845Z",
+      "likedBy": [],
+      "dislikedBy": []
+    },
+    {
+      "id": "c945",
+      "text": "Testtt",
+      "productId": "2",
+      "likes": 0,
+      "dislikes": 0,
+      "creatorByEmail": "ehmed@gmail.com",
+      "fullname": "Ehmed Abbasov",
+      "userImg": "",
+      "createdAt": "2024-10-13T23:22:53.656Z",
+      "likedBy": [],
+      "dislikedBy": []
+    },
+    {
+      "id": "d349",
+      "text": "rewrhjewhjwej",
+      "productId": "2",
+      "likes": 0,
+      "dislikes": 0,
+      "creatorByEmail": "ehmed@gmail.com",
+      "fullname": "Ehmed Abbasov",
+      "userImg": "",
+      "createdAt": "2024-10-13T23:32:37.355Z",
+      "likedBy": [],
+      "dislikedBy": []
+    },
+    {
+      "id": "6220",
+      "text": "Yoxlama",
+      "productId": "2",
+      "likes": 0,
+      "dislikes": 0,
+      "creatorByEmail": "ehmed@gmail.com",
+      "fullname": "Ehmed Abbasov",
+      "userImg": "",
+      "createdAt": "2024-10-13T23:37:30.084Z",
+      "likedBy": [],
+      "dislikedBy": []
+    },
+    {
+      "id": "221b",
+      "text": "Test yorum 123",
+      "productId": "2",
+      "likes": 0,
+      "dislikes": 0,
+      "creatorByEmail": "ehmed@gmail.com",
+      "fullname": "Ehmed Abbasov",
+      "userImg": "",
+      "createdAt": "2024-10-13T23:39:52.383Z",
+      "likedBy": [],
+      "dislikedBy": []
+    },
+    {
+      "id": "9091",
+      "text": "test",
+      "productId": "2",
+      "likes": 1,
+      "dislikes": 0,
+      "creatorByEmail": "umudguliyev@outlook.com",
+      "fullname": "Umud Quliyev",
+      "userImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif",
+      "createdAt": "2024-10-13T23:52:10.575Z",
+      "likedBy": [
+        "636c"
+      ],
+      "dislikedBy": []
+    },
+    {
+      "id": "d2e8",
+      "text": "Gozel paylasim",
+      "productId": "3",
+      "likes": 0,
+      "dislikes": 1,
+      "creatorByEmail": "umudguliyev@outlook.com",
+      "fullname": "Umud Quliyev",
+      "userImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif",
+      "createdAt": "2024-10-13T23:57:08.341Z",
+      "likedBy": [],
+      "dislikedBy": [
+        "636c"
+      ]
     }
   ],
   "faq": [

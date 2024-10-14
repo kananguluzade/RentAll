@@ -3,13 +3,13 @@ import Layout from "./layout/Layout";
 import Home from "./pages/Home/Home";
 import "./App.css";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Cabinet from "./pages/Cabinet/Cabinet";
 import Sharing from "./components/CabinetPage/Sharing/Sharing";
 import Parameters from "./components/CabinetPage/Parameters/Parameters";
 import Activity from "./components/CabinetPage/Activity/Activity";
 import AddProduct from "./pages/AddProduct/AddProduct";
 import AllProducts from "./pages/AllProducts/AllProducts";
+import PrivateRoute from "./components/Auth/PrivateRoute/PrivateRoute";
 
 function App() {
   return (

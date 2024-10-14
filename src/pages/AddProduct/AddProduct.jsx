@@ -13,9 +13,9 @@ import {
   faCamera,
   faCashRegister,
 } from "@fortawesome/free-solid-svg-icons";
-import { AuthContext } from "../../components/Services/authContext";
 import img from "/test.png";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../components/Auth/Services/authContext";
 
 const AddProduct = () => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);

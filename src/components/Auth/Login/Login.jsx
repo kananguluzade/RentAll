@@ -6,10 +6,10 @@ import {
   faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Login.module.css";
-import { AuthContext } from "../Services/authContext";
-import Validation from "../Validation/Validation";
+import Validation from "../../Validation/Validation";
 import { notification } from "antd";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Services/authContext";
 
 const Login = ({ onForgotPassword, onClose }) => {
   const [email, setEmail] = useState("");

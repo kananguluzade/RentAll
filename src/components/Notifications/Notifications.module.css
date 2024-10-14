@@ -1,0 +1,141 @@
+.notifications__menu {
+  border-radius: 12px;
+  padding: 12px;
+  background-color: #fff;
+  position: absolute;
+  z-index: 999;
+  right: 5%;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  height: 550px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notifications__menu::-webkit-scrollbar {
+  display: none;
+}
+
+.notifications__Picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.notifications__fullname {
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.notifications__shared__comment {
+  cursor: pointer;
+}
+
+.notifications__liked__list,
+.notifications__disliked__list,
+.notifications__shared__comment {
+  border: 1px solid #000;
+  border-radius: 12px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notifications__liked__list:empty,
+.notifications__disliked__list:empty {
+  display: none;
+}
+
+.user__liked__by,
+.user__disliked__by {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 8px;
+}
+
+.comment__likedBy__text,
+.comment__dislikedBy__text {
+  border-top: 1px solid #000;
+  padding-top: 10px;
+  padding-left: 8px;
+}
+
+.notifications__like__dislike__lists,
+.notifications__coming__comments__lists {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  gap: 5px;
+  padding-left: 8px;
+}
+
+.comment__body {
+  padding-left: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.comment__sender__fullname {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+
+.comment__createdAt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #585a5c;
+  font-size: 12px;
+}
+
+.comment__createdAt svg {
+  color: var(--blue-default);
+  font-size: 12px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+.product__image {
+  width: 60px;
+  height: 75px;
+  border-radius: 8px;
+}
+
+.notification__icon {
+  position: relative;
+  cursor: pointer;
+}
+
+.notification__badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 5px 7px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

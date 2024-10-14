@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import styles from "./Cabinet.module.css";
-import { AuthContext } from "../../components/Services/authContext";
+import { AuthContext } from "../../components/Auth/Services/authContext";
 
 const Cabinet = () => {
   const { user } = useContext(AuthContext);

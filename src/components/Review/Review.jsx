@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import styles from "./Review.module.css";
-import { AuthContext } from "../Services/authContext";
+import { AuthContext } from "../Auth/Services/authContext";
 
 const Review = ({ productId }) => {
   const [comment, setComment] = useState("");
@@ -180,7 +180,7 @@ const Review = ({ productId }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [openOptionsRef]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (comment.trim()) {
       const newComment = {
@@ -196,19 +196,31 @@ const Review = ({ productId }) => {
         dislikedBy: [],
       };
 
-      fetch("http://localhost:3000/comments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newComment),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setCommentsList([...commentsList, data]);
-          setComment("");
-        })
-        .catch((error) => console.error("Error posting comment:", error));
+      try {
+        console.log("Submitting comment:", newComment);
+
+        const response = await fetch("http://localhost:3000/comments", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newComment),
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(
+            `Server error: ${response.statusText} - ${errorText}`
+          );
+        }
+
+        const data = await response.json();
+        setCommentsList((prevComments) => [...prevComments, data]);
+        setComment("");
+      } catch (error) {
+        console.error("Error posting comment:", error);
+        alert(`Error posting comment: ${error.message}`);
+      }
     }
   };
 

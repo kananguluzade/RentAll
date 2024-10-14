@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import styles from "./Sharing.module.css";
-import { AuthContext } from "../../Services/authContext";
 import { Modal, Button } from "rsuite";
+import { AuthContext } from "../../Auth/Services/authContext";
 
 const Sharing = () => {
   const { user } = useContext(AuthContext);

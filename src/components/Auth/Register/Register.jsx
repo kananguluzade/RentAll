@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -8,11 +8,13 @@ import {
   faEye,
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
-import { notification, Modal, Spin } from "antd";
+import { notification } from "antd";
 import styles from "./Register.module.css";
-import Validation from "../Validation/Validation";
+import Validation from "../../Validation/Validation";
+import { AuthContext } from "../Services/authContext";
 
-const Register = ({ onRegisterSuccess }) => {
+const Register = ({ onClose }) => {
+  const { login } = useContext(AuthContext);
   const [fullname, setFullname] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -23,8 +25,6 @@ const Register = ({ onRegisterSuccess }) => {
   const [errors, setErrors] = useState({});
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -41,13 +41,13 @@ const Register = ({ onRegisterSuccess }) => {
     });
   };
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
+  useEffect(() => {
+    if (success) {
+      setTimeout(() => {
+        onClose();
+      }, 2000);
+    }
+  }, [success, onClose]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,7 +77,6 @@ const Register = ({ onRegisterSuccess }) => {
 
       setLoading(true);
       setSuccess(false);
-
       setErrors({});
 
       setTimeout(async () => {
@@ -119,13 +118,7 @@ const Register = ({ onRegisterSuccess }) => {
           setProfileImage("");
           setRoleType("user");
 
-          showModal();
-
-          setTimeout(() => {
-            if (onRegisterSuccess) {
-              onRegisterSuccess(newUser);
-            }
-          }, 2000);
+          login(newUser);
         } else {
           throw new Error("Failed to register user");
         }

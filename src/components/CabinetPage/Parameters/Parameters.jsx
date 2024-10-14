@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import styles from "./Parameters.module.css";
-import { AuthContext } from "../../Services/authContext";
 import { notification } from "antd";
+import { AuthContext } from "../../Auth/Services/authContext";
 
 const Parameters = () => {
   const { user, login } = useContext(AuthContext);
