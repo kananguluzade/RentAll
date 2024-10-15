@@ -189,7 +189,7 @@ const AddProduct = () => {
   useEffect(() => {
     const fetchShares = async () => {
       try {
-        const response = await fetch("http://localhost:3000/shares");
+        const response = await fetch("/api/addProduct");
         const data = await response.json();
         setShares(data || []);
       } catch (error) {
@@ -339,7 +339,7 @@ const AddProduct = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/shares", {
+      const response = await fetch("/api/addProduct", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -349,7 +349,13 @@ const AddProduct = () => {
 
       if (response.ok) {
         const savedEntry = await response.json();
-        setShares((prev) => [...prev, savedEntry]);
+        setShares((prev) => [...prev, savedEntry.data]);
+        notification.success({
+          message: "Uğurlu",
+          description: "Elanınız uğurla paylaşıldı, yönlendirilirsiniz...",
+          placement: "topRight",
+        });
+        setTimeout(() => navigate("/cabinet/elanlar"), 2000);
       } else {
         console.error("Error saving new share");
         notification.error({
@@ -361,33 +367,20 @@ const AddProduct = () => {
     } catch (error) {
       console.error("Error saving share:", error);
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-        setLoadingVisible(false);
-
-        setNewShare({
-          id: "",
-          category: "",
-          title: "",
-          author_phone: "",
-          place: "",
-          owner_id: user.id,
-          image: "",
-          content: "",
-        });
-        setImages([]);
-        setOtherImages([]);
-
-        notification.success({
-          message: "Uğurlu",
-          description: "Elanınız uğurla paylaşıldı, yönlendirilirsiniz...",
-          placement: "topRight",
-        });
-
-        setTimeout(() => {
-          navigate("/cabinet/elanlar");
-        }, 2000);
-      }, 3000);
+      setLoading(false);
+      setLoadingVisible(false);
+      setNewShare({
+        id: "",
+        category: "",
+        title: "",
+        author_phone: "",
+        place: "",
+        owner_id: user.id,
+        image: "",
+        content: "",
+      });
+      setImages([]);
+      setOtherImages([]);
     }
   };
 
