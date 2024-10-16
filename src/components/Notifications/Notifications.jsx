@@ -23,7 +23,6 @@ const Notifications = ({
         .then((response) => response.json())
         .then((data) => {
           setUsersList(data.users || []);
-          console.log("Fetched Users List:", data.users);
         })
         .catch((error) => console.error("Error fetching users:", error));
     }

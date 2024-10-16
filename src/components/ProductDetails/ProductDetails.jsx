@@ -156,9 +156,9 @@ const ProductDetails = () => {
                 </button>
               </div>
             </div>
-            <div className={styles.product__fav}>
+            {/* <div className={styles.product__fav}>
               <FontAwesomeIcon icon={faHeart} />
-            </div>
+            </div> */}
           </div>
           <div className={styles.product__description}>
             <p>{product.content}</p>

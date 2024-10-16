@@ -72,17 +72,17 @@
   gap: 8px;
 }
 
-.share__desc .share__category {
+.share__desc .share__info {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.share__category h4 {
-  color: var(--black);
+.share__info h4 {
+  color: var(--black) !important;
 }
 
-.share__desc .share__info p {
+.share__desc .share__category p {
   color: var(--black);
   display: -webkit-box;
   -webkit-box-orient: vertical;

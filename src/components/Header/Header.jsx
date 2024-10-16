@@ -27,7 +27,6 @@ const Header = () => {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [userComments, setUserComments] = useState([]);
   const [shareComments, setShareComments] = useState([]);
-  const [usersList, setUsersList] = useState([]);
   const [shareProductImgs, setShareProductImgs] = useState([]);
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -335,9 +334,11 @@ const Header = () => {
                     />
                   </svg>
 
-                  <span className={styles.notification__badge}>
-                    {notificationCount}
-                  </span>
+                  {notificationCount > 0 && (
+                    <span className={styles.notification__badge}>
+                      {notificationCount}
+                    </span>
+                  )}
                 </div>
 
                 <div className={styles.user__img} onClick={toggleUserMenu}>
