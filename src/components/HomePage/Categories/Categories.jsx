@@ -6,19 +6,21 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("/db.json");
+        const response = await fetch(`${BASE_URL}/categories`);
         const data = await response.json();
-        setCategories(data.categories);
+        setCategories(data);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
     };
 
     fetchCategories();
-  }, []);
+  }, [BASE_URL]);
 
   const handleCategoryClick = (category) => {
     window.scrollTo(0, 0);

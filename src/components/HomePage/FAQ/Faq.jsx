@@ -5,20 +5,21 @@ import styles from "./Faq.module.css";
 
 const Faq = () => {
   const [faqData, setFaqData] = useState([]);
+  const BASE_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchFaqs = async () => {
       try {
-        const response = await fetch("/db.json");
+        const response = await fetch(`${BASE_URL}/faq`);
         const data = await response.json();
-        setFaqData(data.faq);
+        setFaqData(data);
       } catch (error) {
         console.error("Error fetching Faqs:", error);
       }
     };
 
     fetchFaqs();
-  }, []);
+  }, [BASE_URL]);
 
   const leftColumnFaqs = faqData.slice(0, 3);
   const rightColumnFaqs = faqData.slice(3);

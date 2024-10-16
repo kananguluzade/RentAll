@@ -134,19 +134,19 @@ const Header = () => {
   const fetchUserSharesAndComments = () => {
     if (!user || !user.id) return;
 
-    fetch(`http://localhost:3000/shares?owner_id=${user.id}`)
+    fetch(`http://localhost:3000/products?owner_id=${user.id}`)
       .then((response) => response.json())
-      .then((shares) => {
-        const shareProductIds = shares.map((share) => share.id);
-        const productImages = shares.map((share) => ({
-          id: share.id,
-          image: share.image,
+      .then((products) => {
+        const productIds = products.map((product) => product.id);
+        const productImages = products.map((product) => ({
+          id: product.id,
+          image: product.image,
         }));
 
         setShareProductImgs(productImages);
 
         Promise.all(
-          shareProductIds.map((id) =>
+          productIds.map((id) =>
             fetch(`http://localhost:3000/comments?productId=${id}`).then(
               (response) => response.json()
             )
@@ -165,10 +165,10 @@ const Header = () => {
             updateNotificationCount(userComments, updatedShareComments);
           })
           .catch((error) =>
-            console.error("Error fetching comments for shares:", error)
+            console.error("Error fetching comments for products:", error)
           );
       })
-      .catch((error) => console.error("Error fetching shares:", error));
+      .catch((error) => console.error("Error fetching products:", error));
   };
 
   const handleNotificationsToggle = () => {

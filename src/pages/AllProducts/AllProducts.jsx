@@ -30,6 +30,8 @@ const AllProducts = () => {
   const [totalShares, setTotalShares] = useState(0);
   const itemsPerPage = 5;
 
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
   const location = useLocation();
   const categoryParam = new URLSearchParams(location.search).get("category");
 
@@ -42,18 +44,18 @@ const AllProducts = () => {
   useEffect(() => {
     const fetchShares = async () => {
       try {
-        const response = await fetch("/db.json");
+        const response = await fetch(`${BASE_URL}/products`);
         const data = await response.json();
-        setShares(data.shares);
-        setFilteredShares(data.shares);
-        setTotalShares(data.shares.length);
+        setShares(data);
+        setFilteredShares(data);
+        setTotalShares(data.length);
       } catch (error) {
         console.error("Error fetching shares:", error);
       }
     };
 
     fetchShares();
-  }, []);
+  }, [BASE_URL]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -89,7 +91,7 @@ const AllProducts = () => {
   useEffect(() => {
     const loadCities = () => {
       const regions = [
-        // regions
+        // regionlar
       ];
 
       const bakuCity = regions.filter((region) => region.startsWith("Bakı"));

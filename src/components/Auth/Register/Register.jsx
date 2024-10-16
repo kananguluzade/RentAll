@@ -109,7 +109,9 @@ const Register = ({ onClose }) => {
         setSuccess(true);
 
         if (registerResponse.ok) {
+          const registeredUser = await registerResponse.json();
           openNotification();
+
           setFullname("");
           setPhone("");
           setEmail("");
@@ -118,7 +120,7 @@ const Register = ({ onClose }) => {
           setProfileImage("");
           setRoleType("user");
 
-          login(newUser);
+          login(registeredUser);
         } else {
           throw new Error("Failed to register user");
         }

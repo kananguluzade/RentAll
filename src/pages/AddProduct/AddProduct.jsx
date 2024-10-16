@@ -22,22 +22,23 @@ const AddProduct = () => {
   const [isCityOpen, setIsCityOpen] = useState(false);
   const { user } = useContext(AuthContext);
   const [cities, setCities] = useState([]);
-  const [shares, setShares] = useState([]);
   const navigate = useNavigate();
-  const [newShare, setNewShare] = useState({
+  const [newProduct, setNewProduct] = useState({
     id: "",
     category: "",
     title: "",
     place: "",
     owner_id: user.id,
     image: "",
-    otherImages: "",
+    otherImages: [],
     content: "",
   });
 
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
   const [loading, setLoading] = useState(false);
   const [loadingVisible, setLoadingVisible] = useState(false);
-
+  const [shares, setShares] = useState([]);
   const [images, setImages] = useState([]);
   const [otherImages, setOtherImages] = useState([]);
 
@@ -189,7 +190,7 @@ const AddProduct = () => {
   useEffect(() => {
     const fetchShares = async () => {
       try {
-        const response = await fetch("/api/addProduct");
+        const response = await fetch(`${BASE_URL}/products`);
         const data = await response.json();
         setShares(data || []);
       } catch (error) {
@@ -201,7 +202,7 @@ const AddProduct = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewShare((prev) => ({ ...prev, [name]: value }));
+    setNewProduct((prev) => ({ ...prev, [name]: value }));
   };
 
   const uploadImageToCloudinary = async (file) => {
@@ -231,15 +232,8 @@ const AddProduct = () => {
       files.map((file) => uploadImageToCloudinary(file))
     );
 
-    setImages((prevImages) => {
-      const updatedImages = [...prevImages];
-      for (let i = 0; i < uploadedImages.length && i < 4; i++) {
-        updatedImages[i] = uploadedImages[i];
-      }
-      return updatedImages;
-    });
-
-    setNewShare((prev) => ({
+    setImages(uploadedImages.slice(0, 1));
+    setNewProduct((prev) => ({
       ...prev,
       image: uploadedImages[0] || "",
     }));
@@ -250,18 +244,11 @@ const AddProduct = () => {
     const uploadedOtherImages = await Promise.all(
       files.map((file) => uploadImageToCloudinary(file))
     );
-
-    setOtherImages((prevImages) => {
-      const updatedImages = [...prevImages];
-      for (
-        let i = 0;
-        i < uploadedOtherImages.length && updatedImages.length < 4;
-        i++
-      ) {
-        updatedImages.push(uploadedOtherImages[i]);
-      }
-      return updatedImages.slice(0, 4);
-    });
+    setOtherImages(uploadedOtherImages.slice(0, 4));
+    setNewProduct((prev) => ({
+      ...prev,
+      otherImages: uploadedOtherImages.slice(0, 4),
+    }));
   };
 
   const handleFileInputClick = () => {
@@ -276,111 +263,57 @@ const AddProduct = () => {
     e.preventDefault();
 
     const validateInputs = () => {
-      if (
-        !newShare.title ||
-        newShare.title.length < 5 ||
-        newShare.title.length > 30
-      ) {
-        return "Elanın adı 5-30 karakter arasında olmalıdır.";
+      if (!newProduct.title || newProduct.title.length < 5) {
+        return "Elanın adı 5 karakterdən uzun olmalıdır.";
       }
-
-      const phonePattern = /^[0-9]{10}$/;
-
-      const cleanedPhone = newShare.author_phone.replace(/\D/g, "");
-
-      if (!cleanedPhone || !phonePattern.test(cleanedPhone)) {
-        return "Telefon nömrəsi 10 reqemli olmalıdır.";
-      }
-
-      if (!newShare.place) {
-        return "Ərazi seçilməlidir.";
-      }
-
-      if (!newShare.category) {
+      if (!newProduct.category) {
         return "Kateqoriya seçilməlidir.";
       }
-
-      if (
-        !newShare.content ||
-        newShare.content.length < 10 ||
-        newShare.content.length > 300
-      ) {
-        return "Məzmun 10-300 karakter arasında olmalıdır.";
+      if (!newProduct.place) {
+        return "Ərazi seçilməlidir.";
       }
-
-      if (images.length === 0) {
+      if (!newProduct.content || newProduct.content.length < 10) {
+        return "Məzmun 10 karakterdən uzun olmalıdır.";
+      }
+      if (!newProduct.image) {
         return "Ən azı bir şəkil əlavə edilməlidir.";
       }
-
       return null;
     };
 
     const errorMessage = validateInputs();
     if (errorMessage) {
-      notification.error({
-        message: "Xəta",
-        description: errorMessage,
-        placement: "topRight",
-      });
+      notification.error({ message: "Xəta", description: errorMessage });
       return;
     }
 
     setLoading(true);
-    setLoadingVisible(true);
-
-    const newId = (shares.length + 1).toString();
-    const newEntry = {
-      ...newShare,
-      id: newId,
-      otherImages: otherImages,
-      author: user.fullname,
-      authorImg: user.profile_image,
-      author_phone: `994${user.phone}`,
-    };
+    const newId = Date.now().toString();
+    const productData = { ...newProduct, id: newId, owner_id: user.id };
 
     try {
-      const response = await fetch("/api/addProduct", {
+      const response = await fetch(`${BASE_URL}/products`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newEntry),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(productData),
       });
 
       if (response.ok) {
-        const savedEntry = await response.json();
-        setShares((prev) => [...prev, savedEntry.data]);
         notification.success({
           message: "Uğurlu",
-          description: "Elanınız uğurla paylaşıldı, yönlendirilirsiniz...",
-          placement: "topRight",
+          description: "Elanınız uğurla paylaşıldı!",
         });
         setTimeout(() => navigate("/cabinet/elanlar"), 2000);
       } else {
-        console.error("Error saving new share");
         notification.error({
-          message: "Error",
-          description: "Zehmet olmasa admin ile elaqe saxlayin.",
-          placement: "topRight",
+          message: "Xəta",
+          description: "Zəhmət olmasa admin ilə əlaqə saxlayın.",
         });
       }
     } catch (error) {
-      console.error("Error saving share:", error);
+      console.error("Error saving product:", error);
     } finally {
       setLoading(false);
-      setLoadingVisible(false);
-      setNewShare({
-        id: "",
-        category: "",
-        title: "",
-        author_phone: "",
-        place: "",
-        owner_id: user.id,
-        image: "",
-        content: "",
-      });
-      setImages([]);
-      setOtherImages([]);
     }
   };
 
@@ -507,7 +440,7 @@ const AddProduct = () => {
                   }`}
                   onClick={toggleCategoryDropdown}
                 >
-                  <span>{newShare.category || "Kateqoriyalar"}</span>
+                  <span>{newProduct.category || "Kateqoriyalar"}</span>
                   <FontAwesomeIcon
                     icon={faAngleDown}
                     className={`${
@@ -527,7 +460,7 @@ const AddProduct = () => {
                       key={index}
                       className={styles.dropdown__item}
                       onClick={() => {
-                        setNewShare((prev) => ({
+                        setNewProduct((prev) => ({
                           ...prev,
                           category: item.label,
                         }));
@@ -548,7 +481,7 @@ const AddProduct = () => {
                   }`}
                   onClick={toggleCityDropdown}
                 >
-                  <span>{newShare.place || "Ərazi seçin"}</span>
+                  <span>{newProduct.place || "Ərazi seçin"}</span>
                   <FontAwesomeIcon
                     icon={faAngleDown}
                     className={`${
@@ -568,7 +501,7 @@ const AddProduct = () => {
                       key={index}
                       className={styles.dropdown__item}
                       onClick={() => {
-                        setNewShare((prev) => ({
+                        setNewProduct((prev) => ({
                           ...prev,
                           place: item.label,
                         }));
@@ -587,7 +520,7 @@ const AddProduct = () => {
                 <input
                   type="text"
                   name="title"
-                  value={newShare.title}
+                  value={newProduct.title}
                   onChange={handleChange}
                   placeholder="Xananı doldurun"
                 />
@@ -597,7 +530,7 @@ const AddProduct = () => {
                 <input
                   type="text"
                   name="author_phone"
-                  value={newShare.author_phone}
+                  value={newProduct.author_phone}
                   onChange={handleChange}
                   placeholder="Xananı doldurun"
                   maxLength={10}
@@ -609,7 +542,7 @@ const AddProduct = () => {
               <h6>Məzmun</h6>
               <textarea
                 name="content"
-                value={newShare.content}
+                value={newProduct.content}
                 onChange={handleChange}
                 placeholder="Xananı doldurun"
               ></textarea>

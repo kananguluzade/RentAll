@@ -5,15 +5,14 @@ const Card = ({ share, isLoading }) => {
   const [owner, setOwner] = useState(null);
   const [likes, setLikes] = useState(share ? share.likes : 0);
 
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchOwner = async () => {
       try {
-        const response = await fetch("/db.json");
-        const data = await response.json();
         if (share && share.owner_id) {
-          const ownerData = data.users.find(
-            (user) => user.id === share.owner_id
-          );
+          const response = await fetch(`${BASE_URL}/users/${share.owner_id}`);
+          const ownerData = await response.json();
           setOwner(ownerData);
         }
       } catch (error) {
@@ -22,15 +21,15 @@ const Card = ({ share, isLoading }) => {
     };
 
     fetchOwner();
-  }, [share]);
+  }, [share, BASE_URL]);
 
   const handleLike = async () => {
     try {
       const updatedLikes = likes + 1;
       setLikes(updatedLikes);
 
-      // Normally, you would send a request to update the db.json file on the server.
-      // Example: await fetch(`/api/like/${share.id}`, { method: "POST", body: JSON.stringify({ likes: updatedLikes }) });
+      // Send a request to update likes if needed
+      // Example: await fetch(`${BASE_URL}/products/${share.id}`, { method: "PATCH", body: JSON.stringify({ likes: updatedLikes }) });
     } catch (error) {
       console.error("Error liking the product:", error);
     }

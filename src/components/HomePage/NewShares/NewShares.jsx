@@ -4,33 +4,38 @@ import Card from "../../Card/Card";
 import { Link } from "react-router-dom";
 
 const NewShares = () => {
-  const [shares, setShares] = useState([]);
-  const [visibleSharesCount, setVisibleSharesCount] = useState(4);
+  const [products, setProducts] = useState([]);
+  const [visibleProductsCount, setVisibleProductsCount] = useState(4);
   const [showMore, setShowMore] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
-    const fetchShares = async () => {
+    const fetchProducts = async () => {
       try {
-        const response = await fetch("/db.json");
+        const response = await fetch(`${BASE_URL}/products`);
+
+        if (!response.ok) {
+          throw new Error(
+            `HTTP error! Status: ${response.status} - ${response.statusText}`
+          );
+        }
+
         const data = await response.json();
-        setShares(data.shares);
+        setProducts(data);
       } catch (error) {
-        console.error("Error fetching shares:", error);
+        console.error("Error fetching products:", error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchShares();
-  }, []);
+    fetchProducts();
+  }, [BASE_URL]);
 
-  const loadMoreShares = () => {
-    if (showMore) {
-      setVisibleSharesCount(4);
-    } else {
-      setVisibleSharesCount((prevCount) => prevCount + 8);
-    }
+  const loadMoreProducts = () => {
+    setVisibleProductsCount(showMore ? 4 : visibleProductsCount + 8);
     setShowMore(!showMore);
   };
 
@@ -41,18 +46,18 @@ const NewShares = () => {
       </div>
       <div className={styles.shares__list}>
         {isLoading
-          ? Array.from({ length: visibleSharesCount }).map((_, index) => (
+          ? Array.from({ length: visibleProductsCount }).map((_, index) => (
               <Card key={index} isLoading={true} />
             ))
-          : shares.slice(0, visibleSharesCount).map((share) => (
-              <Link key={share.id} to={`/product/${share.id}`}>
-                <Card share={share} isLoading={false} />
+          : products.slice(0, visibleProductsCount).map((product) => (
+              <Link key={product.id} to={`/product/${product.id}`}>
+                <Card share={product} isLoading={false} />
               </Link>
             ))}
       </div>
       <div className={styles.more__shares}>
-        {shares.length > 4 && (
-          <button onClick={loadMoreShares}>
+        {products.length > 4 && (
+          <button onClick={loadMoreProducts}>
             {showMore ? "Daha az göstər" : "Daha çox göstər"}
           </button>
         )}

@@ -9,6 +9,7 @@ const Review = ({ productId }) => {
   const [visibleCommentsCount, setVisibleCommentsCount] = useState(4);
   const { user } = useContext(AuthContext);
 
+  const BASE_URL = import.meta.env.VITE_API_URL;
   const openOptionsRef = useRef(null);
 
   const handleOptions = (id) => {
@@ -19,7 +20,7 @@ const Review = ({ productId }) => {
   };
 
   const handleDelete = (commentToDelete) => {
-    fetch(`http://localhost:3000/comments/${commentToDelete.id}`, {
+    fetch(`${BASE_URL}/comments/${commentToDelete.id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -56,7 +57,7 @@ const Review = ({ productId }) => {
 
     if (currentComment.dislikedBy.includes(userId)) {
       const updatedDislikes = currentComment.dislikes - 1;
-      fetch(`http://localhost:3000/comments/${id}`, {
+      fetch(`${BASE_URL}/comments/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +77,7 @@ const Review = ({ productId }) => {
       ? currentComment.likedBy.filter((id) => id !== userId)
       : [...currentComment.likedBy, userId];
 
-    fetch(`http://localhost:3000/comments/${id}`, {
+    fetch(`${BASE_URL}/comments/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -102,7 +103,7 @@ const Review = ({ productId }) => {
 
     if (currentComment.likedBy.includes(userId)) {
       const updatedLikes = currentComment.likes - 1;
-      fetch(`http://localhost:3000/comments/${id}`, {
+      fetch(`${BASE_URL}/comments/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -122,7 +123,7 @@ const Review = ({ productId }) => {
       ? currentComment.dislikedBy.filter((id) => id !== userId)
       : [...currentComment.dislikedBy, userId];
 
-    fetch(`http://localhost:3000/comments/${id}`, {
+    fetch(`${BASE_URL}/comments/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -160,11 +161,11 @@ const Review = ({ productId }) => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/comments?productId=${productId}`)
+    fetch(`${BASE_URL}/comments?productId=${productId}`)
       .then((response) => response.json())
       .then((data) => setCommentsList(data))
       .catch((error) => console.error("Error fetching comments:", error));
-  }, [productId]);
+  }, [productId, BASE_URL]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -197,22 +198,13 @@ const Review = ({ productId }) => {
       };
 
       try {
-        console.log("Submitting comment:", newComment);
-
-        const response = await fetch("http://localhost:3000/comments", {
+        const response = await fetch(`${BASE_URL}/comments`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(newComment),
         });
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(
-            `Server error: ${response.statusText} - ${errorText}`
-          );
-        }
 
         const data = await response.json();
         setCommentsList((prevComments) => [...prevComments, data]);

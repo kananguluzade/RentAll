@@ -89,6 +89,16 @@ const Parameters = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (
+      !formData.email ||
+      !formData.phone_number ||
+      !formData.name ||
+      !formData.surname
+    ) {
+      openNotification("error", "Bütün alanların doldurulması gereklidir.");
+      return;
+    }
+
     const updatedUser = {
       ...user,
       ...formData,
@@ -102,14 +112,21 @@ const Parameters = () => {
         body: JSON.stringify(updatedUser),
       });
 
-      if (!res.ok) throw new Error("Yeniləmə uğursuz oldu.");
+      if (!res.ok) {
+        const errorMsg = await res.text();
+        throw new Error(errorMsg || "Yeniləmə uğursuz oldu.");
+      }
+
       const data = await res.json();
       login(data);
       openNotification("success", "Profiliniz uğurla yeniləndi!");
       setIsEditing(false);
     } catch (error) {
       console.error("Yeniləmə xətası:", error);
-      openNotification("error", "Yeniləmə zamanı xəta baş verdi.");
+      openNotification(
+        "error",
+        error.message || "Yeniləmə zamanı xəta baş verdi."
+      );
     }
   };
 

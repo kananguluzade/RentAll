@@ -8,12 +8,14 @@ const MostLiked = () => {
   const [visibleSharesCount, setVisibleSharesCount] = useState(4);
   const [showMore, setShowMore] = useState(false);
 
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchShares = async () => {
       try {
-        const response = await fetch("/db.json");
+        const response = await fetch(`${BASE_URL}/products`);
         const data = await response.json();
-        const sortedShares = data.shares.sort((a, b) => b.likes - a.likes);
+        const sortedShares = data.sort((a, b) => b.likes - a.likes);
         setMostLiked(sortedShares);
       } catch (error) {
         console.error("Error fetching shares:", error);
@@ -21,7 +23,7 @@ const MostLiked = () => {
     };
 
     fetchShares();
-  }, []);
+  }, [BASE_URL]);
 
   const loadMoreShares = () => {
     if (showMore) {

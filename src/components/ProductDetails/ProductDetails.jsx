@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./ProductDetails.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -26,23 +26,27 @@ const ProductDetails = () => {
   const [users, setUsers] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef(null);
+  const BASE_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch("/db.json");
+        const response = await fetch(`${BASE_URL}/products`);
         const data = await response.json();
 
-        const selectedProduct = data.shares.find((share) => share.id === id);
+        const selectedProduct = data.find((product) => product.id === id);
         setProduct(selectedProduct);
-        setUsers(data.users);
+
+        const usersResponse = await fetch(`${BASE_URL}/users`);
+        const usersData = await usersResponse.json();
+        setUsers(usersData);
       } catch (error) {
         console.error("Error fetching product:", error);
       }
     };
 
     fetchProduct();
-  }, [id]);
+  }, [id, BASE_URL]);
 
   useEffect(() => {
     if (swiperRef.current) {

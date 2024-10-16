@@ -69,7 +69,7 @@
       "background": "linear-gradient(225deg, #FFFCF3 -3.41%, #FFBD83 110.98%)"
     }
   ],
-  "shares": [
+  "products": [
     {
       "id": "1",
       "category": "Evlər və mənzillər",
@@ -125,6 +125,62 @@
       "author_phone": "994undefined",
       "author": "Ehmed Abbasov",
       "authorImg": ""
+    },
+    {
+      "id": "4",
+      "category": "Əyləncə",
+      "title": "Velosiped ölçüsü 20",
+      "author_phone": "994undefined",
+      "place": "Bakı, Binəqədi rayonu",
+      "owner_id": "ac00",
+      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728991483/syp27armaqkvwqifqrw2.jpg",
+      "content": "İşlek veziyyetdedir sadece tekerleri boşdur",
+      "otherImages": [
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728991487/rt4ylgxqs62l8bbkqot4.webp"
+      ],
+      "author": "Umud Quliyev",
+      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728105065/jovmthwjmd4rwewuux2k.avif"
+    },
+    {
+      "id": "5",
+      "category": "Avtomobillər",
+      "title": "Velosiped (işlek veziyetde)",
+      "place": "Ağdam rayonu",
+      "owner_id": "b9bb",
+      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728992744/mz3h90xupjbjybso2k7l.webp",
+      "otherImages": [
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728992747/zvsrrgnab6ivtqon2hb7.jpg"
+      ],
+      "content": "İşlek veziyyetdedi yalnız tekerleri boşdur",
+      "author_phone": "994undefined",
+      "author": "Umud Quliyevvvv",
+      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728992694/yp0s3u9hhvjwqufub0da.jpg"
+    },
+    {
+      "id": "6",
+      "category": "Əyləncə",
+      "title": "Velosiped işleyir",
+      "place": "Ağdam rayonu",
+      "owner_id": "3cd9",
+      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1728993215/zizu5cmyn6cmzpbi7i3c.webp",
+      "otherImages": [
+        "https://res.cloudinary.com/difymycwt/image/upload/v1728993217/vawniqxdwy8lb4l0yova.jpg"
+      ],
+      "content": "İşleyir yalnız tekerleri boşdur götüren şexs sadece tekerlerin doldurub istifade edebiler",
+      "author_phone": "994undefined",
+      "author": "Umud Quliyev",
+      "authorImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728993163/nqsp7eqhg6hgz1ydgmhk.jpg"
+    },
+    {
+      "id": "1729055070701",
+      "category": "Əyləncə",
+      "title": "test test",
+      "place": "Ağdam rayonu",
+      "owner_id": "3cd9",
+      "image": "https://res.cloudinary.com/difymycwt/image/upload/v1729055064/dfqstenef1rzk71dfqt8.jpg",
+      "otherImages": [],
+      "content": "dsajhadhjshjkdashkjdkadkdahjasdhjjadksjhkdas",
+      "author_phone": "0444444444"
     }
   ],
   "comments": [
@@ -351,6 +407,32 @@
       "dislikedBy": [
         "636c"
       ]
+    },
+    {
+      "id": "eba2",
+      "text": "Bu gozel tesebbuse gore tesekkurler",
+      "productId": "5",
+      "likes": 0,
+      "dislikes": 0,
+      "creatorByEmail": "umudquliyev@gmail.com",
+      "fullname": "Umud Quliyevvvv",
+      "userImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728992694/yp0s3u9hhvjwqufub0da.jpg",
+      "createdAt": "2024-10-15T11:47:05.037Z",
+      "likedBy": [],
+      "dislikedBy": []
+    },
+    {
+      "id": "9834",
+      "text": "sd",
+      "productId": "2",
+      "likes": 0,
+      "dislikes": 0,
+      "creatorByEmail": "umudquliyev@gmail.com",
+      "fullname": "Umud Quliyev",
+      "userImg": "https://res.cloudinary.com/difymycwt/image/upload/v1728993163/nqsp7eqhg6hgz1ydgmhk.jpg",
+      "createdAt": "2024-10-16T05:21:07.626Z",
+      "likedBy": [],
+      "dislikedBy": []
     }
   ],
   "faq": [
@@ -440,6 +522,23 @@
       "created_at": "2024-10-07T18:50:29.060Z",
       "updated_at": "2024-10-07T18:50:29.060Z",
       "uploaded_at": "2024-10-07T18:50:29.060Z"
+    },
+    {
+      "id": "3cd9",
+      "name": "Umud",
+      "surname": "Quliyev",
+      "fullname": "Umud Quliyev",
+      "email": "umudquliyev@gmail.com",
+      "password": "Umud9999!",
+      "phone_number": "0555555555",
+      "profile_image": "https://res.cloudinary.com/difymycwt/image/upload/v1728993163/nqsp7eqhg6hgz1ydgmhk.jpg",
+      "role_type": "user",
+      "token": "",
+      "is_verified": false,
+      "created_at": "2024-10-15T11:52:59.876Z",
+      "updated_at": "2024-10-15T11:53:31.163Z",
+      "uploaded_at": "2024-10-15T11:52:59.876Z",
+      "about": ""
     }
   ],
   "activityData": [

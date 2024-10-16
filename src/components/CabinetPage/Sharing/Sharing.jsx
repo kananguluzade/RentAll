@@ -10,19 +10,21 @@ const Sharing = () => {
   const [deleteProductId, setDeleteProductId] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchSharedProducts = async () => {
       try {
-        const response = await fetch("/db.json");
+        const response = await fetch(`${BASE_URL}/products`);
         const data = await response.json();
 
-        const userSharedProducts = data.shares.filter(
+        const userSharedProducts = data.filter(
           (share) => share.owner_id === user.id
         );
         setSharedProducts(userSharedProducts);
-        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching shared products:", error);
+      } finally {
         setIsLoading(false);
       }
     };
@@ -30,7 +32,7 @@ const Sharing = () => {
     if (user) {
       fetchSharedProducts();
     }
-  }, [user]);
+  }, [user, BASE_URL]);
 
   const handleEdit = (shareId) => {
     console.log(`Edit product with ID: ${shareId}`);
@@ -43,15 +45,13 @@ const Sharing = () => {
 
   const confirmDelete = async () => {
     try {
-      // Optionally, here you could send a DELETE request to a backend API if you have one
-      // await fetch(`/api/shares/${deleteProductId}`, { method: 'DELETE' });
+      // For future backend integration:
+      // await fetch(`${BASE_URL}/shares/${deleteProductId}`, { method: 'DELETE' });
 
-      // Update local state
-      setSharedProducts((prev) => 
+      setSharedProducts((prev) =>
         prev.filter((product) => product.id !== deleteProductId)
       );
-
-      console.log("Deleted product ID:", deleteProductId); // Log for verification
+      console.log("Deleted product ID:", deleteProductId);
     } catch (error) {
       console.error("Error deleting product:", error);
     } finally {
@@ -66,7 +66,7 @@ const Sharing = () => {
 
   if (sharedProducts.length === 0) {
     return (
-      <div className={styles.noProducts}>Henüz paylaşılmış bir ürün yok.</div>
+      <div className={styles.noProducts}>Hələ paylaşılan məhsul yoxdur.</div>
     );
   }
 

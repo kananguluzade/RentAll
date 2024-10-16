@@ -4,20 +4,21 @@ import styles from "./Hero.module.css";
 
 const Hero = () => {
   const [slides, setSlides] = useState([]);
+  const BASE_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchHero = async () => {
       try {
-        const response = await fetch("/db.json");
+        const response = await fetch(`${BASE_URL}/heroSlides`);
         const data = await response.json();
-        setSlides(data.heroSlides);
+        setSlides(data);
       } catch (error) {
         console.error("Error fetching hero slides:", error);
       }
     };
 
     fetchHero();
-  }, []);
+  }, [BASE_URL]);
 
   return (
     <Carousel
