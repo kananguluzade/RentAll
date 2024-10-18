@@ -45,6 +45,11 @@ footer {
   cursor: pointer;
 }
 
+.about__us__link{
+  color: white !important;
+  text-decoration: none !important;;
+}
+
 .footer__links ul li:hover {
   color: var(--blue-default);
 }

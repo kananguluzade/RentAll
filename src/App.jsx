@@ -10,6 +10,7 @@ import Activity from "./components/CabinetPage/Activity/Activity";
 import AddProduct from "./pages/AddProduct/AddProduct";
 import AllProducts from "./pages/AllProducts/AllProducts";
 import PrivateRoute from "./components/Auth/PrivateRoute/PrivateRoute";
+import AboutUs from "./pages/AboutUs/AboutUs";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="product/:id" element={<ProductDetails />} />
+        <Route path="haqqimizda" element={<AboutUs />} />
         <Route path="cabinet" element={<PrivateRoute element={<Cabinet />} />}>
           <Route path="elanlar" element={<Sharing />} />
           <Route path="parametrler" element={<Parameters />} />

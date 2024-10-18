@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Footer.module.css";
 import logo from "../../../public/logo-dark.png";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,6 +17,9 @@ const Footer = () => {
           <ul>
             <li>Əsas səhifə</li>
             <li>Şəxsi kabinet</li>
+            <NavLink className={styles.about__us__link} to="haqqimizda">
+              <li>Haqqımızda</li>
+            </NavLink>
             <li>FAQ</li>
           </ul>
         </div>
