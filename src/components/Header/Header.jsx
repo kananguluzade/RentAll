@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Notifications from "../Notifications/Notifications";
 import styles from "./Header.module.css";
 import UserMenu from "../UserMenu/UserMenu";
+import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import AuthModals from "../Auth/AuthModals/AuthModals";
 import LogoutModal from "../Auth/LogoutModal/LogoutModal";
 
@@ -296,15 +297,14 @@ const Header = () => {
 
               {user && (
                 <div className={styles.hamburger__panels}>
-                  <div className={styles.user__img}>
-                    {userimg ? (
-                      <img src={userimg} alt="User" />
-                    ) : (
-                      <span className={styles.user__initials}>
-                        {getUserInitials()}
-                      </span>
-                    )}
-                  </div>
+                  <HamburgerMenu
+                    user={user}
+                    userFullName={userFullName}
+                    userPhoneNumber={userPhoneNumber}
+                    userimg={userimg}
+                    confirmLogout={confirmLogout}
+                    setIsUserMenuOpen={setIsUserMenuOpen}
+                  />
                 </div>
               )}
             </div>

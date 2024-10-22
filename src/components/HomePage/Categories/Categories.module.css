@@ -12,6 +12,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 18px;
+  height: 160px;
+  align-items: center;
 }
 
 .categories__list .categorie {

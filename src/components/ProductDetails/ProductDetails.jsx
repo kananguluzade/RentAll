@@ -76,89 +76,91 @@ const ProductDetails = () => {
     <div className={styles.detail__container}>
       <div className="container">
         <div className={styles.product__detail}>
-          <div className={styles.product__img}>
-            <div className={styles.img__sidebar}>
-              {product.otherImages.map((image, index) => (
-                <div key={index} className={styles.sidebar__img}>
-                  <img
-                    src={image}
-                    alt={`Thumbnail ${index + 1}`}
-                    onClick={() => handleImageChange(index)}
-                    className={`${styles.thumbnail} ${
-                      activeIndex === index ? styles.active : ""
-                    }`}
-                  />
-                </div>
-              ))}
-            </div>
-            <div className={styles.img__active}>
-              <Swiper
-                onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-                ref={swiperRef}
-                spaceBetween={10}
-                pagination={{
-                  clickable: true,
-                  el: ".custom-pagination",
-                }}
-                modules={[Pagination, Navigation]}
-                navigation={{
-                  nextEl: ".custom-next",
-                  prevEl: ".custom-prev",
-                }}
-                loop={false}
-                initialSlide={activeIndex}
-              >
+          <div className={styles.top__detail}>
+            <div className={styles.product__img}>
+              <div className={styles.img__sidebar}>
                 {product.otherImages.map((image, index) => (
-                  <SwiperSlide key={index} className={styles.carousel__img}>
-                    <ReactImageZoom
-                      key={activeIndex}
-                      {...zoomProps}
-                      img={image}
-                      className={styles.carousel__img}
+                  <div key={index} className={styles.sidebar__img}>
+                    <img
+                      src={image}
+                      alt={`Thumbnail ${index + 1}`}
+                      onClick={() => handleImageChange(index)}
+                      className={`${styles.thumbnail} ${
+                        activeIndex === index ? styles.active : ""
+                      }`}
                     />
-                  </SwiperSlide>
+                  </div>
                 ))}
-              </Swiper>
-              <div className={`custom-pagination`} />
-              <div className={`custom-prev`}>
-                <FontAwesomeIcon icon={faChevronLeft} />
               </div>
-              <div className={`custom-next`}>
-                <FontAwesomeIcon icon={faChevronRight} />
+              <div className={styles.img__active}>
+                <Swiper
+                  onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+                  ref={swiperRef}
+                  spaceBetween={10}
+                  pagination={{
+                    clickable: true,
+                    el: ".custom-pagination",
+                  }}
+                  modules={[Pagination, Navigation]}
+                  navigation={{
+                    nextEl: ".custom-next",
+                    prevEl: ".custom-prev",
+                  }}
+                  loop={false}
+                  initialSlide={activeIndex}
+                >
+                  {product.otherImages.map((image, index) => (
+                    <SwiperSlide key={index} className={styles.carousel__img}>
+                      <ReactImageZoom
+                        key={activeIndex}
+                        {...zoomProps}
+                        img={image}
+                        className={styles.carousel__img}
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+                <div className={`custom-pagination`} />
+                <div className={`custom-prev`}>
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </div>
+                <div className={`custom-next`}>
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </div>
               </div>
             </div>
-          </div>
-          <div className={styles.product__info}>
-            <div className={styles.info__container}>
-              <div className={styles.product__author}>
-                <img src={productOwner?.profile_image} alt="" />
-                <span>{`${productOwner?.name} ${productOwner?.surname}`}</span>
+            <div className={styles.product__info}>
+              <div className={styles.info__container}>
+                <div className={styles.product__author}>
+                  <img src={productOwner?.profile_image} alt="" />
+                  <span>{`${productOwner?.name} ${productOwner?.surname}`}</span>
+                </div>
+                <div className={styles.details}>
+                  <h4>{product.title}</h4>
+                  <ul>
+                    <li>
+                      <FontAwesomeIcon icon={faHouse} />
+                      <p>{product.category}</p>
+                    </li>
+                    <li>
+                      <FontAwesomeIcon icon={faEnvelope} />
+                      <p>{productOwner?.email}</p>
+                    </li>
+                    <li>
+                      <FontAwesomeIcon icon={faLocationDot} />
+                      <p>{product.place}</p>
+                    </li>
+                  </ul>
+                  <button>
+                    <FontAwesomeIcon icon={faPhone} />
+                    Zəng et
+                  </button>
+                </div>
               </div>
-              <div className={styles.details}>
-                <h4>{product.title}</h4>
-                <ul>
-                  <li>
-                    <FontAwesomeIcon icon={faHouse} />
-                    <p>{product.category}</p>
-                  </li>
-                  <li>
-                    <FontAwesomeIcon icon={faEnvelope} />
-                    <p>{productOwner?.email}</p>
-                  </li>
-                  <li>
-                    <FontAwesomeIcon icon={faLocationDot} />
-                    <p>{product.place}</p>
-                  </li>
-                </ul>
-                <button>
-                  <FontAwesomeIcon icon={faPhone} />
-                  Zəng et
-                </button>
-              </div>
-            </div>
-            {/* <div className={styles.product__fav}>
+              {/* <div className={styles.product__fav}>
               <FontAwesomeIcon icon={faHeart} />
             </div> */}
+            </div>
           </div>
           <div className={styles.product__description}>
             <p>{product.content}</p>

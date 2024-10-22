@@ -48,7 +48,7 @@ const Card = ({ share, isLoading }) => {
               </div>
               <div className={styles.share__desc}>
                 <div className={styles.share__info}>
-                  <h4>{share.title}</h4>
+                  <p>{share.title}</p>
                 </div>
                 <div className={styles.share__category}>
                   <p>{share.category}</p>
