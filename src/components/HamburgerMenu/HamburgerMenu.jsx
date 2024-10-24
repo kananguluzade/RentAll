@@ -36,7 +36,7 @@ const HamburgerMenu = ({
           </div>
           <div>
             <div className={styles.user__settings}>
-              <p>Menyu</p>
+              <p className={styles.menu__headline}>Menyu</p>
               <ul className={styles.setting__list}>
                 <li>
                   <NavLink

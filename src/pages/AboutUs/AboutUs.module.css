@@ -8,7 +8,6 @@
 }
 
 .mission__section {
-  border: 4px solid black;
   border-radius: 50px;
   width: 1200px;
   height: 500px;
@@ -16,8 +15,29 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 70px;
+  background-image: url("../../../public/OurMission.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.mission__section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+  border-radius: 50px;
+}
+
+.mission__section > * {
+  position: relative;
+  z-index: 2;
 }
 
 .content__section {
@@ -25,12 +45,12 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  color: white;
 }
 
 .content__section p {
   font-size: 24px;
   line-height: 36px;
-  color: #252525;
 }
 
 .mission__picture {
@@ -43,22 +63,122 @@
 }
 
 .purpose__section {
-  border: 4px solid black;
   border-radius: 50px;
   width: 1200px;
   height: 500px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  padding-left: 40px;
-  padding-right: 40px;
+  justify-content: flex-end;
+  padding-right: 70px;
   margin-top: 100px;
   margin-bottom: 60px;
   background-color: #252525;
+  background-image: url("../../../public/OurPurpose.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.purpose__section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+  border-radius: 50px;
+}
+
+.purpose__section > * {
+  position: relative;
+  z-index: 2;
 }
 
 .purpose__section p,
 .purpose__section h2 {
   color: white;
+}
+
+.team__section {
+  margin-bottom: 80px;
+}
+
+.about__headline {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.team__cards {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 10px;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.team__cards::-webkit-scrollbar {
+  display: none;
+}
+
+.future__plans {
+  margin-bottom: 80px;
+}
+
+.future__plans__section{
+  display: flex;
+  justify-content: space-between;
+}
+
+.future__plans__contents {
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+}
+
+.future__plans__content {
+  background-color: #548aea;
+  padding: 16px 24px 16px 24px;
+  border-radius: 24px;
+  color: white;
+  max-width: 680px;
+}
+
+.future__plans__content p {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 36px;
+}
+
+.future__plans__content span {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+}
+
+.future__plans__pictures{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.top__section{
+  display: flex;
+  justify-content: space-between;
+}
+
+.top__section img {
+  width: 223px;
+  height: 223px;
+  border-radius: 30px;
+}
+
+.bottom__section img {
+  width: 478px;
+  height: 293px;
+  border-radius: 30px;
 }

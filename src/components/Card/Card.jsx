@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Card.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot, faTag } from "@fortawesome/free-solid-svg-icons";
 
 const Card = ({ share, isLoading }) => {
   const [owner, setOwner] = useState(null);
@@ -45,13 +47,21 @@ const Card = ({ share, isLoading }) => {
             <>
               <div className={styles.share__img}>
                 <img src={share.image} alt={share.description} />
+                <div className={styles.card__suggest}>
+                  <FontAwesomeIcon icon={faTag} />
+                  <p>Təklif</p>
+                </div>
               </div>
               <div className={styles.share__desc}>
-                <div className={styles.share__info}>
-                  <p>{share.title}</p>
+                <div className={styles.share__location}>
+                  <FontAwesomeIcon icon={faLocationDot} />
+                  <p>{share.place}</p>
                 </div>
                 <div className={styles.share__category}>
                   <p>{share.category}</p>
+                </div>
+                <div className={styles.share__info}>
+                  <p>{share.title}</p>
                 </div>
               </div>
             </>

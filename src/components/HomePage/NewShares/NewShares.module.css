@@ -108,6 +108,12 @@
   background-color: var(--blue-hover);
 }
 
+@media screen and (max-width: 1000px) {
+  .shares__title {
+    margin-top: 100px;
+  }
+}
+
 @media screen and (max-width: 618px) {
   .shares__list {
     display: flex;

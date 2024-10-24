@@ -2,9 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import TeamCard from "../../components/TeamCard/TeamCard";
+import MaleImg from "../../../public/male-img.png";
+import FeMaleImg from "../../../public/female-img.png";
+import futurePicture1 from "../../../public/future-plan1.png";
+import futurePicture3 from "../../../public/future-plan3.png";
+import FuturePockets from "../../../public/pockets.png";
+
 import styles from "../AboutUs/AboutUs.module.css";
-import Missionİmg from "../../../public/OurMission.png";
-import PurposeImg from "../../../public/OurPurpose.png";
 
 const AboutUs = () => {
   return (
@@ -24,14 +29,8 @@ const AboutUs = () => {
             mədəniyyətini inkişaf etdirməyə çalışırıq.
           </p>
         </div>
-        <div className={styles.mission__picture}>
-          <img src={Missionİmg} alt="bizim missiyamiz" />
-        </div>
       </div>
       <div className={styles.purpose__section}>
-        <div className={styles.mission__picture}>
-          <img src={PurposeImg} alt="meqsedimiz" />
-        </div>
         <div className={styles.content__section}>
           <h2>Məqsədmiz</h2>
           <p>
@@ -40,6 +39,96 @@ const AboutUs = () => {
             imkanı yaratmaqdır. Bu yolla həm iqtisadi, həm də ekoloji baxımdan
             daha dayanıqlı bir cəmiyyətə töhfə vermək istəyirik.
           </p>
+        </div>
+      </div>
+      <div className={styles.team__section}>
+        <div className={styles.about__headline}>
+          <h2>Komandamız</h2>
+        </div>
+        <div className={styles.team__cards}>
+          <TeamCard
+            image={FeMaleImg}
+            fullname="Leyla Agasiyeva Leyla"
+            role="UX/UI designer"
+            facebook="https://facebook.com"
+            linkedin="https://linkedin.com"
+          />
+          <TeamCard
+            image={MaleImg}
+            fullname="Rizvan Məmmədzadə"
+            role="Backend developer"
+            facebook="https://facebook.com"
+            linkedin="https://linkedin.com"
+          />
+          <TeamCard
+            image={FeMaleImg}
+            fullname="Arzu Xəlilova"
+            role="Product consultant"
+            facebook="https://facebook.com"
+            linkedin="https://linkedin.com"
+          />
+          <TeamCard
+            image={MaleImg}
+            fullname="Kənan Quluzadə"
+            role="Frontend Developer"
+            facebook="https://facebook.com"
+            linkedin="https://linkedin.com"
+          />
+          <TeamCard
+            image={FeMaleImg}
+            fullname="Günel Əlizadə"
+            role="QA engineer"
+            facebook="https://facebook.com"
+            linkedin="https://linkedin.com"
+          />
+          <TeamCard
+            image={MaleImg}
+            fullname="Umud Quliyev"
+            role="Frontend Developer"
+            facebook="https://facebook.com"
+            linkedin="https://linkedin.com"
+          />
+        </div>
+      </div>
+      <div className={styles.future__plans}>
+        <div className={styles.about__headline}>
+          <h2>Gələcək Planlarımız</h2>
+        </div>
+        <div className={styles.future__plans__section}>
+          <div className={styles.future__plans__contents}>
+            <div className={styles.future__plans__content}>
+              <p>
+                <span>Mobil tətbiqin istifadəyə verilməsi:</span> Platformamıza
+                hər yerdən rahat giriş təmin etmək üçün mobil tətbiq
+                hazırlayırıq.
+              </p>
+            </div>
+            <div className={styles.future__plans__content}>
+              <p>
+                <span>Kirayə funksiyasının tətbiqi:</span> Platformamıza
+                əşyaların kirayə verilməsi funksiyasını əlavə edərək
+                istifadəçilərə öz əşyalarını kirayə verib gəlir əldə etmək
+                imkanı təqdim edəcəyik. Bu, xüsusilə az istifadə olunan əşyalar
+                üçün ideal olacaq.
+              </p>
+            </div>
+            <div className={styles.future__plans__content}>
+              <p>
+                <span>Satış imkanlarının əlavə edilməsi: </span>
+                Gələcəkdə istifadəçilər artıq ehtiyac duymadıqları əşyaları
+                platforma üzərindən satıb, əlavə gəlir əldə edə bilərlər.
+              </p>
+            </div>
+          </div>
+          <div className={styles.future__plans__pictures}>
+            <div className={styles.top__section}>
+              <img src={futurePicture1} />
+              <img src={futurePicture3} />
+            </div>
+            <div className={styles.bottom__section}>
+              <img src={FuturePockets} />
+            </div>
+          </div>
         </div>
       </div>
     </div>

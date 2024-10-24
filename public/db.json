@@ -330,13 +330,15 @@
       "id": "c945",
       "text": "Testtt",
       "productId": "2",
-      "likes": 0,
+      "likes": 1,
       "dislikes": 0,
       "creatorByEmail": "ehmed@gmail.com",
       "fullname": "Ehmed Abbasov",
       "userImg": "",
       "createdAt": "2024-10-13T23:22:53.656Z",
-      "likedBy": [],
+      "likedBy": [
+        "ac00"
+      ],
       "dislikedBy": []
     },
     {
