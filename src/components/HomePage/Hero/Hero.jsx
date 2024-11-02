@@ -9,7 +9,7 @@ const Hero = () => {
   useEffect(() => {
     const fetchHero = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/heroSlides`);
+        const response = await fetch(`${BASE_URL}/carousel/all`);
         const data = await response.json();
         setSlides(data);
       } catch (error) {

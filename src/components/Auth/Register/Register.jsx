@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -11,13 +11,16 @@ import {
 import { notification } from "antd";
 import styles from "./Register.module.css";
 import Validation from "../../Validation/Validation";
-import { AuthContext } from "../Services/authContext";
 
-const Register = ({ onClose }) => {
-  const { login } = useContext(AuthContext);
+const Register = ({
+  isAuthentication,
+  setIsAuthentication,
+  onClose,
+  email,
+  setEmail,
+}) => {
   const [fullname, setFullname] = useState("");
   const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [profileImage, setProfileImage] = useState("");
@@ -41,14 +44,6 @@ const Register = ({ onClose }) => {
     });
   };
 
-  useEffect(() => {
-    if (success) {
-      setTimeout(() => {
-        onClose();
-      }, 2000);
-    }
-  }, [success, onClose]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -63,7 +58,7 @@ const Register = ({ onClose }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/users");
+      const response = await fetch("http://157.173.202.16:8080/auth/register");
       const users = await response.json();
 
       const emailExists = users.some((user) => user.email === email);
@@ -84,20 +79,13 @@ const Register = ({ onClose }) => {
         const newUser = {
           name,
           surname,
-          fullname,
-          email: email,
+          gmail: email,
           password,
-          phone_number: phone,
-          profile_image: profileImage || "",
-          role_type: roleType,
-          token: "",
-          is_verified: false,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-          uploaded_at: new Date().toISOString(),
+          phoneNumber: phone,
+          profileImage: profileImage || "",
         };
 
-        const registerResponse = await fetch("http://localhost:3000/users", {
+        const registerResponse = await fetch("http://157.173.202.16:8080/auth/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -108,22 +96,16 @@ const Register = ({ onClose }) => {
         setLoading(false);
         setSuccess(true);
 
-        if (registerResponse.ok) {
-          const registeredUser = await registerResponse.json();
-          openNotification();
+        openNotification();
 
-          setFullname("");
-          setPhone("");
-          setEmail("");
-          setPassword("");
-          setConfirmPassword("");
-          setProfileImage("");
-          setRoleType("user");
-
-          login(registeredUser);
-        } else {
-          throw new Error("Failed to register user");
-        }
+        setFullname("");
+        setPhone("");
+        setPassword("");
+        setConfirmPassword("");
+        setProfileImage("");
+        setRoleType("user");
+        setIsAuthentication(true);
+        onClose();
       }, 2000);
     } catch (error) {
       setErrors({

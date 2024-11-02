@@ -22,6 +22,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
+  const [isAuthentication, setIsAuthentication] = useState(false);
   const [activeTab, setActiveTab] = useState("register");
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -406,6 +407,8 @@ const Header = () => {
         setActiveTab={setActiveTab}
         onClose={() => setIsRegisterOpen(false)}
         handleRegisterSuccess={handleRegisterSuccess}
+        isAuthentication={isAuthentication}
+        setIsAuthentication={setIsAuthentication}
       />
     </>
   );
