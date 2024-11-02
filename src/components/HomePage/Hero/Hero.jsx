@@ -36,7 +36,7 @@ const Hero = () => {
             <p className={styles.helperContent}>{slide.description}</p>
           </div>
           <div className={styles.heroRightContent}>
-            <img src={slide.image} alt={`Hero Slide ${index + 1}`} />
+            <img src={slide.imageUrl} alt={`Hero Slide ${index + 1}`} />
           </div>
         </div>
       ))}

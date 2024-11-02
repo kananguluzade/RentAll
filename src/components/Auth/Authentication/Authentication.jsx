@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import styles from "./Authentication.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { notification } from "antd";
 
-function Authentication({ email }) {
+function Authentication({ email, onClose }) {
   const [values, setValues] = useState(["", "", "", ""]);
+  const [loading, setLoading] = useState(false);
+  const BASE_URL = import.meta.env.VITE_API_URL;
 
   const handleChange = (index, e) => {
     const newValue = e.target.value;
@@ -28,15 +31,64 @@ function Authentication({ email }) {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const verificationCode = values.join("");
+
+    if (verificationCode.length !== 4) {
+      notification.error({
+        message: "Kod Tam Deyil",
+        description: "Zəhmət olmasa, 4 rəqəmli təsdiq kodunu daxil edin.",
+      });
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch(`${BASE_URL}/auth/verify`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, verificationCode }),
+      });
+
+      if (response.ok) {
+        notification.success({
+          message: "Təsdiq Uğurla Tamamlandı",
+          description: "Təsdiq kodu uğurla qəbul edildi.",
+        });
+        setValues(["", "", "", ""]);
+        onClose();
+      } else {
+        const errorData = await response.json();
+        notification.error({
+          message: "Təsdiq Xətası",
+          description:
+            errorData.message || "Kod təsdiqlənmədi. Yenidən cəhd edin.",
+        });
+      }
+    } catch (error) {
+      console.error("Təsdiq xətası:", error);
+      notification.error({
+        message: "Bağlantı Xətası",
+        description: "Bir xəta baş verdi. Zəhmət olmasa yenidən cəhd edin.",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="container">
       <div className={styles.modal}>
-        <h3>Paroluzu sıfırlayın</h3>
+        <h3>Parolunuzu sıfırlayın</h3>
         <p>
           <span className={styles.verification__email}>{email} </span> ünvanına
           kod göndərdik
         </p>
-        <form className={styles.forgot__form}>
+        <form onSubmit={handleSubmit} className={styles.forgot__form}>
           <div className={styles.forgot__header}>
             <div className={styles.form__input}>
               {values.map((value, index) => (
@@ -55,10 +107,12 @@ function Authentication({ email }) {
             </div>
           </div>
           <div className={styles.form__submit}>
-            <input type="submit" value="Parolu sıfırlayın" />
+            <button type="submit" disabled={loading}>
+              {loading ? "Yüklənir..." : "Parolu sıfırlayın"}
+            </button>
           </div>
         </form>
-        <button className={styles.return}>
+        <button onClick={onClose} className={styles.return}>
           <FontAwesomeIcon icon={faAngleLeft} />
           Girişə qayıt
         </button>

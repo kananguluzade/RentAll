@@ -11,7 +11,6 @@ import {
 import { notification } from "antd";
 import styles from "./Register.module.css";
 import Validation from "../../Validation/Validation";
-
 const Register = ({
   isAuthentication,
   setIsAuthentication,
@@ -30,12 +29,10 @@ const Register = ({
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-
   const handleChange = (setter) => (e) => {
     setter(e.target.value);
     setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: "" }));
   };
-
   const openNotification = () => {
     notification.success({
       message: "Qeydiyyat uğurlu oldu",
@@ -44,60 +41,44 @@ const Register = ({
     });
   };
 
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const validationErrors = Validation(
       { fullname, phone, email, password, confirmPassword },
       "register"
     );
-
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
-
     try {
-      const response = await fetch("http://157.173.202.16:8080/auth/register");
-      const users = await response.json();
-
-      const emailExists = users.some((user) => user.email === email);
-      if (emailExists) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: "Bu e-mail artıq istifadə olunur.",
-        }));
-        return;
-      }
-
       setLoading(true);
       setSuccess(false);
       setErrors({});
+      const [name, surname] = fullname.split(" ");
+      const newUser = {
+        name: name,
+        email: email,
+        password: password,
+        phoneNumber: `+994${phone}`,
+        username: "ssdsdsds",
+      };
 
-      setTimeout(async () => {
-        const [name, surname] = fullname.split(" ");
-        const newUser = {
-          name,
-          surname,
-          gmail: email,
-          password,
-          phoneNumber: phone,
-          profileImage: profileImage || "",
-        };
+      console.log("Gönderilen veri:", newUser);
 
-        const registerResponse = await fetch("http://157.173.202.16:8080/auth/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newUser),
-        });
+      const registerResponse = await fetch(`${BASE_URL}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
 
-        setLoading(false);
-        setSuccess(true);
-
+      setLoading(false);
+      if (registerResponse.ok) {
         openNotification();
-
         setFullname("");
         setPhone("");
         setPassword("");
@@ -106,11 +87,15 @@ const Register = ({
         setRoleType("user");
         setIsAuthentication(true);
         onClose();
-      }, 2000);
+      } else {
+        const errorData = await registerResponse.json();
+        throw new Error(errorData.message || "Registration failed");
+      }
     } catch (error) {
       setErrors({
         general: error.message || "An error occurred during registration.",
       });
+      setLoading(false);
     }
   };
 
@@ -134,7 +119,6 @@ const Register = ({
               <p className={styles.error}>{errors.fullname}</p>
             )}
           </div>
-
           <div className={styles.register__phone}>
             <h4>Telefon</h4>
             <div className={styles.form__input}>
@@ -145,12 +129,11 @@ const Register = ({
                 value={phone}
                 onChange={handleChange(setPhone)}
                 placeholder="Telefon nömrənizi daxil edin"
-                maxLength={10}
+                maxLength={9}
               />
             </div>
             {errors.phone && <p className={styles.error}>{errors.phone}</p>}
           </div>
-
           <div className={styles.register__email}>
             <h4>E-mail</h4>
             <div className={styles.form__input}>
@@ -165,7 +148,6 @@ const Register = ({
             </div>
             {errors.email && <p className={styles.error}>{errors.email}</p>}
           </div>
-
           <div className={styles.password}>
             <h4>Şifrə</h4>
             <div className={styles.form__input}>
@@ -189,7 +171,6 @@ const Register = ({
               <p className={styles.error}>{errors.password}</p>
             )}
           </div>
-
           <div className={styles.password}>
             <h4>Şifrənizi təsdiqləyin</h4>
             <div className={styles.form__input}>
@@ -215,7 +196,6 @@ const Register = ({
               <p className={styles.error}>{errors.confirmPassword}</p>
             )}
           </div>
-
           <div className={styles.form__rules}>
             <input type="checkbox" name="rules" />
             <p>
@@ -223,9 +203,7 @@ const Register = ({
               şərtləri” və məxfilik ilə razılaşırsınız.
             </p>
           </div>
-
           {errors.general && <p className={styles.error}>{errors.general}</p>}
-
           <div className={styles.form__submit}>
             {loading ? (
               <div className={styles.loader}></div>
@@ -256,5 +234,4 @@ const Register = ({
     </div>
   );
 };
-
 export default Register;

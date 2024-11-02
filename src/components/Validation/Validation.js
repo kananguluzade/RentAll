@@ -28,7 +28,7 @@ const Validation = (values, type) => {
 
     if (!values.phone.trim()) {
       errors.phone = "Telefon nömrəsi tələb olunur.";
-    } else if (!/^\d{10}$/.test(values.phone.trim())) {
+    } else if (!/^\d{9}$/.test(values.phone.trim())) {
       errors.phone =
         "Telefon nömrəsi 10 rəqəmli olmalıdır (məsələn, 055XXXXXXX).";
     }

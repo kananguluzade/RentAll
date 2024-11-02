@@ -21,6 +21,8 @@ const Login = ({ onForgotPassword, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
     setErrors((prevErrors) => ({ ...prevErrors, email: "", general: "" }));
@@ -46,35 +48,41 @@ const Login = ({ onForgotPassword, onClose }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/users");
-      const users = await response.json();
+      const response = await fetch(`${BASE_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-      const user = users.find((user) => user.email === email);
+      if (response.ok) {
+        const data = await response.json();
 
-      if (user && user.password === password) {
-        login(user);
+        login(data);
+        localStorage.setItem("token", data.token);
+
+        setSuccess(true);
+        setLoading(false);
+
+        notification.success({
+          message: "Uğurla Giriş Etdiniz!",
+          description: "Yönləndirilirsiniz...",
+          duration: 2,
+        });
+
+        setEmail("");
+        setPassword("");
 
         setTimeout(() => {
-          setSuccess(true);
-          setLoading(false);
-
-          notification.success({
-            message: "Uğurla Giriş Etdiniz!",
-            description: "Yönləndirilirsiniz...",
-            duration: 2,
-          });
-
-          setEmail("");
-          setPassword("");
-
-          setTimeout(() => {
-            navigate("/");
-            onClose();
-          }, 2000);
+          navigate("/");
+          onClose();
         }, 2000);
       } else {
+        const errorData = await response.json();
         setErrors({
           general:
+            errorData.message ||
             "Yanlış e-mail və ya şifrə. Zəhmət olmasa, yenidən cəhd edin.",
         });
         setLoading(false);
