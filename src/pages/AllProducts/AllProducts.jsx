@@ -1,18 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import styles from "./AllProducts.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAngleDown,
-  faCamera,
-  faCar,
-  faCashRegister,
-  faFutbol,
-  faGamepad,
-  faHouse,
-  faStore,
-  faTv,
-} from "@fortawesome/free-solid-svg-icons";
-import { Link, useLocation } from "react-router-dom";
+import { faAngleDown, faTv } from "@fortawesome/free-solid-svg-icons";
 import Card from "../../components/Card/Card";
 import notfound from "/not-found.png";
 import { Divider, Pagination } from "rsuite";
@@ -23,7 +13,9 @@ const AllProducts = () => {
   const [cities, setCities] = useState([]);
   const [shares, setShares] = useState([]);
   const [filteredShares, setFilteredShares] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategoryName, setSelectedCategoryName] = useState("");
   const [selectedCity, setSelectedCity] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState(null);
   const [activePage, setActivePage] = useState(1);
@@ -33,6 +25,7 @@ const AllProducts = () => {
   const BASE_URL = import.meta.env.VITE_API_URL;
 
   const location = useLocation();
+  const navigate = useNavigate();
   const categoryParam = new URLSearchParams(location.search).get("category");
 
   const categoryDropdownRef = useRef(null);
@@ -44,7 +37,14 @@ const AllProducts = () => {
   useEffect(() => {
     const fetchShares = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/products`);
+        let response;
+        if (selectedCategory) {
+          response = await fetch(
+            `${BASE_URL}/products/category/${selectedCategory}`
+          );
+        } else {
+          response = await fetch(`${BASE_URL}/products/all`);
+        }
         const data = await response.json();
         setShares(data);
         setFilteredShares(data);
@@ -55,43 +55,45 @@ const AllProducts = () => {
     };
 
     fetchShares();
-  }, [BASE_URL]);
+  }, [BASE_URL, selectedCategory]);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        categoryDropdownRef.current &&
-        !categoryDropdownRef.current.contains(event.target)
-      ) {
-        setIsCategoryOpen(false);
-      }
-      if (
-        cityDropdownRef.current &&
-        !cityDropdownRef.current.contains(event.target)
-      ) {
-        setIsCityOpen(false);
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+    }
+  }, [categoryParam]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/categories/all`);
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    fetchCategories();
+  }, [BASE_URL]);
 
-  const categories = [
-    { label: "Evlər və mənzillər", icon: faHouse },
-    { label: "Avtomobillər", icon: faCar },
-    { label: "Əyləncə", icon: faGamepad },
-    { label: "İdman", icon: faFutbol },
-    { label: "Ticarət sahələri", icon: faStore },
-    { label: "Elektronika", icon: faTv },
-    { label: "Məişət texnikası", icon: faCashRegister },
-    { label: "Tədbir avadanlığı", icon: faCamera },
-  ];
+  useEffect(() => {
+    if (categories.length > 0 && selectedCategory) {
+      const category = categories.find(
+        (category) => String(category.id) === String(selectedCategory)
+      );
+      setSelectedCategoryName(category ? category.name : "Unknown Category");
+    } else {
+      setSelectedCategoryName("");
+    }
+  }, [selectedCategory, categories]);
 
   useEffect(() => {
     const loadCities = () => {
       const regions = [
-        // regionlar
+        "Bakı, Yasamal rayonu",
+        "Bakı, Binəqədi rayonu",
+        // other regions
       ];
 
       const bakuCity = regions.filter((region) => region.startsWith("Bakı"));
@@ -111,17 +113,8 @@ const AllProducts = () => {
   }, []);
 
   useEffect(() => {
-    if (categoryParam) {
-      setSelectedCategory(categoryParam);
-    }
-  }, [categoryParam]);
-
-  useEffect(() => {
     const filterShares = () => {
       const filtered = shares.filter((share) => {
-        const matchesCategory = selectedCategory
-          ? share.category === selectedCategory
-          : true;
         const matchesCity = selectedCity ? share.place === selectedCity : true;
         const matchesStatus =
           selectedStatus === "Yeni"
@@ -130,7 +123,7 @@ const AllProducts = () => {
             ? share.status === "İşlənmiş"
             : true;
 
-        return matchesCategory && matchesCity && matchesStatus;
+        return matchesCity && matchesStatus;
       });
       setTotalShares(filtered.length);
       const startIdx = (activePage - 1) * itemsPerPage;
@@ -139,15 +132,22 @@ const AllProducts = () => {
     };
 
     filterShares();
-  }, [selectedCategory, selectedCity, selectedStatus, shares, activePage]);
+  }, [selectedCity, selectedStatus, shares, activePage]);
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category.id);
+    setSelectedCategoryName(category.name);
+    setIsCategoryOpen(false);
+    navigate(`/allproducts?category=${category.id}`);
+  };
 
   return (
     <div className={styles.allproducts}>
       <div className="container">
         <div className={styles.allproducts__head}>
           <h3>
-            {selectedCategory
-              ? `“${selectedCategory}” üçün axtarış`
+            {selectedCategoryName
+              ? `“${selectedCategoryName}” üçün axtarış`
               : "Bütün Kateqoriyalar üzrə axtarış"}
           </h3>
           <p>{totalShares} elan tapıldı</p>
@@ -207,17 +207,14 @@ const AllProducts = () => {
                   isCategoryOpen ? styles.show : ""
                 }`}
               >
-                {categories.map((item, index) => (
+                {categories.map((item) => (
                   <li
-                    key={index}
+                    key={item.id}
                     className={styles.dropdown__item}
-                    onClick={() => {
-                      setSelectedCategory(item.label);
-                      setIsCategoryOpen(false);
-                    }}
+                    onClick={() => handleCategorySelect(item)}
                   >
-                    <FontAwesomeIcon icon={item.icon} />
-                    {item.label}
+                    <FontAwesomeIcon icon={faTv} />
+                    {item.name}
                   </li>
                 ))}
               </ul>

@@ -10,7 +10,7 @@
 
 .categories__list {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 18px;
   height: 160px;
   align-items: center;
@@ -41,6 +41,7 @@
 
 .categories__list .categorie img {
   height: 97px;
+  object-fit: contain;
 }
 
 .categories__list .categorie p {

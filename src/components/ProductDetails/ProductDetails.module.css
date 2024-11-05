@@ -229,7 +229,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .top__detail{
+  .top__detail {
     flex-wrap: wrap-reverse;
     gap: 50px;
   }

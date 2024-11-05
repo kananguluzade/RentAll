@@ -8,6 +8,8 @@ const Cabinet = () => {
   const location = useLocation();
   const [currentPage, setCurrentPage] = useState("parametrler");
 
+  const userFullName = `${user?.name || ""} ${user?.surname || ""}`;
+
   useEffect(() => {
     const currentPath = location.pathname.split("/")[2] || "parametrler";
     setCurrentPage(currentPath);
@@ -17,8 +19,8 @@ const Cabinet = () => {
     <div className="container">
       <div className={styles.cabinet__head}>
         <div className={styles.user__info}>
-          <h4>{user?.fullname}</h4>
-          <p>{user?.phone_number}</p>
+          <h4>{userFullName}</h4>
+          <p>{user?.phoneNumber}</p>
         </div>
         <ul className={styles.cabinet__pages}>
           <li>

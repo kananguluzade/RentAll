@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -11,8 +11,10 @@ import {
 import { notification } from "antd";
 import styles from "./Register.module.css";
 import Validation from "../../Validation/Validation";
+
 const Register = ({
   isAuthentication,
+  onRegisterSuccess,
   setIsAuthentication,
   onClose,
   email,
@@ -29,10 +31,12 @@ const Register = ({
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+
   const handleChange = (setter) => (e) => {
     setter(e.target.value);
     setErrors((prevErrors) => ({ ...prevErrors, [e.target.name]: "" }));
   };
+
   const openNotification = () => {
     notification.success({
       message: "Qeydiyyat uğurlu oldu",
@@ -53,6 +57,7 @@ const Register = ({
       setErrors(validationErrors);
       return;
     }
+
     try {
       setLoading(true);
       setSuccess(false);
@@ -60,12 +65,12 @@ const Register = ({
       const [name, surname] = fullname.split(" ");
       const newUser = {
         name: name,
+        surname: surname,
         email: email,
         password: password,
         phoneNumber: `+994${phone}`,
         username: "ssdsdsds",
       };
-
       console.log("Gönderilen veri:", newUser);
 
       const registerResponse = await fetch(`${BASE_URL}/auth/register`, {
@@ -75,12 +80,13 @@ const Register = ({
         },
         body: JSON.stringify(newUser),
       });
-
       setLoading(false);
+
       if (registerResponse.ok) {
         openNotification();
         setFullname("");
         setPhone("");
+        onRegisterSuccess(email, password);
         setPassword("");
         setConfirmPassword("");
         setProfileImage("");

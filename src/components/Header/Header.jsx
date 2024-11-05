@@ -16,6 +16,7 @@ import UserMenu from "../UserMenu/UserMenu";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import AuthModals from "../Auth/AuthModals/AuthModals";
 import LogoutModal from "../Auth/LogoutModal/LogoutModal";
+import Search from "../Search/Search";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,18 +29,22 @@ const Header = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [userComments, setUserComments] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const [shareComments, setShareComments] = useState([]);
   const [shareProductImgs, setShareProductImgs] = useState([]);
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const userFullName = `${user?.name || ""} ${user?.surname || ""}`;
-  const userPhoneNumber = user?.phone_number || "";
-  const userimg = user?.profile_image || "";
+  const userPhoneNumber = user?.phoneNumber || "";
+  const userimg = user?.photoUrl || "";
 
   const dropdownRef = useRef(null);
   const userMenuRef = useRef(null);
   const notificationsMenuRef = useRef(null);
+
+  const BASE_URL = import.meta.env.VITE_API_URL;
 
   const [notificationCount, setNotificationCount] = useState(
     parseInt(localStorage.getItem("notificationCount"), 10) || 0
@@ -91,6 +96,34 @@ const Header = () => {
   const handleLoginOpen = () => {
     setActiveTab("login");
     setIsRegisterOpen(true);
+  };
+
+  const handleSearch = async () => {
+    if (!searchTerm) return;
+
+    try {
+      const response = await fetch(
+        `${BASE_URL}/products/search?name=${searchTerm}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch search results");
+      }
+      const data = await response.json();
+      setSearchResults(data);
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    }
+  };
+
+  const handleSearchInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearchKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSearch();
+    }
   };
 
   const formatRelativeDate = (dateString) => {
@@ -310,8 +343,7 @@ const Header = () => {
               )}
             </div>
             <div className={styles.header__search}>
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-              <input type="text" name="search" placeholder="Axtarış..." />
+              <Search />
             </div>
 
             {user ? (

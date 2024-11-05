@@ -14,7 +14,7 @@ const NewShares = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/products`);
+        const response = await fetch(`${BASE_URL}/products/all`);
 
         if (!response.ok) {
           throw new Error(
@@ -50,7 +50,11 @@ const NewShares = () => {
               <Card key={index} isLoading={true} />
             ))
           : products.slice(0, visibleProductsCount).map((product) => (
-              <Link key={product.id} to={`/product/${product.id}`}>
+              <Link
+                key={product.id}
+                to={`/product/${product.id}`}
+                onClick={() => window.scrollTo(0, 0)}
+              >
                 <Card share={product} isLoading={false} />
               </Link>
             ))}

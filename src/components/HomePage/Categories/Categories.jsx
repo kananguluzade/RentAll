@@ -8,12 +8,46 @@ const Categories = () => {
 
   const BASE_URL = import.meta.env.VITE_API_URL;
 
+  const getRandomGradient = () => {
+    const colors = [
+      "rgba(255, 182, 193, 0.7)",
+      "rgba(144, 238, 144, 0.7)",
+      "rgba(173, 216, 230, 0.7)",
+      "rgba(255, 192, 203, 0.7)",
+      "rgba(255, 222, 173, 0.7)",
+      "rgba(175, 238, 238, 0.7)",
+      "rgba(221, 160, 221, 0.7)",
+      "rgba(240, 230, 140, 0.7)",
+      "rgba(250, 250, 210, 0.7)",
+      "rgba(255, 239, 213, 0.7)",
+    ];
+
+    const color1 = colors[Math.floor(Math.random() * colors.length)];
+    const color2 = colors[Math.floor(Math.random() * colors.length)];
+    return `linear-gradient(135deg, ${color1}, ${color2})`;
+  };
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/categories`);
+        const response = await fetch(`${BASE_URL}/categories/all`);
         const data = await response.json();
-        setCategories(data);
+
+        const categoriesWithBackground = data.map((category) => ({
+          ...category,
+          background: getRandomGradient(),
+        }));
+
+        const sortedCategories = [
+          ...categoriesWithBackground.filter(
+            (category) => category.name !== "Əlavə"
+          ),
+          categoriesWithBackground.find(
+            (category) => category.name === "Əlavə"
+          ),
+        ];
+
+        setCategories(sortedCategories);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -24,7 +58,7 @@ const Categories = () => {
 
   const handleCategoryClick = (category) => {
     window.scrollTo(0, 0);
-    navigate(`/allproducts?category=${category.name}`);
+    navigate(`/allproducts?category=${category.id}`);
   };
 
   return (
@@ -41,7 +75,7 @@ const Categories = () => {
             onClick={() => handleCategoryClick(category)}
           >
             <p>{category.name}</p>
-            <img src={category.image} alt={category.name} />
+            <img src={category.imageUrl} alt={category.name} />
           </div>
         ))}
       </div>

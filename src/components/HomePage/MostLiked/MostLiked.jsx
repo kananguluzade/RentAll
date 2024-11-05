@@ -13,7 +13,7 @@ const MostLiked = () => {
   useEffect(() => {
     const fetchShares = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/products`);
+        const response = await fetch(`${BASE_URL}/products/all`);
         const data = await response.json();
         const sortedShares = data.sort((a, b) => b.likes - a.likes);
         setMostLiked(sortedShares);

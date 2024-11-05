@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner"; // LoadingSpinner bileşenini import ettik
 import styles from "./ProductDetails.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -23,25 +24,26 @@ import MostLiked from "../HomePage/MostLiked/MostLiked";
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [users, setUsers] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
   const swiperRef = useRef(null);
+
   const BASE_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/products`);
+        setLoading(true);
+        const response = await fetch(`${BASE_URL}/products/${id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch product");
+        }
         const data = await response.json();
-
-        const selectedProduct = data.find((product) => product.id === id);
-        setProduct(selectedProduct);
-
-        const usersResponse = await fetch(`${BASE_URL}/users`);
-        const usersData = await usersResponse.json();
-        setUsers(usersData);
+        setProduct(data);
       } catch (error) {
         console.error("Error fetching product:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -58,18 +60,26 @@ const ProductDetails = () => {
     setActiveIndex(index);
   };
 
-  if (!product || users.length === 0) {
-    return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <LoadingSpinner />
+      </div>
+    );
   }
 
-  const productOwner = users.find((user) => user.id === product.owner_id);
+  if (!product) {
+    return <div>Product not found</div>;
+  }
+
+  const { owner, category, images } = product;
 
   const zoomProps = {
     width: 450,
     height: 360,
     zoomWidth: 500,
     zoomPosition: "original",
-    img: product.otherImages[activeIndex],
+    img: images?.[activeIndex]?.path || "",
   };
 
   return (
@@ -79,10 +89,10 @@ const ProductDetails = () => {
           <div className={styles.top__detail}>
             <div className={styles.product__img}>
               <div className={styles.img__sidebar}>
-                {product.otherImages.map((image, index) => (
+                {images?.map((image, index) => (
                   <div key={index} className={styles.sidebar__img}>
                     <img
-                      src={image}
+                      src={image.path}
                       alt={`Thumbnail ${index + 1}`}
                       onClick={() => handleImageChange(index)}
                       className={`${styles.thumbnail} ${
@@ -109,12 +119,12 @@ const ProductDetails = () => {
                   loop={false}
                   initialSlide={activeIndex}
                 >
-                  {product.otherImages.map((image, index) => (
+                  {images?.map((image, index) => (
                     <SwiperSlide key={index} className={styles.carousel__img}>
                       <ReactImageZoom
                         key={activeIndex}
                         {...zoomProps}
-                        img={image}
+                        img={image.path}
                         className={styles.carousel__img}
                       />
                     </SwiperSlide>
@@ -132,38 +142,35 @@ const ProductDetails = () => {
             <div className={styles.product__info}>
               <div className={styles.info__container}>
                 <div className={styles.product__author}>
-                  <img src={productOwner?.profile_image} alt="" />
-                  <span>{`${productOwner?.name} ${productOwner?.surname}`}</span>
+                  <img src={owner?.photoUrl} alt="" />
+                  <span>{`${owner?.name} ${owner?.surname}`}</span>
                 </div>
                 <div className={styles.details}>
-                  <h4>{product.title}</h4>
+                  <h4>{product.name}</h4>
                   <ul>
                     <li>
                       <FontAwesomeIcon icon={faHouse} />
-                      <p>{product.category}</p>
+                      <p>{category.name}</p>
                     </li>
                     <li>
                       <FontAwesomeIcon icon={faEnvelope} />
-                      <p>{productOwner?.email}</p>
+                      <p>{owner?.email}</p>
                     </li>
                     <li>
                       <FontAwesomeIcon icon={faLocationDot} />
-                      <p>{product.place}</p>
+                      <p>{product.location}</p>
                     </li>
                   </ul>
                   <button>
                     <FontAwesomeIcon icon={faPhone} />
-                    Zəng et
+                    {owner?.phoneNumber}
                   </button>
                 </div>
               </div>
-              {/* <div className={styles.product__fav}>
-              <FontAwesomeIcon icon={faHeart} />
-            </div> */}
             </div>
           </div>
           <div className={styles.product__description}>
-            <p>{product.content}</p>
+            <p>{product.description}</p>
           </div>
         </div>
         <Review productId={product.id} />

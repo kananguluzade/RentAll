@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
+import { AuthContext } from "../Services/authContext";
 
 const PrivateRoute = ({ element }) => {
-  const user = JSON.parse(localStorage.getItem("loggedInUser"));
+  const { user } = useContext(AuthContext);
 
   return user ? element : <Navigate to="/" replace />;
 };

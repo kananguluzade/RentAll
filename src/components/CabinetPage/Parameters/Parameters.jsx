@@ -6,127 +6,110 @@ import { AuthContext } from "../../Auth/Services/authContext";
 const Parameters = () => {
   const { user, login } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: user?.email || "",
-    phone_number: user?.phone_number || "",
+    phoneNumber: user?.phoneNumber || "",
     name: user?.name || "",
     surname: user?.surname || "",
-    about: user?.about || "",
-    profile_image: user?.profile_image || "",
-    fullname: `${user?.name || ""} ${user?.surname || ""}`.trim(),
+    username: user?.username || "",
   });
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const BASE_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     if (user) {
       setFormData({
         email: user.email || "",
-        phone_number: user.phone_number || "",
+        phoneNumber: user.phoneNumber || "",
         name: user.name || "",
         surname: user.surname || "",
-        about: user.about || "",
-        profile_image: user.profile_image || "",
-        fullname: `${user.name || ""} ${user.surname || ""}`.trim(),
+        username: user.username || "",
       });
     }
   }, [user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => {
-      const updatedData = { ...prevData, [name]: value };
-      updatedData.fullname =
-        `${updatedData.name} ${updatedData.surname}`.trim();
-      return updatedData;
-    });
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handleImageChange = async (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const imageData = new FormData();
-      imageData.append("file", file);
-      imageData.append("upload_preset", "sharecare");
-
-      try {
-        const res = await fetch(
-          `https://api.cloudinary.com/v1_1/difymycwt/image/upload`,
-          {
-            method: "POST",
-            body: imageData,
-          }
-        );
-
-        if (!res.ok) throw new Error("Resim yükleme başarısız.");
-
-        const data = await res.json();
-        const newProfileImage = data.secure_url;
-
-        setFormData((prevData) => ({
-          ...prevData,
-          profile_image: newProfileImage,
-        }));
-
-        const updatedUser = {
-          ...user,
-          profile_image: newProfileImage,
-          updated_at: new Date().toISOString(),
-        };
-
-        await fetch(`http://localhost:3000/users/${user.id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(updatedUser),
-        });
-
-        login(updatedUser);
-        openNotification("success", "Profil şəkli güncellenmişdir!");
-      } catch (error) {
-        console.error("Güncelleme hatası:", error);
-      }
-    }
+    setSelectedImage(file || null);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    if (
-      !formData.email ||
-      !formData.phone_number ||
-      !formData.name ||
-      !formData.surname
-    ) {
-      openNotification("error", "Bütün alanların doldurulması gereklidir.");
+    if (!formData.email || !formData.phoneNumber || !formData.name) {
+      openNotification("error", "Bütün sahələr doldurulmalıdır.");
+      setLoading(false);
       return;
     }
 
-    const updatedUser = {
-      ...user,
-      ...formData,
-      updated_at: new Date().toISOString(),
-    };
-
     try {
-      const res = await fetch(`http://localhost:3000/users/${user.id}`, {
+      const data = new FormData();
+      data.append(
+        "request",
+        new Blob(
+          [
+            JSON.stringify({
+              email: formData.email,
+              phoneNumber: formData.phoneNumber,
+              name: formData.name,
+              surname: formData.surname,
+              username: formData.username,
+            }),
+          ],
+          { type: "application/json" }
+        )
+      );
+
+      if (selectedImage) {
+        data.append("image", selectedImage);
+      }
+
+      const res = await fetch(`${BASE_URL}/users/update`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedUser),
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: data,
       });
 
       if (!res.ok) {
-        const errorMsg = await res.text();
-        throw new Error(errorMsg || "Yeniləmə uğursuz oldu.");
+        const errorText = await res.text();
+        console.error("Error response:", errorText);
+        openNotification(
+          "error",
+          errorText || "Yeniləmə zamanı səhv baş verdi."
+        );
+        throw new Error("Unexpected server response format.");
       }
 
-      const data = await res.json();
-      login(data);
-      openNotification("success", "Profiliniz uğurla yeniləndi!");
-      setIsEditing(false);
+      try {
+        const responseData = await res.json();
+        login(responseData);
+        openNotification("success", "Profil uğurla yeniləndi!");
+        setIsEditing(false);
+      } catch (error) {
+        openNotification("success", "Profil uğurla yeniləndi!");
+        setIsEditing(false);
+      }
     } catch (error) {
-      console.error("Yeniləmə xətası:", error);
+      console.error("Update error:", error);
       openNotification(
         "error",
-        error.message || "Yeniləmə zamanı xəta baş verdi."
+        error.message || "Yeniləmə zamanı səhv baş verdi."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -137,20 +120,19 @@ const Parameters = () => {
     });
   };
 
-  const getUserInitials = () => {
-    const [first, last] = [user?.name || "", user?.surname || ""];
-    return `${first.charAt(0).toUpperCase()}${last.charAt(0).toUpperCase()}`;
-  };
-
   return (
     <div className={styles.parameters__container}>
       <div className={styles.user__img}>
-        <p>Profil şəkli</p>
+        <p>Profile Image</p>
         <div className={styles.add__preview}>
-          {formData.profile_image ? (
-            <img src={formData.profile_image} alt="User" />
+          {selectedImage ? (
+            <img src={URL.createObjectURL(selectedImage)} alt="User" />
+          ) : user?.photoUrl ? (
+            <img src={user.photoUrl} alt="User" />
           ) : (
-            <span className={styles.user__initials}>{getUserInitials()}</span>
+            <span className={styles.user__initials}>
+              {`${user?.name?.[0] || ""}${user?.surname?.[0] || ""}`}
+            </span>
           )}
           <input
             type="file"
@@ -158,7 +140,7 @@ const Parameters = () => {
             id="files"
             className="hidden"
           />
-          <label htmlFor="files">Fayıl seçin</label>
+          <label htmlFor="files">Select File</label>
         </div>
       </div>
       <form onSubmit={handleSubmit} className={styles.form__container}>
@@ -177,8 +159,8 @@ const Parameters = () => {
             <h4>Telefonunuz</h4>
             <input
               type="text"
-              name="phone_number"
-              value={formData.phone_number}
+              name="phoneNumber"
+              value={formData.phoneNumber}
               onChange={handleInputChange}
               disabled={!isEditing}
             />
@@ -194,31 +176,21 @@ const Parameters = () => {
             disabled={!isEditing}
           />
         </div>
-        <div className={styles.surname}>
-          <h4>Soyadınız</h4>
-          <input
-            type="text"
-            name="surname"
-            value={formData.surname}
-            onChange={handleInputChange}
-            disabled={!isEditing}
-          />
-        </div>
         <div className={styles.about}>
           <h4>Haqqınızda</h4>
           <textarea
             name="about"
-            value={formData.about}
+            value={formData.about || ""}
             onChange={handleInputChange}
             disabled={!isEditing}
-            placeholder="Haqqınızda qısa bir məlumat yazın..."
+            placeholder="Write a short description about yourself..."
           />
         </div>
         <div className={styles.form__submit}>
           {isEditing ? (
             <div className={styles.form__save}>
-              <input type="submit" value="Yadda saxla" />
-              <p onClick={() => setIsEditing(false)}>Ləğv Elə</p>
+              <input type="submit" value="Save" />
+              <p onClick={() => setIsEditing(false)}>Cancel</p>
             </div>
           ) : (
             <button
@@ -226,7 +198,7 @@ const Parameters = () => {
               onClick={() => setIsEditing(true)}
               className={styles.edit__btn}
             >
-              Redaktə et
+              Edit
             </button>
           )}
         </div>

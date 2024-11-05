@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import styles from "./Sharing.module.css";
 import { Modal, Button } from "rsuite";
 import { AuthContext } from "../../Auth/Services/authContext";
+import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
 
 const Sharing = () => {
   const { user } = useContext(AuthContext);
@@ -61,7 +62,11 @@ const Sharing = () => {
   };
 
   if (isLoading) {
-    return <div>Yükleniyor...</div>;
+    return (
+      <div className={styles.loadingContainer}>
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   if (sharedProducts.length === 0) {

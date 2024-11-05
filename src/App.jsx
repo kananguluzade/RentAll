@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Layout from "./layout/Layout";
 import Home from "./pages/Home/Home";
 import "./App.css";
@@ -11,8 +11,12 @@ import AddProduct from "./pages/AddProduct/AddProduct";
 import AllProducts from "./pages/AllProducts/AllProducts";
 import PrivateRoute from "./components/Auth/PrivateRoute/PrivateRoute";
 import AboutUs from "./pages/AboutUs/AboutUs";
+import AuthModals from "./components/Auth/AuthModals/AuthModals";
 
 function App() {
+  const location = useLocation();
+  const token = new URLSearchParams(location.search).get("token");
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -26,6 +30,11 @@ function App() {
         </Route>
         <Route path="cabinet/elan-yerlesdir" element={<AddProduct />} />
         <Route path="allproducts" element={<AllProducts />} />
+
+        <Route
+          path="auth/reset-password"
+          element={<AuthModals isResetPasswordOpen={true} token={token} />}
+        />
       </Route>
     </Routes>
   );

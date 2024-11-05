@@ -30,7 +30,6 @@ const Card = ({ share, isLoading }) => {
       const updatedLikes = likes + 1;
       setLikes(updatedLikes);
 
-      // Send a request to update likes if needed
       // Example: await fetch(`${BASE_URL}/products/${share.id}`, { method: "PATCH", body: JSON.stringify({ likes: updatedLikes }) });
     } catch (error) {
       console.error("Error liking the product:", error);
@@ -46,7 +45,7 @@ const Card = ({ share, isLoading }) => {
           {share && (
             <>
               <div className={styles.share__img}>
-                <img src={share.image} alt={share.description} />
+                <img src={share.images[0].path} alt={share.description} />
                 <div className={styles.card__suggest}>
                   <FontAwesomeIcon icon={faTag} />
                   <p>Təklif</p>
@@ -55,13 +54,13 @@ const Card = ({ share, isLoading }) => {
               <div className={styles.share__desc}>
                 <div className={styles.share__location}>
                   <FontAwesomeIcon icon={faLocationDot} />
-                  <p>{share.place}</p>
+                  <p>{share.location}</p>
                 </div>
                 <div className={styles.share__category}>
-                  <p>{share.category}</p>
+                  <p>{share.category.name}</p>
                 </div>
                 <div className={styles.share__info}>
-                  <p>{share.title}</p>
+                  <p>{share.name}</p>
                 </div>
               </div>
             </>

@@ -10,7 +10,7 @@ const Faq = () => {
   useEffect(() => {
     const fetchFaqs = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/faq`);
+        const response = await fetch(`${BASE_URL}/faqs/all`);
         const data = await response.json();
         setFaqData(data);
       } catch (error) {

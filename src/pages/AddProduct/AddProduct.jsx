@@ -20,26 +20,23 @@ import { AuthContext } from "../../components/Auth/Services/authContext";
 const AddProduct = () => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isCityOpen, setIsCityOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
   const { user } = useContext(AuthContext);
   const [cities, setCities] = useState([]);
   const navigate = useNavigate();
   const [newProduct, setNewProduct] = useState({
-    id: "",
-    category: "",
-    title: "",
-    place: "",
-    owner_id: user.id,
-    image: "",
-    otherImages: [],
-    content: "",
+    name: "",
+    description: "",
+    location: "",
+    categoryId: "",
+    isOld: false,
   });
 
   const BASE_URL = import.meta.env.VITE_API_URL;
 
   const [loading, setLoading] = useState(false);
-  const [loadingVisible, setLoadingVisible] = useState(false);
-  const [shares, setShares] = useState([]);
   const [images, setImages] = useState([]);
+
   const [otherImages, setOtherImages] = useState([]);
 
   const categoryDropdownRef = useRef(null);
@@ -48,6 +45,8 @@ const AddProduct = () => {
   const otherFileInputRef = useRef(null);
 
   const [form] = Form.useForm();
+
+  const token = localStorage.getItem("token");
 
   const toggleCategoryDropdown = () => setIsCategoryOpen((prev) => !prev);
   const toggleCityDropdown = () => setIsCityOpen((prev) => !prev);
@@ -72,16 +71,18 @@ const AddProduct = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const categories = [
-    { label: "Evlər və mənzillər", icon: faHouse },
-    { label: "Avtomobillər", icon: faCar },
-    { label: "Əyləncə", icon: faGamepad },
-    { label: "İdman", icon: faFutbol },
-    { label: "Ticarət sahələri", icon: faStore },
-    { label: "Elektronika", icon: faTv },
-    { label: "Məişət texnikası", icon: faCashRegister },
-    { label: "Tədbir avadanlığı", icon: faCamera },
-  ];
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/categories/all`);
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchCategories();
+  }, [BASE_URL]);
 
   useEffect(() => {
     const loadCities = () => {
@@ -99,86 +100,9 @@ const AddProduct = () => {
         "Bakı, Qaradağ rayonu",
         "Gəncə şəhəri",
         "Sumqayıt şəhəri",
-        "Mingəçevir şəhəri",
-        "Naftalan şəhəri",
-        "Naxçıvan şəhəri",
-        "Abşeron rayonu",
-        "Ağcabədi rayonu",
-        "Ağdam rayonu",
-        "Ağdaş rayonu",
-        "Ağstafa rayonu",
-        "Astara rayonu",
-        "Babək rayonu",
-        "Balakən rayonu",
-        "Beyləqan rayonu",
-        "Bərdə rayonu",
-        "Biləsuvar rayonu",
-        "Cəlilabad rayonu",
-        "Culfa rayonu",
-        "Daşkəsən rayonu",
-        "Füzuli rayonu",
-        "Gədəbəy rayonu",
-        "Goranboy rayonu",
-        "Göygöl rayonu",
-        "Göyçay rayonu",
-        "Hacıqabul rayonu",
-        "İmişli rayonu",
-        "İsmayıllı rayonu",
-        "Kəngərli rayonu",
-        "Kəlbəcər rayonu",
-        "Kürdəmir rayonu",
-        "Laçın rayonu",
-        "Lerik rayonu",
-        "Lənkəran rayonu",
-        "Masallı rayonu",
-        "Naftalan şəhəri",
-        "Naxçıvan şəhəri",
-        "Neftçala rayonu",
-        "Oğuz rayonu",
-        "Ordubad rayonu",
-        "Qax rayonu",
-        "Qazax rayonu",
-        "Qobustan rayonu",
-        "Quba rayonu",
-        "Qubadlı rayonu",
-        "Qusar rayonu",
-        "Sabirabad rayonu",
-        "Salyan rayonu",
-        "Samux rayonu",
-        "Saatlı rayonu",
-        "Sədərək rayonu",
-        "Siyəzən rayonu",
-        "Şabran rayonu",
-        "Şahbuz rayonu",
-        "Şamaxı rayonu",
-        "Şəmkir rayonu",
-        "Şəki rayonu",
-        "Şəki şəhəri",
-        "Şirvan şəhəri",
-        "Şuşa rayonu",
-        "Tərtər rayonu",
-        "Tovuz rayonu",
-        "Ucar rayonu",
-        "Xaçmaz rayonu",
-        "Xankəndi şəhəri",
-        "Xızı rayonu",
-        "Xocalı rayonu",
-        "Xocavənd rayonu",
-        "Yardımlı rayonu",
-        "Yevlax şəhəri",
-        "Zaqatala rayonu",
-        "Zəngilan rayonu",
-        "Zərdab rayonu",
       ];
 
-      const bakuCity = regions.filter((region) => region.startsWith("Bakı"));
-      const otherCities = regions.filter(
-        (region) => !region.startsWith("Bakı")
-      );
-
-      const formattedRegions = [...bakuCity, ...otherCities].map((region) => ({
-        label: region,
-      }));
+      const formattedRegions = regions.map((region) => ({ label: region }));
       setCities(
         formattedRegions.sort((a, b) => a.label.localeCompare(b.label))
       );
@@ -187,68 +111,23 @@ const AddProduct = () => {
     loadCities();
   }, []);
 
-  useEffect(() => {
-    const fetchShares = async () => {
-      try {
-        const response = await fetch(`${BASE_URL}/products`);
-        const data = await response.json();
-        setShares(data || []);
-      } catch (error) {
-        console.error("Error fetching shares:", error);
-      }
-    };
-    fetchShares();
-  }, []);
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewProduct((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const uploadImageToCloudinary = async (file) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "sharecare");
-
-    try {
-      const response = await fetch(
-        "https://api.cloudinary.com/v1_1/difymycwt/image/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      const data = await response.json();
-      return data.secure_url;
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      return null;
+    const { name, value, type, checked } = e.target;
+    if (type === "checkbox") {
+      setNewProduct((prev) => ({ ...prev, [name]: checked }));
+    } else {
+      setNewProduct((prev) => ({ ...prev, [name]: value }));
     }
   };
 
-  const handleMainImageChange = async (e) => {
+  const handleMainImageChange = (e) => {
     const files = Array.from(e.target.files);
-    const uploadedImages = await Promise.all(
-      files.map((file) => uploadImageToCloudinary(file))
-    );
-
-    setImages(uploadedImages.slice(0, 1));
-    setNewProduct((prev) => ({
-      ...prev,
-      image: uploadedImages[0] || "",
-    }));
+    setImages(files);
   };
 
-  const handleOtherImageChange = async (e) => {
+  const handleOtherImageChange = (e) => {
     const files = Array.from(e.target.files);
-    const uploadedOtherImages = await Promise.all(
-      files.map((file) => uploadImageToCloudinary(file))
-    );
-    setOtherImages(uploadedOtherImages.slice(0, 4));
-    setNewProduct((prev) => ({
-      ...prev,
-      otherImages: uploadedOtherImages.slice(0, 4),
-    }));
+    setOtherImages(files);
   };
 
   const handleFileInputClick = () => {
@@ -263,20 +142,17 @@ const AddProduct = () => {
     e.preventDefault();
 
     const validateInputs = () => {
-      if (!newProduct.title || newProduct.title.length < 5) {
+      if (!newProduct.name || newProduct.name.length < 5) {
         return "Elanın adı 5 karakterdən uzun olmalıdır.";
       }
-      if (!newProduct.category) {
-        return "Kateqoriya seçilməlidir.";
-      }
-      if (!newProduct.place) {
-        return "Ərazi seçilməlidir.";
-      }
-      if (!newProduct.content || newProduct.content.length < 10) {
+      if (!newProduct.description || newProduct.description.length < 10) {
         return "Məzmun 10 karakterdən uzun olmalıdır.";
       }
-      if (!newProduct.image) {
-        return "Ən azı bir şəkil əlavə edilməlidir.";
+      if (!newProduct.location) {
+        return "Ərazi seçilməlidir.";
+      }
+      if (!newProduct.categoryId || newProduct.categoryId <= 0) {
+        return "Etibarlı bir kateqoriya seçin.";
       }
       return null;
     };
@@ -288,14 +164,38 @@ const AddProduct = () => {
     }
 
     setLoading(true);
-    const newId = Date.now().toString();
-    const productData = { ...newProduct, id: newId, owner_id: user.id };
+
+    const formData = new FormData();
+
+    const productRequest = {
+      name: newProduct.name,
+      description: newProduct.description,
+      location: newProduct.location,
+      categoryId: newProduct.categoryId,
+      isOld: newProduct.isOld,
+    };
+
+    Object.keys(productRequest).forEach((key) =>
+      formData.append(`productRequest[${key}]`, productRequest[key])
+    );
+
+    formData.append("productRequest", JSON.stringify(productRequest));
+
+    images.forEach((img) => {
+      formData.append("images", img);
+    });
+
+    otherImages.forEach((img) => {
+      formData.append("images", img);
+    });
 
     try {
       const response = await fetch(`${BASE_URL}/products`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(productData),
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
       });
 
       if (response.ok) {
@@ -305,15 +205,25 @@ const AddProduct = () => {
         });
         setTimeout(() => navigate("/cabinet/elanlar"), 2000);
       } else {
+        const errorResponse = await response.json();
+        console.error("Backend error:", errorResponse);
         notification.error({
           message: "Xəta",
-          description: "Zəhmət olmasa admin ilə əlaqə saxlayın.",
+          description:
+            errorResponse.message || "Zəhmət olmasa admin ilə əlaqə saxlayın.",
         });
       }
     } catch (error) {
-      console.error("Error saving product:", error);
+      console.error("Ürün kaydetme hatası:", error);
+      notification.error({
+        message: "Xəta",
+        description: "Məlumatlar saxlanıla bilmədi.",
+      });
     } finally {
       setLoading(false);
+      console.log("Ürün Bilgisi:", newProduct);
+      console.log("Ana Resimler:", images);
+      console.log("Diğer Resimler:", otherImages);
     }
   };
 
@@ -366,7 +276,7 @@ const AddProduct = () => {
               images.map((image, index) => (
                 <img
                   key={index}
-                  src={image}
+                  src={URL.createObjectURL(image)}
                   alt={`Uploaded preview ${index + 1}`}
                   className={styles.uploadedImage}
                 />
@@ -389,7 +299,7 @@ const AddProduct = () => {
               {otherImages.map((image, index) => (
                 <img
                   key={index}
-                  src={image}
+                  src={URL.createObjectURL(image)}
                   alt={`Other uploaded preview ${index + 1}`}
                   className={styles.uploadedImage}
                 />
@@ -440,7 +350,7 @@ const AddProduct = () => {
                   }`}
                   onClick={toggleCategoryDropdown}
                 >
-                  <span>{newProduct.category || "Kateqoriyalar"}</span>
+                  <span>{newProduct.categoryName || "Kateqoriyalar"}</span>
                   <FontAwesomeIcon
                     icon={faAngleDown}
                     className={`${
@@ -455,20 +365,19 @@ const AddProduct = () => {
                     isCategoryOpen ? styles.show : ""
                   }`}
                 >
-                  {categories.map((item, index) => (
+                  {categories.map((category) => (
                     <li
-                      key={index}
+                      key={category.id}
                       className={styles.dropdown__item}
                       onClick={() => {
                         setNewProduct((prev) => ({
                           ...prev,
-                          category: item.label,
+                          categoryId: category.id,
                         }));
                         setIsCategoryOpen(false);
                       }}
                     >
-                      <FontAwesomeIcon icon={item.icon} />
-                      {item.label}
+                      {category.name}
                     </li>
                   ))}
                 </ul>
@@ -481,7 +390,7 @@ const AddProduct = () => {
                   }`}
                   onClick={toggleCityDropdown}
                 >
-                  <span>{newProduct.place || "Ərazi seçin"}</span>
+                  <span>{newProduct.location || "Ərazi seçin"}</span>
                   <FontAwesomeIcon
                     icon={faAngleDown}
                     className={`${
@@ -503,7 +412,7 @@ const AddProduct = () => {
                       onClick={() => {
                         setNewProduct((prev) => ({
                           ...prev,
-                          place: item.label,
+                          location: item.label,
                         }));
                         setIsCityOpen(false);
                       }}
@@ -519,13 +428,13 @@ const AddProduct = () => {
                 <h6>Elanın adı</h6>
                 <input
                   type="text"
-                  name="title"
-                  value={newProduct.title}
+                  name="name"
+                  value={newProduct.name}
                   onChange={handleChange}
                   placeholder="Xananı doldurun"
                 />
               </div>
-              <div className={styles.product__phone}>
+              {/* <div className={styles.product__phone}>
                 <h6>Telefon</h6>
                 <input
                   type="text"
@@ -535,17 +444,28 @@ const AddProduct = () => {
                   placeholder="Xananı doldurun"
                   maxLength={10}
                 />
-              </div>
+              </div> */}
             </div>
 
             <div className={styles.product__desc}>
               <h6>Məzmun</h6>
               <textarea
-                name="content"
-                value={newProduct.content}
+                name="description"
+                value={newProduct.description}
                 onChange={handleChange}
                 placeholder="Xananı doldurun"
               ></textarea>
+            </div>
+
+            <div className={styles.product__condition}>
+              <label htmlFor="c1">Kohnedir?</label>
+              <input
+                id="c1"
+                type="checkbox"
+                name="isOld"
+                checked={newProduct.isOld}
+                onChange={handleChange}
+              />
             </div>
 
             <div className={styles.product__buttons}>

@@ -23,6 +23,8 @@ const Login = ({ onForgotPassword, onClose }) => {
 
   const BASE_URL = import.meta.env.VITE_API_URL;
 
+  
+
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
     setErrors((prevErrors) => ({ ...prevErrors, email: "", general: "" }));

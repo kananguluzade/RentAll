@@ -4,6 +4,7 @@ import styles from "./Hero.module.css";
 
 const Hero = () => {
   const [slides, setSlides] = useState([]);
+  
   const BASE_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
