@@ -16,13 +16,12 @@ const Sharing = () => {
   useEffect(() => {
     const fetchSharedProducts = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/products`);
+        const response = await fetch(`${BASE_URL}/products/user/${user.id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch shared products");
+        }
         const data = await response.json();
-
-        const userSharedProducts = data.filter(
-          (share) => share.owner_id === user.id
-        );
-        setSharedProducts(userSharedProducts);
+        setSharedProducts(data);
       } catch (error) {
         console.error("Error fetching shared products:", error);
       } finally {
@@ -46,8 +45,13 @@ const Sharing = () => {
 
   const confirmDelete = async () => {
     try {
-      // For future backend integration:
-      // await fetch(`${BASE_URL}/shares/${deleteProductId}`, { method: 'DELETE' });
+      const response = await fetch(`${BASE_URL}/products/${deleteProductId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete the product");
+      }
 
       setSharedProducts((prev) =>
         prev.filter((product) => product.id !== deleteProductId)
@@ -80,15 +84,22 @@ const Sharing = () => {
       {sharedProducts.map((share) => (
         <div key={share.id} className={styles.share__card}>
           <div className={styles.share__img}>
-            <img src={share.otherImages[0]} alt={share.description} />
+            <img
+              src={
+                share.otherImages && share.otherImages.length > 0
+                  ? share.otherImages[0]
+                  : "defaultImagePath.jpg"
+              }
+              alt={share.description}
+            />
           </div>
           <div className={styles.share__desc}>
             <div className={styles.share__place}>
-              <h6>{share.place}</h6>
+              <h6>{share.location}</h6>
             </div>
             <div className={styles.share__info}>
-              <p>{share.category}</p>
-              <p>{share.title}</p>
+              <p>{share.category.name}</p>
+              <p>{share.name}</p>
             </div>
             <div className={styles.share__buttons}>
               <button onClick={() => handleEdit(share.id)}>Düzenle</button>
