@@ -85,8 +85,7 @@ function Authentication({ email, password, onClose }) {
         const errorData = await verifyResponse.json();
         notification.error({
           message: "Təsdiq Xətası",
-          description:
-            errorData.message || "Kod təsdiqlənmədi. Yenidən cəhd edin.",
+          description: "Kod təsdiqlənmədi. Yenidən cəhd edin.",
         });
       }
     } catch (error) {
@@ -127,7 +126,7 @@ function Authentication({ email, password, onClose }) {
           </div>
           <div className={styles.form__submit}>
             <button type="submit" disabled={loading}>
-              {loading ? "Yüklənir..." : "Doğrula"}
+              {loading ? "Doğrulanır..." : "Doğrula"}
             </button>
           </div>
         </form>

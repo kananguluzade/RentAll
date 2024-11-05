@@ -52,6 +52,15 @@
   align-items: center;
   gap: 8px;
 }
+
+.form__input input {
+  text-align: center;
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+}
 .forgotPassword__form > div {
   max-width: 548px;
   width: 100%;
