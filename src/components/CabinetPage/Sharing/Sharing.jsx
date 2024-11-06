@@ -40,6 +40,8 @@ const Sharing = () => {
     }
   }, [user, BASE_URL]);
 
+  const token = localStorage.getItem("token");
+
   const handleEdit = async (shareId) => {
     setEditProduct(true);
     try {
@@ -53,8 +55,6 @@ const Sharing = () => {
     }
   };
 
-  console.log(editProductInfo);
-
   const handleDelete = (shareId) => {
     setDeleteProductId(shareId);
     setShowModal(true);
@@ -64,6 +64,9 @@ const Sharing = () => {
     try {
       const response = await fetch(`${BASE_URL}/products/${deleteProductId}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (!response.ok) {
@@ -118,8 +121,8 @@ const Sharing = () => {
           <div className={styles.share__img}>
             <img
               src={
-                share.otherImages && share.otherImages.length > 0
-                  ? share.otherImages[0]
+                share.images && share.images.length > 0
+                  ? share.images[0].path
                   : "defaultImagePath.jpg"
               }
               alt={share.description}
@@ -140,7 +143,7 @@ const Sharing = () => {
           </div>
         </div>
       ))}
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal show={showModal} onHide={() => setShowModal(false)} size="xs">
         <Modal.Header>
           <Modal.Title>Onayla</Modal.Title>
         </Modal.Header>
@@ -151,7 +154,7 @@ const Sharing = () => {
           <Button onClick={() => setShowModal(false)} appearance="subtle">
             İptal
           </Button>
-          <Button onClick={confirmDelete} appearance="primary">
+          <Button onClick={confirmDelete} appearance="primary" color="red">
             Sil
           </Button>
         </Modal.Footer>

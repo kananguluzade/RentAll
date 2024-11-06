@@ -26,9 +26,16 @@ const AddProduct = ({ editProductInfo }) => {
   const BASE_URL = import.meta.env.VITE_API_URL;
 
   const [loading, setLoading] = useState(false);
-  const [images, setImages] = useState([]);
 
-  const [otherImages, setOtherImages] = useState([]);
+  const [images, setImages] = useState(
+    editProductInfo?.images?.filter((img) => img.main).map((img) => img.path) ||
+      []
+  );
+  const [otherImages, setOtherImages] = useState(
+    editProductInfo?.images
+      ?.filter((img) => !img.main)
+      .map((img) => img.path) || []
+  );
 
   const categoryDropdownRef = useRef(null);
   const cityDropdownRef = useRef(null);
@@ -145,88 +152,48 @@ const AddProduct = ({ editProductInfo }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const validateInputs = () => {
-      if (!newProduct.name || newProduct.name.length < 5) {
-        return "Elanın adı 5 karakterdən uzun olmalıdır.";
-      }
-      if (!newProduct.description || newProduct.description.length < 10) {
-        return "Məzmun 10 karakterdən uzun olmalıdır.";
-      }
-      if (!newProduct.location) {
-        return "Ərazi seçilməlidir.";
-      }
-      if (!newProduct.categoryId || newProduct.categoryId <= 0) {
-        return "Etibarlı bir kateqoriya seçin.";
-      }
-      return null;
-    };
-
-    const errorMessage = validateInputs();
-    if (errorMessage) {
-      notification.error({ message: "Xəta", description: errorMessage });
-      return;
-    }
-
-    setLoading(true);
-
     const formData = new FormData();
 
-    const productRequest = {
-      name: newProduct.name,
-      description: newProduct.description,
-      location: newProduct.location,
-      categoryId: newProduct.categoryId,
-      isOld: newProduct.isOld,
-    };
-
-    Object.keys(productRequest).forEach((key) =>
-      formData.append(`productRequest[${key}]`, productRequest[key])
+    const productRequestBlob = new Blob(
+      [
+        JSON.stringify({
+          name: newProduct.name,
+          description: newProduct.description,
+          location: newProduct.location,
+          categoryId: newProduct.categoryId,
+          isOld: newProduct.isOld,
+        }),
+      ],
+      { type: "application/json" }
     );
 
-    formData.append("productRequest", JSON.stringify(productRequest));
+    formData.append("productRequest", productRequestBlob);
 
-    images.forEach((img) => {
-      formData.append("mainImages", img);
+    images.forEach((img) => formData.append("images", img));
+    otherImages.forEach((img) => formData.append("images", img));
+
+    const response = await fetch(`${BASE_URL}/products/${editProductInfo.id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
     });
-    otherImages.forEach((img) => {
-      formData.append("otherImages", img);
-    });
 
-    try {
-      const response = await fetch(
-        `${BASE_URL}/products/${editProductInfo.id}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        }
-      );
-
-      if (response.ok) {
-        notification.success({
-          message: "Uğurlu",
-          description: "Məhsul uğurla yeniləndi!",
-        });
-        setTimeout(() => navigate("/cabinet/elanlar"), 2000);
-      } else {
-        const errorResponse = await response.json();
-        console.error("Backend error:", errorResponse);
-        notification.error({
-          message: "Xəta",
-          description:
-            errorResponse.message || "Zəhmət olmasa admin ilə əlaqə saxlayın.",
-        });
-      }
-    } catch (error) {
-      console.error("Ürün güncelleme hatası:", error);
+    if (response.ok) {
+      notification.success({
+        message: "Uğurlu",
+        description: "Məhsul uğurla yeniləndi!",
+      });
+      setTimeout(() => navigate("/cabinet/elanlar"), 2000);
+    } else {
+      const errorResponse = await response.json();
+      console.error("Backend error:", errorResponse);
       notification.error({
         message: "Xəta",
-        description: "Məlumatlar yenilənə bilmədi.",
+        description:
+          errorResponse.message || "Zəhmət olmasa admin ilə əlaqə saxlayın.",
       });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -235,35 +202,22 @@ const AddProduct = ({ editProductInfo }) => {
       <div className={styles.add__product}>
         <div className={styles.product__img}>
           <div className={styles.product__main__img}>
-            {images.length === 0 ? (
+            {images.length == 0 ? (
               <div
                 className={styles.product__no__img}
                 onClick={handleFileInputClick}
               >
-                <svg
-                  width="100"
-                  height="92"
-                  viewBox="0 0 100 92"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M6.59766 22.4347C6.59766 18.7905 9.55185 15.8364 13.196 15.8364H25.9145C27.8446 15.8364 29.678 14.9913 30.9316 13.5237L34.8717 8.91125C36.1254 7.44371 37.9587 6.59863 39.8888 6.59863H59.9375C61.9661 6.59863 63.882 7.53176 65.1327 9.12895L68.4035 13.306C69.6542 14.9032 71.5701 15.8364 73.5987 15.8364H86.8025C90.4467 15.8364 93.4009 18.7905 93.4009 22.4347V79.1808C93.4009 82.8249 90.4467 85.7791 86.8025 85.7791H13.196C9.55185 85.7791 6.59766 82.8249 6.59766 79.1807V22.4347Z"
-                    fill="#585A5C"
-                  />
-                  <path
-                    d="M71.9223 48.8283C71.9223 60.8541 62.1735 70.603 50.1477 70.603C38.1219 70.603 28.373 60.8541 28.373 48.8283C28.373 36.8025 38.1219 27.0537 50.1477 27.0537C62.1735 27.0537 71.9223 36.8025 71.9223 48.8283ZM35.6967 48.8283C35.6967 56.8094 42.1666 63.2794 50.1477 63.2794C58.1287 63.2794 64.5987 56.8094 64.5987 48.8283C64.5987 40.8473 58.1287 34.3773 50.1477 34.3773C42.1666 34.3773 35.6967 40.8473 35.6967 48.8283Z"
-                    fill="#FAFAFA"
-                  />
-                </svg>
-
                 <h4>Fotoşəkil əlavə edin</h4>
               </div>
             ) : (
               images.map((image, index) => (
                 <img
                   key={index}
-                  src={URL.createObjectURL(image)}
+                  src={
+                    typeof image === "string"
+                      ? image
+                      : URL.createObjectURL(image)
+                  }
                   alt={`Uploaded preview ${index + 1}`}
                   className={styles.uploadedImage}
                 />
@@ -286,32 +240,15 @@ const AddProduct = ({ editProductInfo }) => {
               {otherImages.map((image, index) => (
                 <img
                   key={index}
-                  src={URL.createObjectURL(image)}
+                  src={
+                    typeof image === "string"
+                      ? image
+                      : URL.createObjectURL(image)
+                  }
                   alt={`Other uploaded preview ${index + 1}`}
                   className={styles.uploadedImage}
                 />
               ))}
-              {otherImages.length < 4 &&
-                [...Array(4 - otherImages.length)].map((_, index) => (
-                  <div key={index} className={styles.placeholderImage}>
-                    <svg
-                      width="100"
-                      height="92"
-                      viewBox="0 0 100 92"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M6.59766 22.4347C6.59766 18.7905 9.55185 15.8364 13.196 15.8364H25.9145C27.8446 15.8364 29.678 14.9913 30.9316 13.5237L34.8717 8.91125C36.1254 7.44371 37.9587 6.59863 39.8888 6.59863H59.9375C61.9661 6.59863 63.882 7.53176 65.1327 9.12895L68.4035 13.306C69.6542 14.9032 71.5701 15.8364 73.5987 15.8364H86.8025C90.4467 15.8364 93.4009 18.7905 93.4009 22.4347V79.1808C93.4009 82.8249 90.4467 85.7791 86.8025 85.7791H13.196C9.55185 85.7791 6.59766 82.8249 6.59766 79.1807V22.4347Z"
-                        fill="#585A5C"
-                      />
-                      <path
-                        d="M71.9223 48.8283C71.9223 60.8541 62.1735 70.603 50.1477 70.603C38.1219 70.603 28.373 60.8541 28.373 48.8283C28.373 36.8025 38.1219 27.0537 50.1477 27.0537C62.1735 27.0537 71.9223 36.8025 71.9223 48.8283ZM35.6967 48.8283C35.6967 56.8094 42.1666 63.2794 50.1477 63.2794C58.1287 63.2794 64.5987 56.8094 64.5987 48.8283C64.5987 40.8473 58.1287 34.3773 50.1477 34.3773C42.1666 34.3773 35.6967 40.8473 35.6967 48.8283Z"
-                        fill="#FAFAFA"
-                      />
-                    </svg>
-                  </div>
-                ))}
             </div>
             <input
               type="file"

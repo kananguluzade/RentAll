@@ -142,90 +142,68 @@ const AddProduct = () => {
     e.preventDefault();
 
     const validateInputs = () => {
-      if (!newProduct.name || newProduct.name.length < 5) {
-        return "Elanın adı 5 karakterdən uzun olmalıdır.";
-      }
-      if (!newProduct.description || newProduct.description.length < 10) {
-        return "Məzmun 10 karakterdən uzun olmalıdır.";
-      }
-      if (!newProduct.location) {
-        return "Ərazi seçilməlidir.";
-      }
-      if (!newProduct.categoryId || newProduct.categoryId <= 0) {
-        return "Etibarlı bir kateqoriya seçin.";
-      }
-      return null;
+        if (!newProduct.name || newProduct.name.length < 5) {
+            return "Elanın adı 5 karakterdən uzun olmalıdır.";
+        }
+        if (!newProduct.description || newProduct.description.length < 10) {
+            return "Məzmun 10 karakterdən uzun olmalıdır.";
+        }
+        if (!newProduct.location) {
+            return "Ərazi seçilməlidir.";
+        }
+        if (!newProduct.categoryId || newProduct.categoryId <= 0) {
+            return "Etibarlı bir kateqoriya seçin.";
+        }
+        return null;
     };
 
     const errorMessage = validateInputs();
     if (errorMessage) {
-      notification.error({ message: "Xəta", description: errorMessage });
-      return;
+        notification.error({ message: "Xəta", description: errorMessage });
+        return;
     }
 
     setLoading(true);
 
     const formData = new FormData();
+    const productRequestBlob = new Blob([JSON.stringify({
+        name: newProduct.name,
+        description: newProduct.description,
+        location: newProduct.location,
+        categoryId: newProduct.categoryId,
+        isOld: newProduct.isOld,
+    })], { type: 'application/json' });
 
-    const productRequest = {
-      name: newProduct.name,
-      description: newProduct.description,
-      location: newProduct.location,
-      categoryId: newProduct.categoryId,
-      isOld: newProduct.isOld,
-    };
+    formData.append("productRequest", productRequestBlob);
 
-    Object.keys(productRequest).forEach((key) =>
-      formData.append(`productRequest[${key}]`, productRequest[key])
-    );
+    images.forEach((img) => formData.append("images", img));
+    otherImages.forEach((img) => formData.append("images", img));
 
-    formData.append("productRequest", JSON.stringify(productRequest));
-
-    images.forEach((img) => {
-      formData.append("images", img);
-    });
-
-    otherImages.forEach((img) => {
-      formData.append("images", img);
-    });
-
-    try {
-      const response = await fetch(`${BASE_URL}/products`, {
+    const response = await fetch(`${BASE_URL}/products/create`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
         },
         body: formData,
-      });
+    });
 
-      if (response.ok) {
+    if (response.ok) {
         notification.success({
-          message: "Uğurlu",
-          description: "Elanınız uğurla paylaşıldı!",
+            message: "Uğurlu",
+            description: "Elanınız uğurla paylaşıldı!",
         });
         setTimeout(() => navigate("/cabinet/elanlar"), 2000);
-      } else {
+    } else {
         const errorResponse = await response.json();
         console.error("Backend error:", errorResponse);
         notification.error({
-          message: "Xəta",
-          description:
-            errorResponse.message || "Zəhmət olmasa admin ilə əlaqə saxlayın.",
+            message: "Xəta",
+            description: errorResponse.message || "Zəhmət olmasa admin ilə əlaqə saxlayın.",
         });
-      }
-    } catch (error) {
-      console.error("Ürün kaydetme hatası:", error);
-      notification.error({
-        message: "Xəta",
-        description: "Məlumatlar saxlanıla bilmədi.",
-      });
-    } finally {
-      setLoading(false);
-      console.log("Ürün Bilgisi:", newProduct);
-      console.log("Ana Resimler:", images);
-      console.log("Diğer Resimler:", otherImages);
     }
-  };
+    setLoading(false);
+};
+
 
   return (
     <div className="container">
@@ -338,7 +316,11 @@ const AddProduct = () => {
           </div>
         </div>
         <div className={styles.product__info}>
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={handleSubmit}
+            method="POST"
+            action="https://api.sharecare.site/products/create"
+          >
             <div className={styles.select__options}>
               <div
                 className={styles.category__dropdown}
@@ -434,6 +416,7 @@ const AddProduct = () => {
                   placeholder="Xananı doldurun"
                 />
               </div>
+
               {/* <div className={styles.product__phone}>
                 <h6>Telefon</h6>
                 <input
@@ -445,6 +428,17 @@ const AddProduct = () => {
                   maxLength={10}
                 />
               </div> */}
+
+              <div className={styles.product__condition}>
+                <label htmlFor="c1">Kohnedir?</label>
+                <input
+                  id="c1"
+                  type="checkbox"
+                  name="isOld"
+                  checked={newProduct.isOld}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
 
             <div className={styles.product__desc}>
@@ -455,17 +449,6 @@ const AddProduct = () => {
                 onChange={handleChange}
                 placeholder="Xananı doldurun"
               ></textarea>
-            </div>
-
-            <div className={styles.product__condition}>
-              <label htmlFor="c1">Kohnedir?</label>
-              <input
-                id="c1"
-                type="checkbox"
-                name="isOld"
-                checked={newProduct.isOld}
-                onChange={handleChange}
-              />
             </div>
 
             <div className={styles.product__buttons}>

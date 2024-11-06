@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import LoadingSpinner from "../LoadingSpinner/LoadingSpinner"; // LoadingSpinner bileşenini import ettik
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import styles from "./ProductDetails.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -13,7 +13,6 @@ import {
   faChevronLeft,
   faChevronRight,
   faEnvelope,
-  faHeart,
   faHouse,
   faLocationDot,
   faPhone,
@@ -142,7 +141,7 @@ const ProductDetails = () => {
             <div className={styles.product__info}>
               <div className={styles.info__container}>
                 <div className={styles.product__author}>
-                  <img src={owner?.photoUrl} alt="" />
+                  <img src={owner?.photoUrl} alt="Owner" />
                   <span>{`${owner?.name} ${owner?.surname}`}</span>
                 </div>
                 <div className={styles.details}>
@@ -150,7 +149,7 @@ const ProductDetails = () => {
                   <ul>
                     <li>
                       <FontAwesomeIcon icon={faHouse} />
-                      <p>{category.name}</p>
+                      <p>{category?.name}</p>
                     </li>
                     <li>
                       <FontAwesomeIcon icon={faEnvelope} />
@@ -173,7 +172,6 @@ const ProductDetails = () => {
             <p>{product.description}</p>
           </div>
         </div>
-        <Review productId={product.id} />
         <MostLiked />
       </div>
     </div>

@@ -50,15 +50,6 @@ const Header = () => {
     parseInt(localStorage.getItem("notificationCount"), 10) || 0
   );
 
-  useEffect(() => {
-    const storedCount =
-      parseInt(localStorage.getItem("notificationCount"), 10) || 0;
-    setNotificationCount(storedCount);
-
-    fetchUserNotifications();
-    fetchUserSharesAndComments();
-  }, []);
-
   const getUserInitials = () => {
     const [first, last] = [user?.name || "", user?.surname || ""];
     return `${first.charAt(0).toUpperCase()}${last.charAt(0).toUpperCase()}`;
@@ -165,46 +156,6 @@ const Header = () => {
       .catch((error) => console.error("Error fetching comments:", error));
   };
 
-  const fetchUserSharesAndComments = () => {
-    if (!user || !user.id) return;
-
-    fetch(`http://localhost:3000/products?owner_id=${user.id}`)
-      .then((response) => response.json())
-      .then((products) => {
-        const productIds = products.map((product) => product.id);
-        const productImages = products.map((product) => ({
-          id: product.id,
-          image: product.image,
-        }));
-
-        setShareProductImgs(productImages);
-
-        Promise.all(
-          productIds.map((id) =>
-            fetch(`http://localhost:3000/comments?productId=${id}`).then(
-              (response) => response.json()
-            )
-          )
-        )
-          .then((commentsArray) => {
-            const allComments = commentsArray.flat();
-            const readNotifications =
-              JSON.parse(localStorage.getItem("readNotifications")) || {};
-            const updatedShareComments = allComments.map((comment) => ({
-              ...comment,
-              read: readNotifications[comment.id] || false,
-            }));
-
-            setShareComments(updatedShareComments);
-            updateNotificationCount(userComments, updatedShareComments);
-          })
-          .catch((error) =>
-            console.error("Error fetching comments for products:", error)
-          );
-      })
-      .catch((error) => console.error("Error fetching products:", error));
-  };
-
   const handleNotificationsToggle = () => {
     setIsNotificationsOpen((prev) => {
       if (prev) {
@@ -255,11 +206,6 @@ const Header = () => {
     setNotificationCount(unreadCount);
     localStorage.setItem("notificationCount", unreadCount);
   };
-
-  useEffect(() => {
-    fetchUserNotifications();
-    fetchUserSharesAndComments();
-  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
