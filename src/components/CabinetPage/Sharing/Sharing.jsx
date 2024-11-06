@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import styles from "./Sharing.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { Modal, Button } from "rsuite";
 import { AuthContext } from "../../Auth/Services/authContext";
 import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
+import AddorEditProduct from "../../../pages/AddProduct/AddorEditProduct";
 
 const Sharing = () => {
   const { user } = useContext(AuthContext);
@@ -10,6 +13,9 @@ const Sharing = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [deleteProductId, setDeleteProductId] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [editProduct, setEditProduct] = useState(false);
+  const [editProductInfo, setEditProductInfo] = useState({});
+  const [isEditProductId, setIsEditProductId] = useState(null);
 
   const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -34,9 +40,20 @@ const Sharing = () => {
     }
   }, [user, BASE_URL]);
 
-  const handleEdit = (shareId) => {
-    console.log(`Edit product with ID: ${shareId}`);
+  const handleEdit = async (shareId) => {
+    setEditProduct(true);
+    try {
+      const response = await fetch(`${BASE_URL}/products/${shareId}`, {
+        method: "GET",
+      });
+      const data = await response.json();
+      setEditProductInfo(data);
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
   };
+
+  console.log(editProductInfo);
 
   const handleDelete = (shareId) => {
     setDeleteProductId(shareId);
@@ -64,6 +81,21 @@ const Sharing = () => {
       setDeleteProductId(null);
     }
   };
+
+  if (editProduct) {
+    return (
+      <div>
+        <button
+          className={styles.previous__button}
+          onClick={() => setEditProduct(false)}
+        >
+          <FontAwesomeIcon icon={faChevronLeft} /> geriye qayit
+        </button>
+
+        <AddorEditProduct editProductInfo={editProductInfo} />
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (

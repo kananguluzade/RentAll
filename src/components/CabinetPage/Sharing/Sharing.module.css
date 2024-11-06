@@ -151,6 +151,14 @@
   color: white;
 }
 
+.tutorial__container {
+  display: none;
+}
+
+.previous__button{
+  background-color: white;
+}
+
 @media screen and (max-width: 375px) {
   .share {
     max-width: 152px;
