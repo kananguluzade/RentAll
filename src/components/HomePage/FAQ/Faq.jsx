@@ -12,7 +12,10 @@ const Faq = () => {
       try {
         const response = await fetch(`${BASE_URL}/faqs/all`);
         const data = await response.json();
-        setFaqData(data);
+        const sortedData = data.sort((a, b) =>
+          a.id === 1 ? -1 : b.id === 1 ? 1 : 0
+        );
+        setFaqData(sortedData);
       } catch (error) {
         console.error("Error fetching Faqs:", error);
       }

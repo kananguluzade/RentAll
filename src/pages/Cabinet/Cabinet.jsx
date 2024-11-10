@@ -47,7 +47,7 @@ const Cabinet = () => {
             <NavLink
               to="aktivlik"
               className={({ isActive }) =>
-                isActive ? styles.active : undefined
+                isActive ? styles.active : styles.disabled
               }
             >
               Aktivlik

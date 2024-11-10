@@ -30,6 +30,14 @@
   color: black;
 }
 
+.disabled {
+  pointer-events: none;
+  color: gray;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
 .active {
   color: var(--blue-active) !important;
   border-bottom: 2px solid var(--blue-active);

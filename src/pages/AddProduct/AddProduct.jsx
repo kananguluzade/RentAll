@@ -100,6 +100,76 @@ const AddProduct = () => {
         "Bakı, Qaradağ rayonu",
         "Gəncə şəhəri",
         "Sumqayıt şəhəri",
+        "Mingəçevir şəhəri",
+        "Naftalan şəhəri",
+        "Naxçıvan şəhəri",
+        "Abşeron rayonu",
+        "Ağcabədi rayonu",
+        "Ağdam rayonu",
+        "Ağdaş rayonu",
+        "Ağstafa rayonu",
+        "Astara rayonu",
+        "Babək rayonu",
+        "Balakən rayonu",
+        "Beyləqan rayonu",
+        "Bərdə rayonu",
+        "Biləsuvar rayonu",
+        "Cəlilabad rayonu",
+        "Culfa rayonu",
+        "Daşkəsən rayonu",
+        "Füzuli rayonu",
+        "Gədəbəy rayonu",
+        "Goranboy rayonu",
+        "Göygöl rayonu",
+        "Göyçay rayonu",
+        "Hacıqabul rayonu",
+        "İmişli rayonu",
+        "İsmayıllı rayonu",
+        "Kəngərli rayonu",
+        "Kəlbəcər rayonu",
+        "Kürdəmir rayonu",
+        "Laçın rayonu",
+        "Lerik rayonu",
+        "Lənkəran rayonu",
+        "Masallı rayonu",
+        "Naftalan şəhəri",
+        "Naxçıvan şəhəri",
+        "Neftçala rayonu",
+        "Oğuz rayonu",
+        "Ordubad rayonu",
+        "Qax rayonu",
+        "Qazax rayonu",
+        "Qobustan rayonu",
+        "Quba rayonu",
+        "Qubadlı rayonu",
+        "Qusar rayonu",
+        "Sabirabad rayonu",
+        "Salyan rayonu",
+        "Samux rayonu",
+        "Saatlı rayonu",
+        "Sədərək rayonu",
+        "Siyəzən rayonu",
+        "Şabran rayonu",
+        "Şahbuz rayonu",
+        "Şamaxı rayonu",
+        "Şəmkir rayonu",
+        "Şəki rayonu",
+        "Şəki şəhəri",
+        "Şirvan şəhəri",
+        "Şuşa rayonu",
+        "Tərtər rayonu",
+        "Tovuz rayonu",
+        "Ucar rayonu",
+        "Xaçmaz rayonu",
+        "Xankəndi şəhəri",
+        "Xızı rayonu",
+        "Xocalı rayonu",
+        "Xocavənd rayonu",
+        "Yardımlı rayonu",
+        "Yevlax şəhəri",
+        "Zaqatala rayonu",
+        "Zəngilan rayonu",
+        "Zərdab rayonu",
       ];
 
       const formattedRegions = regions.map((region) => ({ label: region }));
@@ -142,37 +212,42 @@ const AddProduct = () => {
     e.preventDefault();
 
     const validateInputs = () => {
-        if (!newProduct.name || newProduct.name.length < 5) {
-            return "Elanın adı 5 karakterdən uzun olmalıdır.";
-        }
-        if (!newProduct.description || newProduct.description.length < 10) {
-            return "Məzmun 10 karakterdən uzun olmalıdır.";
-        }
-        if (!newProduct.location) {
-            return "Ərazi seçilməlidir.";
-        }
-        if (!newProduct.categoryId || newProduct.categoryId <= 0) {
-            return "Etibarlı bir kateqoriya seçin.";
-        }
-        return null;
+      if (!newProduct.name || newProduct.name.length < 5) {
+        return "Elanın adı 5 karakterdən uzun olmalıdır.";
+      }
+      if (!newProduct.description || newProduct.description.length < 10) {
+        return "Məzmun 10 karakterdən uzun olmalıdır.";
+      }
+      if (!newProduct.location) {
+        return "Ərazi seçilməlidir.";
+      }
+      if (!newProduct.categoryId || newProduct.categoryId <= 0) {
+        return "Etibarlı bir kateqoriya seçin.";
+      }
+      return null;
     };
 
     const errorMessage = validateInputs();
     if (errorMessage) {
-        notification.error({ message: "Xəta", description: errorMessage });
-        return;
+      notification.error({ message: "Xəta", description: errorMessage });
+      return;
     }
 
     setLoading(true);
 
     const formData = new FormData();
-    const productRequestBlob = new Blob([JSON.stringify({
-        name: newProduct.name,
-        description: newProduct.description,
-        location: newProduct.location,
-        categoryId: newProduct.categoryId,
-        isOld: newProduct.isOld,
-    })], { type: 'application/json' });
+    const productRequestBlob = new Blob(
+      [
+        JSON.stringify({
+          name: newProduct.name,
+          description: newProduct.description,
+          location: newProduct.location,
+          categoryId: newProduct.categoryId,
+          isOld: newProduct.isOld,
+        }),
+      ],
+      { type: "application/json" }
+    );
 
     formData.append("productRequest", productRequestBlob);
 
@@ -180,30 +255,30 @@ const AddProduct = () => {
     otherImages.forEach((img) => formData.append("images", img));
 
     const response = await fetch(`${BASE_URL}/products/create`, {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-        body: formData,
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
     });
 
     if (response.ok) {
-        notification.success({
-            message: "Uğurlu",
-            description: "Elanınız uğurla paylaşıldı!",
-        });
-        setTimeout(() => navigate("/cabinet/elanlar"), 2000);
+      notification.success({
+        message: "Uğurlu",
+        description: "Elanınız uğurla paylaşıldı!",
+      });
+      setTimeout(() => navigate("/cabinet/elanlar"), 2000);
     } else {
-        const errorResponse = await response.json();
-        console.error("Backend error:", errorResponse);
-        notification.error({
-            message: "Xəta",
-            description: errorResponse.message || "Zəhmət olmasa admin ilə əlaqə saxlayın.",
-        });
+      const errorResponse = await response.json();
+      console.error("Backend error:", errorResponse);
+      notification.error({
+        message: "Xəta",
+        description:
+          errorResponse.message || "Zəhmət olmasa admin ilə əlaqə saxlayın.",
+      });
     }
     setLoading(false);
-};
-
+  };
 
   return (
     <div className="container">

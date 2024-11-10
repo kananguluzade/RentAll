@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import styles from "./AllProducts.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown, faTv } from "@fortawesome/free-solid-svg-icons";
 import Card from "../../components/Card/Card";
 import notfound from "/not-found.png";
 import { Divider, Pagination } from "rsuite";
@@ -17,6 +15,7 @@ const AllProducts = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedCategoryName, setSelectedCategoryName] = useState("");
   const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedCityName, setSelectedCityName] = useState("");
   const [selectedStatus, setSelectedStatus] = useState(null);
   const [activePage, setActivePage] = useState(1);
   const [totalShares, setTotalShares] = useState(0);
@@ -37,14 +36,7 @@ const AllProducts = () => {
   useEffect(() => {
     const fetchShares = async () => {
       try {
-        let response;
-        if (selectedCategory) {
-          response = await fetch(
-            `${BASE_URL}/products/category/${selectedCategory}`
-          );
-        } else {
-          response = await fetch(`${BASE_URL}/products/all`);
-        }
+        const response = await fetch(`${BASE_URL}/products/all`);
         const data = await response.json();
         setShares(data);
         setFilteredShares(data);
@@ -55,7 +47,7 @@ const AllProducts = () => {
     };
 
     fetchShares();
-  }, [BASE_URL, selectedCategory]);
+  }, [BASE_URL]);
 
   useEffect(() => {
     if (categoryParam) {
@@ -93,7 +85,87 @@ const AllProducts = () => {
       const regions = [
         "Bakı, Yasamal rayonu",
         "Bakı, Binəqədi rayonu",
-        // other regions
+        "Bakı, Nərimanov rayonu",
+        "Bakı, Nəsimi rayonu",
+        "Bakı, Nizami rayonu",
+        "Bakı, Sabunçu rayonu",
+        "Bakı, Səbail rayonu",
+        "Bakı, Suraxanı rayonu",
+        "Bakı, Xətai rayonu",
+        "Bakı, Xəzər rayonu",
+        "Bakı, Qaradağ rayonu",
+        "Gəncə şəhəri",
+        "Sumqayıt şəhəri",
+        "Mingəçevir şəhəri",
+        "Naftalan şəhəri",
+        "Naxçıvan şəhəri",
+        "Abşeron rayonu",
+        "Ağcabədi rayonu",
+        "Ağdam rayonu",
+        "Ağdaş rayonu",
+        "Ağstafa rayonu",
+        "Astara rayonu",
+        "Babək rayonu",
+        "Balakən rayonu",
+        "Beyləqan rayonu",
+        "Bərdə rayonu",
+        "Biləsuvar rayonu",
+        "Cəlilabad rayonu",
+        "Culfa rayonu",
+        "Daşkəsən rayonu",
+        "Füzuli rayonu",
+        "Gədəbəy rayonu",
+        "Goranboy rayonu",
+        "Göygöl rayonu",
+        "Göyçay rayonu",
+        "Hacıqabul rayonu",
+        "İmişli rayonu",
+        "İsmayıllı rayonu",
+        "Kəngərli rayonu",
+        "Kəlbəcər rayonu",
+        "Kürdəmir rayonu",
+        "Laçın rayonu",
+        "Lerik rayonu",
+        "Lənkəran rayonu",
+        "Masallı rayonu",
+        "Naftalan şəhəri",
+        "Naxçıvan şəhəri",
+        "Neftçala rayonu",
+        "Oğuz rayonu",
+        "Ordubad rayonu",
+        "Qax rayonu",
+        "Qazax rayonu",
+        "Qobustan rayonu",
+        "Quba rayonu",
+        "Qubadlı rayonu",
+        "Qusar rayonu",
+        "Sabirabad rayonu",
+        "Salyan rayonu",
+        "Samux rayonu",
+        "Saatlı rayonu",
+        "Sədərək rayonu",
+        "Siyəzən rayonu",
+        "Şabran rayonu",
+        "Şahbuz rayonu",
+        "Şamaxı rayonu",
+        "Şəmkir rayonu",
+        "Şəki rayonu",
+        "Şəki şəhəri",
+        "Şirvan şəhəri",
+        "Şuşa rayonu",
+        "Tərtər rayonu",
+        "Tovuz rayonu",
+        "Ucar rayonu",
+        "Xaçmaz rayonu",
+        "Xankəndi şəhəri",
+        "Xızı rayonu",
+        "Xocalı rayonu",
+        "Xocavənd rayonu",
+        "Yardımlı rayonu",
+        "Yevlax şəhəri",
+        "Zaqatala rayonu",
+        "Zəngilan rayonu",
+        "Zərdab rayonu",
       ];
 
       const bakuCity = regions.filter((region) => region.startsWith("Bakı"));
@@ -115,6 +187,9 @@ const AllProducts = () => {
   useEffect(() => {
     const filterShares = () => {
       const filtered = shares.filter((share) => {
+        const matchesCategory = selectedCategory
+          ? share.categoryId === parseInt(selectedCategory)
+          : true;
         const matchesCity = selectedCity ? share.place === selectedCity : true;
         const matchesStatus =
           selectedStatus === "Yeni"
@@ -123,7 +198,7 @@ const AllProducts = () => {
             ? share.status === "İşlənmiş"
             : true;
 
-        return matchesCity && matchesStatus;
+        return matchesCategory && matchesCity && matchesStatus;
       });
       setTotalShares(filtered.length);
       const startIdx = (activePage - 1) * itemsPerPage;
@@ -132,13 +207,19 @@ const AllProducts = () => {
     };
 
     filterShares();
-  }, [selectedCity, selectedStatus, shares, activePage]);
+  }, [selectedCategory, selectedCity, selectedStatus, shares, activePage]);
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category.id);
     setSelectedCategoryName(category.name);
     setIsCategoryOpen(false);
     navigate(`/allproducts?category=${category.id}`);
+  };
+
+  const handleCitySelect = (city) => {
+    setSelectedCity(city.label);
+    setSelectedCityName(city.label);
+    setIsCityOpen(false);
   };
 
   return (
@@ -192,16 +273,13 @@ const AllProducts = () => {
                 }`}
                 onClick={toggleCategoryDropdown}
               >
-                <span>Kateqoriyalar</span>
-                <FontAwesomeIcon
-                  icon={faAngleDown}
-                  className={`${
-                    isCategoryOpen
-                      ? styles.icon__rotate__true
-                      : styles.icon__rotate__false
-                  }`}
-                />
+                <span>
+                  {selectedCategoryName
+                    ? selectedCategoryName
+                    : "Kateqoriyalar"}
+                </span>
               </label>
+
               <ul
                 className={`${styles.dropdown__menu} ${
                   isCategoryOpen ? styles.show : ""
@@ -213,7 +291,6 @@ const AllProducts = () => {
                     className={styles.dropdown__item}
                     onClick={() => handleCategorySelect(item)}
                   >
-                    <FontAwesomeIcon icon={faTv} />
                     {item.name}
                   </li>
                 ))}
@@ -227,16 +304,11 @@ const AllProducts = () => {
                 }`}
                 onClick={toggleCityDropdown}
               >
-                <span>Ərazi seçin</span>
-                <FontAwesomeIcon
-                  icon={faAngleDown}
-                  className={`${
-                    isCityOpen
-                      ? styles.icon__rotate__true
-                      : styles.icon__rotate__false
-                  }`}
-                />
+                <span>
+                  {selectedCityName ? selectedCityName : "Ərazi seçin"}
+                </span>
               </label>
+
               <ul
                 className={`${styles.dropdown__menu} ${
                   isCityOpen ? styles.show : ""
@@ -246,10 +318,7 @@ const AllProducts = () => {
                   <li
                     key={index}
                     className={styles.dropdown__item}
-                    onClick={() => {
-                      setSelectedCity(item.label);
-                      setIsCityOpen(false);
-                    }}
+                    onClick={() => handleCitySelect(item)}
                   >
                     {item.label}
                   </li>
@@ -275,8 +344,12 @@ const AllProducts = () => {
                   <button
                     onClick={() => {
                       setSelectedCategory(null);
+                      setSelectedCategoryName("Kateqoriyalar");
                       setSelectedCity(null);
+                      setSelectedCityName("Ərazi seçin");
                       setSelectedStatus(null);
+                      setActivePage(1);
+                      setFilteredShares(shares);
                     }}
                   >
                     Yenidən axtarın

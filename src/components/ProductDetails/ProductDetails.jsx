@@ -17,7 +17,6 @@ import {
   faLocationDot,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
-import Review from "../Review/Review";
 import MostLiked from "../HomePage/MostLiked/MostLiked";
 
 const ProductDetails = () => {
