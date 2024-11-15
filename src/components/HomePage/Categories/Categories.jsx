@@ -40,10 +40,10 @@ const Categories = () => {
 
         const sortedCategories = [
           ...categoriesWithBackground.filter(
-            (category) => category.name !== "Əlavə"
+            (category) => category.name !== "Əlavə (Digər)"
           ),
           categoriesWithBackground.find(
-            (category) => category.name === "Əlavə"
+            (category) => category.name === "Əlavə (Digər)"
           ),
         ];
 
@@ -67,15 +67,15 @@ const Categories = () => {
         <h3>Kateqoriyalar</h3>
       </div>
       <div className={styles.categories__list}>
-        {categories.map((category) => (
+        {categories.map((category, index) => (
           <div
-            key={category.id}
+            key={index}
             className={styles.categorie}
-            style={{ background: category.background }}
+            style={{ background: category?.background }}
             onClick={() => handleCategoryClick(category)}
           >
-            <p>{category.name}</p>
-            <img src={category.imageUrl} alt={category.name} />
+            <p>{category?.name}</p>
+            <img src={category?.imageUrl} alt={category?.name} />
           </div>
         ))}
       </div>
