@@ -42,7 +42,7 @@ const Footer = () => {
           <ul>
             <li>
               <FontAwesomeIcon icon={faEnvelope} />
-              <a href="mailto:secondlifeaz@gmail.com">secondlifeaz@gmail.com</a>
+              <a href="mailto:secondlifeaz@gmail.com">careshare0000@gmail.com</a>
             </li>
             <li>
               <FontAwesomeIcon icon={faPhone} />
@@ -54,7 +54,7 @@ const Footer = () => {
       <div className={styles.footer__copyright}>
         <span>© Copyright 2024</span>
         <span>Hüquqi bildirişlər. Ümumi qaydalar və şərtlər</span>
-        <span>SecondLife</span>
+        <span>Share Care</span>
       </div>
     </div>
   );
