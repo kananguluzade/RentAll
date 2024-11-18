@@ -16,11 +16,12 @@ const Footer = () => {
           <h4>Digər linklər</h4>
           <ul>
             <li>Əsas səhifə</li>
-            <li>Şəxsi kabinet</li>
+            <NavLink className={styles.about__us__link} to="cabinet/parametrler">
+              <li>Şəxsi kabinet</li>
+            </NavLink>
             <NavLink className={styles.about__us__link} to="haqqimizda">
               <li>Haqqımızda</li>
             </NavLink>
-            <li>FAQ</li>
           </ul>
         </div>
         <div className={styles.footer__socials}>
@@ -42,7 +43,9 @@ const Footer = () => {
           <ul>
             <li>
               <FontAwesomeIcon icon={faEnvelope} />
-              <a href="mailto:secondlifeaz@gmail.com">careshare0000@gmail.com</a>
+              <a href="mailto:secondlifeaz@gmail.com">
+                careshare0000@gmail.com
+              </a>
             </li>
             <li>
               <FontAwesomeIcon icon={faPhone} />

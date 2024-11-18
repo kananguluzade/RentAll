@@ -25,19 +25,19 @@ const AboutUs = () => {
           <p>
             Bizim missiyamız insanlara artıq istifadə etmədikləri əşyaları
             yenidən dəyərli etmək üçün təhlükəsiz və rahat bir platforma təqdim
-            etməkdir. Həm ətraf mühiti qorumağa, həm də icma daxilində paylaşma
-            mədəniyyətini inkişaf etdirməyə çalışırıq.
+            etməkdir. Həm ətraf mühiti qorumağa, h əm də icma dax ilində
+            paylaşma mədəniyyətini inkişaf etdirməyə çalışırıq.
           </p>
         </div>
       </div>
       <div className={styles.purpose__section}>
         <div className={styles.content__section}>
-          <h2>Məqsədmiz</h2>
+          <h2>Məqsədimiz</h2>
           <p>
-            Əsas məqsədimiz, əşyaların həyat dövrünü uzatmaq və hər kəsə
-            istifadəsiz qalan məhsulları dəyişmək, kirayələmək və ya satmaq
-            imkanı yaratmaqdır. Bu yolla həm iqtisadi, həm də ekoloji baxımdan
-            daha dayanıqlı bir cəmiyyətə töhfə vermək istəyirik.
+            İnsanların artıq istifadə etmədiyi əşyaları paylaşaraq həm
+            bir-birinə dəstək olması, əşyaların həyat dövrünü uzatmaq, həm də
+            resursların daha səmərəli istifadə edilməsini təmin etmək. Ekoloji
+            baxımdan daha dayanıqlı bir cəmiyyətə töhfə vermək istəyirik.
           </p>
         </div>
       </div>
@@ -71,6 +71,13 @@ const AboutUs = () => {
             image={MaleImg}
             fullname="Kənan Quluzadə"
             role="Frontend Developer"
+            facebook="https://facebook.com"
+            linkedin="https://linkedin.com"
+          />
+          <TeamCard
+            image={FeMaleImg}
+            fullname="Arzu Hüseynquliyeva"
+            role="Product Consultant"
             facebook="https://facebook.com"
             linkedin="https://linkedin.com"
           />

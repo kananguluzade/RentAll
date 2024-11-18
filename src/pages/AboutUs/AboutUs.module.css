@@ -115,21 +115,32 @@
 .team__cards {
   display: flex;
   gap: 20px;
-  overflow-x: auto;
+  overflow-x: scroll;
   padding: 10px;
+  scroll-snap-type: x mandatory;
   white-space: nowrap;
-  scrollbar-width: none;
+  padding-bottom: 20px;
 }
 
 .team__cards::-webkit-scrollbar {
-  display: none;
+  height: 10px;
+  background-color: var(--gray-light);
+}
+
+.team__cards::-webkit-scrollbar-thumb {
+  background-color: var(--blue-default);
+  border-radius: 10px;
+}
+
+.team__cards::-webkit-scrollbar-thumb:hover {
+  background-color: var(--blue-hover);
 }
 
 .future__plans {
   margin-bottom: 80px;
 }
 
-.future__plans__section{
+.future__plans__section {
   display: flex;
   justify-content: space-between;
 }
@@ -160,13 +171,13 @@
   line-height: 36px;
 }
 
-.future__plans__pictures{
+.future__plans__pictures {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.top__section{
+.top__section {
   display: flex;
   justify-content: space-between;
 }

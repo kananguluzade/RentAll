@@ -2,10 +2,10 @@
   max-width: 264px;
   max-height: 331px;
   border-radius: 10px;
-  overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #e4e4e4;
   text-align: center;
+  overflow-y: hidden;
   transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
