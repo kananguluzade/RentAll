@@ -157,10 +157,11 @@
   color: var(--black);
 }
 
-.details button {
+.details a {
   margin-top: 16px;
   display: flex;
   align-items: center;
+  text-decoration: none;
   justify-content: center;
   gap: 8px;
   padding: 16px 0;
@@ -179,7 +180,7 @@
   line-height: 30px;
 }
 
-.details button svg {
+.details a svg {
   color: var(--white);
 }
 

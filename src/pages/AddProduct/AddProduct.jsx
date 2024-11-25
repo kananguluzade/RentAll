@@ -430,6 +430,7 @@ const AddProduct = () => {
                         setNewProduct((prev) => ({
                           ...prev,
                           categoryId: category.id,
+                          categoryName: category.name,
                         }));
                         setIsCategoryOpen(false);
                       }}
@@ -491,18 +492,6 @@ const AddProduct = () => {
                   placeholder="Xananı doldurun"
                 />
               </div>
-
-              {/* <div className={styles.product__phone}>
-                <h6>Telefon</h6>
-                <input
-                  type="text"
-                  name="author_phone"
-                  value={newProduct.author_phone}
-                  onChange={handleChange}
-                  placeholder="Xananı doldurun"
-                  maxLength={10}
-                />
-              </div> */}
 
               <div className={styles.product__condition}>
                 <label htmlFor="c1">Kohnedir?</label>

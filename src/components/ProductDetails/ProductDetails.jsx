@@ -72,6 +72,13 @@ const ProductDetails = () => {
 
   const { owner, category, images } = product;
 
+  const formatPhoneNumber = (phoneNumber) => {
+    if (phoneNumber.startsWith("994")) {
+      return phoneNumber.slice(3);
+    }
+    return phoneNumber;
+  };
+
   const zoomProps = {
     width: 450,
     height: 360,
@@ -159,10 +166,10 @@ const ProductDetails = () => {
                       <p>{product.location}</p>
                     </li>
                   </ul>
-                  <button>
+                  <a href={`tel:${formatPhoneNumber(owner?.phoneNumber)}`}>
                     <FontAwesomeIcon icon={faPhone} />
-                    {owner?.phoneNumber}
-                  </button>
+                    {formatPhoneNumber(owner?.phoneNumber)}
+                  </a>
                 </div>
               </div>
             </div>

@@ -37,6 +37,30 @@ const AddProduct = ({ editProductInfo }) => {
       .map((img) => img.path) || []
   );
 
+  useEffect(() => {
+    if (editProductInfo) {
+      setNewProduct({
+        name: editProductInfo.name || "",
+        description: editProductInfo.description || "",
+        location: editProductInfo.location || "",
+        categoryId: editProductInfo.categoryId || "",
+        isOld: editProductInfo.isOld || false,
+        categoryName: editProductInfo.category?.name || "",
+      });
+
+      setImages(
+        editProductInfo?.images
+          ?.filter((img) => img.main)
+          .map((img) => img.path) || []
+      );
+      setOtherImages(
+        editProductInfo?.images
+          ?.filter((img) => !img.main)
+          .map((img) => img.path) || []
+      );
+    }
+  }, [editProductInfo]);
+
   const categoryDropdownRef = useRef(null);
   const cityDropdownRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -204,11 +228,18 @@ const AddProduct = ({ editProductInfo }) => {
   const handleMainImageChange = (e) => {
     const files = Array.from(e.target.files);
     setImages(files);
+    e.target.value = ""; // Reset the input to allow selecting the same file again
   };
 
   const handleOtherImageChange = (e) => {
     const files = Array.from(e.target.files);
     setOtherImages(files);
+    e.target.value = ""; // Reset the input to allow selecting the same file again
+  };
+
+  // Function to trigger the file input click
+  const handleImageClick = (inputRef) => {
+    inputRef.current.click();
   };
 
   const handleFileInputClick = () => {
@@ -272,25 +303,30 @@ const AddProduct = ({ editProductInfo }) => {
       <div className={styles.add__product}>
         <div className={styles.product__img}>
           <div className={styles.product__main__img}>
-            {images.length == 0 ? (
+            {images.length === 0 ? (
               <div
                 className={styles.product__no__img}
-                onClick={handleFileInputClick}
+                onClick={() => handleImageClick(fileInputRef)}
               >
                 <h4>Fotoşəkil əlavə edin</h4>
               </div>
             ) : (
               images.map((image, index) => (
-                <img
+                <div
                   key={index}
-                  src={
-                    typeof image === "string"
-                      ? image
-                      : URL.createObjectURL(image)
-                  }
-                  alt={`Uploaded preview ${index + 1}`}
-                  className={styles.uploadedImage}
-                />
+                  className={styles.imageWrapper}
+                  onClick={() => handleImageClick(fileInputRef)}
+                >
+                  <img
+                    src={
+                      typeof image === "string"
+                        ? image
+                        : URL.createObjectURL(image)
+                    }
+                    alt={`Uploaded preview ${index + 1}`}
+                    className={styles.uploadedImage}
+                  />
+                </div>
               ))
             )}
             <input
@@ -298,28 +334,35 @@ const AddProduct = ({ editProductInfo }) => {
               accept="image/*"
               ref={fileInputRef}
               onChange={handleMainImageChange}
-              className={styles.imageInput}
               style={{ display: "none" }}
             />
           </div>
+
           <div className={styles.product__img__sidebar}>
-            <div
-              className={styles.product__img__other}
-              onClick={handleOtherFileInputClick}
-            >
-              {otherImages.map((image, index) => (
-                <img
-                  key={index}
-                  src={
-                    typeof image === "string"
-                      ? image
-                      : URL.createObjectURL(image)
-                  }
-                  alt={`Other uploaded preview ${index + 1}`}
-                  className={styles.uploadedImage}
-                />
-              ))}
-            </div>
+            {otherImages.length > 0 && (
+              <div
+                className={styles.product__img__other}
+                onClick={() => handleImageClick(otherFileInputRef)}
+              >
+                {otherImages.map((image, index) => (
+                  <div
+                    key={index}
+                    className={styles.imageWrapper}
+                    onClick={() => handleImageClick(otherFileInputRef)}
+                  >
+                    <img
+                      src={
+                        typeof image === "string"
+                          ? image
+                          : URL.createObjectURL(image)
+                      }
+                      alt={`Other uploaded preview ${index + 1}`}
+                      className={styles.uploadedImage}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
             <input
               type="file"
               accept="image/*"
@@ -427,7 +470,17 @@ const AddProduct = ({ editProductInfo }) => {
                   value={newProduct.name}
                   onChange={handleChange}
                   placeholder="Xananı doldurun"
-                  disabled={loading}
+                />
+              </div>
+
+              <div className={styles.product__condition}>
+                <label htmlFor="c1">Kohnedir?</label>
+                <input
+                  id="c1"
+                  type="checkbox"
+                  name="isOld"
+                  checked={newProduct.isOld}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -441,17 +494,6 @@ const AddProduct = ({ editProductInfo }) => {
                 placeholder="Xananı doldurun"
                 disabled={loading}
               ></textarea>
-            </div>
-
-            <div className={styles.product__condition}>
-              <label htmlFor="c1">Kohnedir?</label>
-              <input
-                id="c1"
-                type="checkbox"
-                name="isOld"
-                checked={newProduct.isOld}
-                onChange={handleChange}
-              />
             </div>
 
             <div className={styles.product__buttons}>

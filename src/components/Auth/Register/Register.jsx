@@ -202,13 +202,6 @@ const Register = ({
               <p className={styles.error}>{errors.confirmPassword}</p>
             )}
           </div>
-          <div className={styles.form__rules}>
-            <input type="checkbox" name="rules" />
-            <p>
-              “Qeydiyyatdan keç” düyməsini klikləməklə siz səhifəmizin “İstifadə
-              şərtləri” və məxfilik ilə razılaşırsınız.
-            </p>
-          </div>
           {errors.general && <p className={styles.error}>{errors.general}</p>}
           <div className={styles.form__submit}>
             {loading ? (

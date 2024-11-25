@@ -67,15 +67,15 @@ const Categories = () => {
         <h3>Kateqoriyalar</h3>
       </div>
       <div className={styles.categories__list}>
-        {categories.map((category, index) => (
+        {categories.map((category) => (
           <div
-            key={index}
+            key={category.id}
             className={styles.categorie}
-            style={{ background: category?.background }}
+            style={{ background: category.background }}
             onClick={() => handleCategoryClick(category)}
           >
-            <p>{category?.name}</p>
-            <img src={category?.imageUrl} alt={category?.name} />
+            <p>{category.name}</p>
+            <img src={category.imageUrl} alt={category.name} />
           </div>
         ))}
       </div>

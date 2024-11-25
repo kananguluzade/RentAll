@@ -53,8 +53,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
   };
 
-  if (isUserLoading) return <div>Yüklənir...</div>;
-
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
       {children}

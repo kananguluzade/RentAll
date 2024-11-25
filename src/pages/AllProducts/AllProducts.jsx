@@ -36,8 +36,13 @@ const AllProducts = () => {
   useEffect(() => {
     const fetchShares = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/products/all`);
+        const apiEndpoint = selectedCategory
+          ? `${BASE_URL}/products/category/${selectedCategory}`
+          : `${BASE_URL}/products/all`;
+
+        const response = await fetch(apiEndpoint);
         const data = await response.json();
+
         setShares(data);
         setFilteredShares(data);
         setTotalShares(data.length);
@@ -47,7 +52,7 @@ const AllProducts = () => {
     };
 
     fetchShares();
-  }, [BASE_URL]);
+  }, [selectedCategory, BASE_URL]);
 
   useEffect(() => {
     if (categoryParam) {
@@ -68,6 +73,14 @@ const AllProducts = () => {
 
     fetchCategories();
   }, [BASE_URL]);
+
+  useEffect(() => {
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+    } else {
+      setSelectedCategory(null);
+    }
+  }, [categoryParam]);
 
   useEffect(() => {
     if (categories.length > 0 && selectedCategory) {
@@ -184,34 +197,51 @@ const AllProducts = () => {
     loadCities();
   }, []);
 
-  useEffect(() => {
-    const filterShares = () => {
-      const filtered = shares.filter((share) => {
-        const matchesCategory = selectedCategory
-          ? share.categoryId === parseInt(selectedCategory)
+  const filterShares = () => {
+    let filtered = shares.filter((share) => {
+      const matchesCategory = selectedCategory
+        ? share.category.id === parseInt(selectedCategory)
+        : true;
+
+      const matchesCity = selectedCity
+        ? share.location.includes(selectedCity)
+        : true;
+
+      const matchesStatus =
+        selectedStatus === "Yeni"
+          ? share.isOld === false
+          : selectedStatus === "İşlənmiş"
+          ? share.isOld === true
           : true;
-        const matchesCity = selectedCity ? share.place === selectedCity : true;
-        const matchesStatus =
-          selectedStatus === "Yeni"
-            ? share.status === "Yeni"
-            : selectedStatus === "İşlənmiş"
-            ? share.status === "İşlənmiş"
-            : true;
 
-        return matchesCategory && matchesCity && matchesStatus;
-      });
-      setTotalShares(filtered.length);
-      const startIdx = (activePage - 1) * itemsPerPage;
-      const paginatedShares = filtered.slice(startIdx, startIdx + itemsPerPage);
-      setFilteredShares(paginatedShares);
-    };
+      return matchesCategory && matchesCity && matchesStatus;
+    });
 
+    const startIdx = (activePage - 1) * itemsPerPage;
+    const paginatedShares = filtered.slice(startIdx, startIdx + itemsPerPage);
+
+    setFilteredShares(paginatedShares);
+    setTotalShares(filtered.length);
+  };
+
+  const resetFilters = () => {
+    setSelectedCategory(null);
+    setSelectedCategoryName("Kateqoriyalar");
+    setSelectedCity(null);
+    setSelectedCityName("Ərazi seçin");
+    setSelectedStatus(null);
+    setActivePage(1);
+    setFilteredShares(shares);
+  };
+
+  useEffect(() => {
     filterShares();
-  }, [selectedCategory, selectedCity, selectedStatus, shares, activePage]);
+  }, [selectedCategory, selectedCity, selectedStatus, activePage]);
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category.id);
     setSelectedCategoryName(category.name);
+    setActivePage(1);
     setIsCategoryOpen(false);
     navigate(`/allproducts?category=${category.id}`);
   };
@@ -219,6 +249,7 @@ const AllProducts = () => {
   const handleCitySelect = (city) => {
     setSelectedCity(city.label);
     setSelectedCityName(city.label);
+    setActivePage(1);
     setIsCityOpen(false);
   };
 

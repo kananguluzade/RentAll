@@ -1,11 +1,20 @@
 import React from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./Footer.module.css";
 import logo from "../../../public/logo-dark.png";
-import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 
 const Footer = () => {
+  const isLoggedIn = localStorage.getItem("token");
+
+  const handleCabinetClick = (e) => {
+    if (!isLoggedIn) {
+      e.preventDefault();
+      window.scrollTo(0, 0);
+    }
+  };
+
   return (
     <div className="container">
       <div className={styles.footer}>
@@ -15,13 +24,25 @@ const Footer = () => {
         <div className={styles.footer__links}>
           <h4>Digər linklər</h4>
           <ul>
-            <li>Əsas səhifə</li>
-            <NavLink className={styles.about__us__link} to="cabinet/parametrler">
-              <li>Şəxsi kabinet</li>
-            </NavLink>
-            <NavLink className={styles.about__us__link} to="haqqimizda">
-              <li>Haqqımızda</li>
-            </NavLink>
+            <li>
+              <NavLink to="/" className={styles.about__us__link}>
+                Əsas səhifə
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={styles.about__us__link}
+                to="/cabinet/parametrler"
+                onClick={handleCabinetClick}
+              >
+                Şəxsi kabinet
+              </NavLink>
+            </li>
+            <li>
+              <NavLink className={styles.about__us__link} to="haqqimizda">
+                Haqqımızda
+              </NavLink>
+            </li>
           </ul>
         </div>
         <div className={styles.footer__socials}>
@@ -43,9 +64,7 @@ const Footer = () => {
           <ul>
             <li>
               <FontAwesomeIcon icon={faEnvelope} />
-              <a href="mailto:secondlifeaz@gmail.com">
-                careshare0000@gmail.com
-              </a>
+              <a href="mailto:secondlifeaz@gmail.com">info@sharecare.site</a>
             </li>
             <li>
               <FontAwesomeIcon icon={faPhone} />

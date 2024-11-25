@@ -2,7 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import styles from "./Sharing.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { Modal, Button } from "rsuite";
+import { Button, Modal } from "rsuite";
+
 import { AuthContext } from "../../Auth/Services/authContext";
 import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
 import AddorEditProduct from "../../../pages/AddProduct/AddorEditProduct";
@@ -18,6 +19,7 @@ const Sharing = () => {
   const [isEditProductId, setIsEditProductId] = useState(null);
 
   const BASE_URL = import.meta.env.VITE_API_URL;
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchSharedProducts = async () => {
@@ -40,7 +42,10 @@ const Sharing = () => {
     }
   }, [user, BASE_URL]);
 
-  const token = localStorage.getItem("token");
+  const handleDelete = (shareId) => {
+    setDeleteProductId(shareId);
+    setShowModal(true);
+  };
 
   const handleEdit = async (shareId) => {
     setEditProduct(true);
@@ -55,11 +60,6 @@ const Sharing = () => {
     }
   };
 
-  const handleDelete = (shareId) => {
-    setDeleteProductId(shareId);
-    setShowModal(true);
-  };
-
   const confirmDelete = async () => {
     try {
       const response = await fetch(`${BASE_URL}/products/${deleteProductId}`, {
@@ -70,15 +70,20 @@ const Sharing = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to delete the product");
+        const errorData = await response.json();
+        console.error("Error detail:", errorData);
+        throw new Error(
+          `Failed to delete the product. Status: ${response.status}, Message: ${
+            errorData.message || "Unknown error"
+          }`
+        );
       }
 
       setSharedProducts((prev) =>
         prev.filter((product) => product.id !== deleteProductId)
       );
-      console.log("Deleted product ID:", deleteProductId);
     } catch (error) {
-      console.error("Error deleting product:", error);
+      console.error("Error deleting product:", error.message);
     } finally {
       setShowModal(false);
       setDeleteProductId(null);
@@ -92,7 +97,7 @@ const Sharing = () => {
           className={styles.previous__button}
           onClick={() => setEditProduct(false)}
         >
-          <FontAwesomeIcon icon={faChevronLeft} /> geriye qayit
+          <FontAwesomeIcon icon={faChevronLeft} /> Geriyə Qayıt
         </button>
 
         <AddorEditProduct editProductInfo={editProductInfo} />
@@ -143,21 +148,46 @@ const Sharing = () => {
           </div>
         </div>
       ))}
-      <Modal show={showModal} onHide={() => setShowModal(false)} size="xs">
-        <Modal.Header>
-          <Modal.Title>Onayla</Modal.Title>
-        </Modal.Header>
+
+      <Modal
+        className={styles.remove__modal}
+        open={showModal}
+        onHide={() => setShowModal(false)}
+        backdrop="static"
+      >
         <Modal.Body>
-          <p>Bu ürünü silmek istediğinize emin misiniz?</p>
+          <div className={styles.remove__container}>
+            <div className={styles.remove__title}>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 8V12.5M12 3.5C8 3.5 3.5 6.5 3.5 12C3.5 17.5 8 20.5 12 20.5C16 20.5 20.5 17.5 20.5 12C20.5 6.5 16 3.5 12 3.5ZM12 15C11.8333 15 11.5 15.1 11.5 15.5C11.5 15.9 11.8333 16 12 16C12.1667 16 12.5 15.9 12.5 15.5C12.5 15.1 12.1667 15 12 15Z"
+                  stroke="#FAFAFA"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+
+              <h5>Silmək istədiyinizə əminsiniz?</h5>
+            </div>
+            <div className={styles.remove__submit}>
+              <button
+                onClick={() => setShowModal(false)}
+                className={styles.cancel__button}
+              >
+                Xeyr
+              </button>
+              <button onClick={confirmDelete} className={styles.remove__button}>
+                Bəli
+              </button>
+            </div>
+          </div>
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setShowModal(false)} appearance="subtle">
-            İptal
-          </Button>
-          <Button onClick={confirmDelete} appearance="primary" color="red">
-            Sil
-          </Button>
-        </Modal.Footer>
       </Modal>
     </div>
   );

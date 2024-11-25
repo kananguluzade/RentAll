@@ -57,6 +57,10 @@
   max-width: 436px;
 }
 
+.imageWrapper img {
+  object-fit: contain;
+}
+
 .product__no__img {
   cursor: pointer;
   width: 100%;
@@ -72,6 +76,10 @@
   width: 100px;
   height: 92px;
   margin-bottom: 40px;
+}
+
+.imageWrapper {
+  height: 100%;
 }
 
 .product__img__sidebar {
@@ -105,7 +113,6 @@
 .product__img__sidebar .uploadedImage {
   width: 100px;
   height: 100px;
-  object-fit: cover;
   margin: 5px;
   cursor: pointer;
 }
