@@ -123,7 +123,7 @@ const Parameters = () => {
   return (
     <div className={styles.parameters__container}>
       <div className={styles.user__img}>
-        <p>Profile Image</p>
+        <p>Profil Şəkili</p>
         <div className={styles.add__preview}>
           {selectedImage ? (
             <img src={URL.createObjectURL(selectedImage)} alt="User" />
@@ -140,7 +140,7 @@ const Parameters = () => {
             id="files"
             className="hidden"
           />
-          <label htmlFor="files">Select File</label>
+          <label htmlFor="files">Fayl Seçin</label>
         </div>
       </div>
       <form onSubmit={handleSubmit} className={styles.form__container}>
@@ -190,7 +190,7 @@ const Parameters = () => {
           {isEditing ? (
             <div className={styles.form__save}>
               <input type="submit" value="Save" />
-              <p onClick={() => setIsEditing(false)}>Cancel</p>
+              <p onClick={() => setIsEditing(false)}>Ləğv Et</p>
             </div>
           ) : (
             <button
@@ -198,7 +198,7 @@ const Parameters = () => {
               onClick={() => setIsEditing(true)}
               className={styles.edit__btn}
             >
-              Edit
+              Düzəlt
             </button>
           )}
         </div>

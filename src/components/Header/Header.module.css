@@ -54,6 +54,16 @@
   line-height: 24px;
 }
 
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-in.active {
+  opacity: 1;
+}
+
+
 .dropdown__label svg {
   width: 24px;
   height: 24px;

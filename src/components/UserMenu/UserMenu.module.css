@@ -26,6 +26,13 @@
   -o-border-radius: 50%;
 }
 
+.disabled {
+  pointer-events: none;
+  color: gray;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .user__panel svg {
   width: 24px;
   height: 24px;

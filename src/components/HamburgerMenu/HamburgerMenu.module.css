@@ -35,6 +35,13 @@
   font-size: 20px;
 }
 
+.disabled {
+  pointer-events: none;
+  color: gray;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .menu__headline {
   font-size: 20px;
 }

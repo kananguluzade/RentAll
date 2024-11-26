@@ -20,7 +20,7 @@ const Header = () => {
   const [activeTab, setActiveTab] = useState("register");
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const { user, logout } = useContext(AuthContext);
+  const { user, isUserLoading, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const userFullName = `${user?.name || ""} ${user?.surname || ""}`;
@@ -142,44 +142,46 @@ const Header = () => {
               <Search />
             </div>
 
-            {user ? (
-              <div className={styles.user__panel}>
-                <div className={styles.user__img} onClick={toggleUserMenu}>
-                  {userimg ? (
-                    <img src={userimg} alt="User" />
-                  ) : (
-                    <span className={styles.user__initials}>
-                      {getUserInitials()}
-                    </span>
-                  )}
+            <div className={`fade-in ${!isUserLoading ? "active" : ""}`}>
+              {user ? (
+                <div className={styles.user__panel}>
+                  <div className={styles.user__img} onClick={toggleUserMenu}>
+                    {userimg ? (
+                      <img src={userimg} alt="User" />
+                    ) : (
+                      <span className={styles.user__initials}>
+                        {getUserInitials()}
+                      </span>
+                    )}
+                  </div>
+                  <UserMenu
+                    isUserMenuOpen={isUserMenuOpen}
+                    userMenuRef={userMenuRef}
+                    userFullName={userFullName}
+                    userPhoneNumber={userPhoneNumber}
+                    userimg={userimg}
+                    getUserInitials={getUserInitials}
+                    confirmLogout={confirmLogout}
+                    setIsUserMenuOpen={setIsUserMenuOpen}
+                  />
                 </div>
-                <UserMenu
-                  isUserMenuOpen={isUserMenuOpen}
-                  userMenuRef={userMenuRef}
-                  userFullName={userFullName}
-                  userPhoneNumber={userPhoneNumber}
-                  userimg={userimg}
-                  getUserInitials={getUserInitials}
-                  confirmLogout={confirmLogout}
-                  setIsUserMenuOpen={setIsUserMenuOpen}
-                />
-              </div>
-            ) : (
-              <div className={styles.header__buttons}>
-                <button
-                  className={styles.button__register}
-                  onClick={handleRegisterOpen}
-                >
-                  Qeydiyyat
-                </button>
-                <button
-                  className={styles.button__login}
-                  onClick={handleLoginOpen}
-                >
-                  Giriş
-                </button>
-              </div>
-            )}
+              ) : (
+                <div className={styles.header__buttons}>
+                  <button
+                    className={styles.button__register}
+                    onClick={handleRegisterOpen}
+                  >
+                    Qeydiyyat
+                  </button>
+                  <button
+                    className={styles.button__login}
+                    onClick={handleLoginOpen}
+                  >
+                    Giriş
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -69,25 +69,7 @@ const HamburgerMenu = ({
                   </NavLink>
                 </li>
 
-                <li>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M21 8.88722C21 3.43045 14 2.43046 12.0063 6.80562C10 2.4305 3 3.43054 3 8.88722C3 14.3439 9.00635 18.1142 12.0063 19.9305C16.0001 17.0584 21 12.9502 21 8.88722Z"
-                      stroke="#252525"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  Favorites
-                </li>
-                <li>
+                <li className={styles.disabled}>
                   <svg
                     width="24"
                     height="24"
@@ -123,7 +105,7 @@ const HamburgerMenu = ({
                 strokeLinejoin="round"
               />
             </svg>
-            <p>Log out</p>
+            <p>Çıxış Et</p>
           </div>
         </div>
       ) : (

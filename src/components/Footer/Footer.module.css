@@ -110,7 +110,7 @@ footer {
 
 @media screen and (max-width: 768px) {
   footer {
-    padding: 48px 0;
+    padding: 48px 0 !important;
   }
   .footer__logo {
     margin-bottom: 30px;
@@ -131,6 +131,6 @@ footer {
 
 @media screen and (max-width: 576px) {
   footer {
-    padding: 36px 0;
+    padding: 36px 0px !important;
   }
 }
