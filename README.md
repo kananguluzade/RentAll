@@ -1,4 +1,4 @@
 # ShareCare
 
-<a>sharecare.site</a>
+[Share Care LINK](https://sharecare.site)
 
